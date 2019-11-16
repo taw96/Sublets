@@ -10,19 +10,14 @@ router.route('/').get((req,res)=> {
   .catch(err=> res.status(400).json('Error: ' + err));
 })
 
-
 router.route('/cost').get((req,res)=> {
   const min = req.query.min;
   const max =req.query.max;
-  // const newUserDateIn = req.query.selectedDateIn;
-  // const newUserDateOut = req.query.selectedDateOut;
 
   Sublet.find({
     $and:[
     {costPerNight:{$gt:min}},
-    {costPerNight:{$lt:max}},
-    // {dateIn:{$lte:newUserDateIn}},
-    // {dateOut:{$gte:newUserDateOut}}
+    {costPerNight:{$lt:max}}
         ]})
   .then(Sublet => res.json(Sublet))
   .catch(err=> res.status(400).json('Error: ' + err));

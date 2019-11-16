@@ -10,7 +10,6 @@ require('dotenv').config();
 const WrappedMap = withScriptjs(withGoogleMap(Map))
 
 export default function MapPage() {
-  
 
   return (
     <div>
@@ -22,6 +21,7 @@ export default function MapPage() {
       loadingElement={<div style={{ height: `100%` }} />}
       containerElement={<div style={{ height: `400px` }} />}
       mapElement={<div style={{ height: `100%` }} />}
+      
         />
     </div>
     </div>
@@ -29,18 +29,23 @@ export default function MapPage() {
 }
 
 function Map() {
-  const [index,setIndex] = useState(0)
 
-  const [selectedPoint, setSelectedPoint] =useState(null)
   const [sublets, setSublets] = useState([])
+
+
   useEffect(()=> {
+   
     const fetchData = async () =>{
-        const result = await axios.get('/sublets/');
+      const result = await axios.get(`http://localhost:5000/sublets/`)
 
      setSublets(result.data);
     }
     fetchData();
-    }, [] );
+    },[]);
+
+  const [index,setIndex] = useState(0)
+
+  const [selectedPoint, setSelectedPoint] =useState(null)
 
 
   return (
