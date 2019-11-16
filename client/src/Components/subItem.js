@@ -1,14 +1,12 @@
 
-import React from 'react';
+import React,{ useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
@@ -16,12 +14,17 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import {Link} from 'react-router-dom';
+import { Gallery, GalleryImage } from 'react-gesture-gallery'
+import { Link } from 'react-router-dom'
+import formatDate from '../utills/formatDate'
+
+
 
 const useStyles = makeStyles(theme => ({
 
   card: {
-    maxWidth: 345,
+    maxWidth:'250px',
+    maxHeight:'95vh'
   },
   media: {
     height: 0,
@@ -42,8 +45,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
-
 export default function SubItem({sublet}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
@@ -51,47 +52,62 @@ export default function SubItem({sublet}) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
-
   
+  
+  const [index,setIndex] = useState(0)
 
   return (
+
+
     <div 
-    style={{textAlign:"right",marginRight: '20px', direction:"rtl" }}
+    style={{textAlign:"right",marginLeft:'50px'}}
     >
     <Card className={classes.card} style={{marginTop:"40px"}}>
+      
+      
+      <Link to={`/sublet/${sublet._id}`}> 
       <CardHeader
-        avatar={
-        <Avatar aria-label="recipe" className={classes.avatar}>
-        R
-        </Avatar>
-        }
+       
         action={
         <IconButton aria-label="settings">
         <MoreVertIcon />
         </IconButton>
         }
-        title="title/ address?"
-        subheader={sublet.dateIn}
-      />
-      <Link to={`/sub/${sublet._id}`}>
 
-      <CardMedia
-        className={classes.media}
-        image="/static/images/cards/paella.jpg"
-        title="Paella dish"
+        title={sublet.description}
+        subheader= {<h5>{formatDate(sublet.dateIn)} - {formatDate(sublet.dateOut)}</h5>}
+        />
+      </Link> 
 
-      />
-      </Link>
+          
+        <Gallery
+          
+          index={index}
+          onRequestChange = {i=>{
+          setIndex(i)
+          }} 
+          
+          >
+        {sublet.mediaUrl.map(elem => (
+          
+        <GalleryImage objectFit="contain" key={elem} src={elem}/>
+            
+        ))} 
+
+        </Gallery>
+
 
         <CardContent>
 
         <Typography variant="body2" color="textSecondary" component="p">{sublet.address}</Typography>
+        מחיר ללילה: {sublet.costPerNight}
         </CardContent>
 
         <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-        <FavoriteIcon />
+        <IconButton 
+        aria-label="add to favorites"
+        >
+        <FavoriteIcon  />
         </IconButton>
         <IconButton aria-label="share">
         <ShareIcon />
@@ -113,11 +129,11 @@ export default function SubItem({sublet}) {
          <CardContent>
           <Typography paragraph>
             <header>
-              <h3>פרטים נוספים:</h3>
+              <h3>:פרטים נוספים</h3>
             </header>
-          {sublet.textAndExtras}
+          {sublet.details}
           
-            <h4>ליצירת קשר:</h4>
+            <h4>:ליצירת קשר</h4>
             {sublet.phone}
           </Typography>
         </CardContent>

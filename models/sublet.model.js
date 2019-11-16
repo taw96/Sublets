@@ -5,17 +5,23 @@ const Schema = mongoose.Schema;
 const SubletSchema = new Schema({
  
   address:{
-    type:String },
+    type:String 
+  },
+
+  description:{
+    type:String
+  },
 
   floorLevel: {
-    type:String,},
+    type:String
+  },
 
   dateIn: {
-    type: Date,
+    type: Date
     },
 
   dateOut: {
-    type: Date,
+    type: Date
     },
 
   rooms: {
@@ -27,6 +33,13 @@ const SubletSchema = new Schema({
   cost: {
     type:String},
 
+  costPerNight:{
+    type:Number
+  },
+
+  days:{
+    type:Number
+  },
   details: {
     type:String},
 
@@ -58,19 +71,12 @@ const SubletSchema = new Schema({
     type:Number},
 
   lng: {
-    type:Number}
-  //   ,
+    type:Number},
 
-  // imageName:{
-  //   type:String,
-  //   default:'none',
-  //   required:true
-  // },
-  // imageData: {
-  //   type:String,
-  //   required:true
-  // }
-
+  mediaUrl:{
+    type: Array
+  }
+    
 });
 
 
