@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -13,6 +13,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import {Link} from 'react-router-dom'
+import FacebookLogin from 'react-facebook-login'
+
 
 const drawerWidth = 240;
 
@@ -73,6 +75,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Header() {
+  let fbContent;
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -85,6 +88,10 @@ export default function Header() {
     setOpen(false);
   };
 
+
+
+  
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -95,8 +102,6 @@ export default function Header() {
         })}
       >
 
-        {/* facebook Log in button */}
-        <div style={{textAlign:"right"}} className="fb-login-button" data-width="" data-size="medium" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="false"></div>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -110,7 +115,10 @@ export default function Header() {
           <Typography variant="h6" noWrap>
             Sublets
           </Typography>
+          <span style={{position:"absolute", right:0,backgroundColor:"blue"}} >{fbContent}</span>
+
         </Toolbar>
+
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -129,19 +137,21 @@ export default function Header() {
         
         <List>
             <ListItem >
-            <Link to="/about">About</Link>
+            <Link to="/about"><h3>About</h3></Link>
             </ListItem>
 
             <ListItem >
-              <Link to="/">Home</Link>
+              <Link to="/"><h3>Home</h3></Link>
+            </ListItem>
+            <ListItem >
+              <Link to="/map"><h3>Map</h3></Link>
+            </ListItem>
+            <ListItem>
+              <Link to="/addsublet"><h3>Add Sublet</h3></Link>
             </ListItem>
 
             <ListItem>
-              <Link to="/addsublet">Add Sublet</Link>
-            </ListItem>
-
-            <ListItem>
-              <Link to="/sublets">Sublets</Link>
+              <Link to="/sublets"><h3>Sublets</h3></Link>
             </ListItem>
         </List>
       
