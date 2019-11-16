@@ -52,25 +52,23 @@ export default function SubletsPage({sublets,handleChange, handleDateIn,handleDa
           margin="normal"
           id="date-picker-inline"
           label="כניסה"
-          value={showIn}
-          defaultValue={(Date.now()).toLocaleString()}
-          onChange={handleDateIn}
+          // value={showIn}
+          // onChange={handleDateIn}
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}
         />
 
         <KeyboardDatePicker
-        ardDatePicker
+        
           disableToolbar
           variant="inline"
           format="dd/MM/yyyy"
           margin="normal"
           id="date-picker-inline"
           label="יציאה"
-          value={showOut}
-          defaultValue={(Date.now()).toLocaleString()}
-          onChange={handleDateOut}
+          // value={showOut}
+          // onChange={handleDateOut}
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}

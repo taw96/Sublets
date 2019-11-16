@@ -8,7 +8,6 @@ import About from '../src/Components/About';
 import axios from 'axios';
 import HomePage from './Components/HomePage';
 import SubletsPage from './Components/SubletsPage';
-import moment from 'moment'
 
 function App(){ 
 
@@ -17,17 +16,17 @@ function App(){
 
   const [price,setPrice] = useState({min:0, max:1001})
 
-  const [selectedDateIn, setDateIn]= useState(null)
+  // const [selectedDateIn, setDateIn]= useState(null)
 
-  const [selectedDateOut, setDateOut]= useState(null)
+  // const [selectedDateOut, setDateOut]= useState(null)
   
-  const handleDateIn=(selectedDateIn)=> {
-    setDateIn(selectedDateIn)
-  }
+  // const handleDateIn=(selectedDateIn)=> {
+  //   setDateIn(selectedDateIn)
+  // }
   
-  const handleDateOut=(selectedDateOut)=> {
-    setDateOut(selectedDateOut)
-  }
+  // const handleDateOut=(selectedDateOut)=> {
+  //   setDateOut(selectedDateOut)
+  // }
 
   const handleChange=(event,value)=>{
 
@@ -38,18 +37,17 @@ function App(){
   useEffect(()=> {
    
     const fetchData = async () =>{
-      const result = await axios.get(`/sublets/cost?min=${price.min}&max=${price.max}`)
+      const result = await axios.get(`http://localhost:5000/sublets/cost?min=${price.min}&max=${price.max}`)
      setSublets(result.data);
     }
     fetchData();
     },[price]);
     
-    // &selectedDateIn=${selectedDateIn}
-    // &selectedDateOut=${selectedDateOut}
 
     console.log(price)
     
-    console.log(selectedDateOut,selectedDateIn)
+   // console.log(selectedDateOut,selectedDateIn)
+   console.log(sublets)
     
   
 
@@ -92,11 +90,11 @@ function App(){
         <SubletsPage 
         sublets={sublets} 
         handleChange={handleChange} 
-        handleDateIn ={handleDateIn} 
-        handleDateOut={handleDateOut} 
-        showIn= {selectedDateIn} 
-        showOut={selectedDateOut}/>
-
+        // handleDateIn ={handleDateIn} 
+        // handleDateOut={handleDateOut} 
+        // showIn= {selectedDateIn} 
+        // showOut={selectedDateOut}
+        />
           </React.Fragment>
           )}/>
         </div>

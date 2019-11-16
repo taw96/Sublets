@@ -19,12 +19,12 @@ export default function SubletPage({match}) {
 
   useEffect(()=> {
     const fetchData = async () =>{
-        const result = await axios.get(`/sublets/${id}`);
+        const result = await axios.get(`http://localhost:5000/sublets/${id}`);
 
      setSublet(result.data);
     }
     fetchData();
-    },[]);
+    },[id]);
 
 
 
@@ -32,9 +32,13 @@ export default function SubletPage({match}) {
 
     const images = Object.keys(img).map((key)=>(
       
-      <div>
+      <div key={img[key]} 
+      >
 
-      <GalleryImage objectFit="contain" src={img[key]}/>
+      <GalleryImage 
+      objectFit="contain" 
+      src={img[key]}
+      />
  
      </div>
     ))
@@ -42,7 +46,7 @@ export default function SubletPage({match}) {
   return (
     <>
     <Header/>
-    <Grid container spacing >
+    <Grid container >
   
     <Grid >
     <Card style={{'maxWidth':'90%',marginLeft:'30px', marginBottom:"30px"}}>
@@ -79,7 +83,7 @@ export default function SubletPage({match}) {
         
         <br/>
         
-        <div><h4>
+        <div>
           
         <h4>קצת פרטים יבשים:</h4>
         <div>
@@ -110,7 +114,7 @@ export default function SubletPage({match}) {
         נטפליקס:
         {sublet.streamer? <div> <FaSmileWink/> בדוק שיש </div> : <IoMdCloseCircleOutline/>}
         </div>
-        </h4>
+        
         </div>
 
         <Divider/>
