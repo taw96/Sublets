@@ -1,71 +1,106 @@
 import React,{ Fragment , useEffect , useState } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'; 
 import SubletPage from './Components/SubletPage'
-import SubItem from './Components/subItem'
 import SubletForm from './Components/SubletForm';
-import HomePage from './Components/HomePage';
+import MapPage from './Components/Map';
 import Header from './Components/Layouts/Header'
 import About from '../src/Components/About';
 import axios from 'axios';
-
+import HomePage from './Components/HomePage';
+import SubletsPage from './Components/SubletsPage';
+import moment from 'moment'
 
 function App(){ 
-  const [sublets, setSublets] = useState([])
-  useEffect(()=> {
-    const fetchData = async () =>{
-        const result = await axios.get('http://localhost:5000/sublets/');
 
+  // State of sublets, price, and dates
+  const [sublets, setSublets] = useState([])
+
+  const [price,setPrice] = useState({min:0, max:1001})
+
+  const [selectedDateIn, setDateIn]= useState(null)
+
+  const [selectedDateOut, setDateOut]= useState(null)
+  
+  const handleDateIn=(selectedDateIn)=> {
+    setDateIn(selectedDateIn)
+  }
+  
+  const handleDateOut=(selectedDateOut)=> {
+    setDateOut(selectedDateOut)
+  }
+
+  const handleChange=(event,value)=>{
+
+    setPrice({min:value[0],max:value[1]})
+  }
+ 
+  
+  useEffect(()=> {
+   
+    const fetchData = async () =>{
+      const result = await axios.get(`/sublets/cost?min=${price.min}&max=${price.max}`)
      setSublets(result.data);
     }
     fetchData();
-    }, [] );
+    },[price]);
+    
+    // &selectedDateIn=${selectedDateIn}
+    // &selectedDateOut=${selectedDateOut}
 
+    console.log(price)
+    
+    console.log(selectedDateOut,selectedDateIn)
+    
   
+
   return (
     <Router>
       <div>
-        <Route path="/about" render={ props =>(
+      <Route exact path="/" render={ props =>(
+        <Fragment>
+          <Header/>
+          <HomePage/>
+        </Fragment>
+        )}/>
+        <Route exact path="/about" render={ props =>(
         <Fragment>
           <Header/>
           <About/>
         </Fragment>
         )}/>
-        <Route exact path="/" render ={props => (
+        <Route exact path="/map" render ={props => (
           <React.Fragment>
             <Header/>
-            <HomePage sublets= {sublets} />
+            <MapPage sublets= {sublets} />
           </React.Fragment>
         )}/>
-        <Route path="/addSublet" render={props => (
+        <Route exact path="/addSublet" render={props => (
           <React.Fragment>
             <Header/>
             <SubletForm  />
           </React.Fragment>
-        )}/>
-        {sublets.map((sub)=>(
-          <Route key= {sub._id} path= {`/sub/${sub._id}`} render={props => (
-            <React.Fragment>
-              <Header/>
-              <SubletPage sublet ={sub}/>
-            </React.Fragment>
-          )}/>
-          ))}
-          <Route path="/sublets" render={props => (
-          <React.Fragment>
-            <Header/>
-            <div >
-              {sublets.map((sub)=>(
-            
-            <SubItem 
-            key = {sub._id}
-            sublet = {sub}
-            />
-              ))}
-            </div>
+        )}
+        />
+
+          <Route exact path= '/sublet/:id' component={SubletPage}
+          />
+
+        <Route exact path="/sublets" render={props => (
+        <React.Fragment>
+
+         <Header/>
+        <SubletsPage 
+        sublets={sublets} 
+        handleChange={handleChange} 
+        handleDateIn ={handleDateIn} 
+        handleDateOut={handleDateOut} 
+        showIn= {selectedDateIn} 
+        showOut={selectedDateOut}/>
+
           </React.Fragment>
-        )}/>
-      </div>
-    </Router>
+          )}/>
+        </div>
+      </Router>
   )
 }
   
