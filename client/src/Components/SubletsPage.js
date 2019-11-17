@@ -7,9 +7,9 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import FiltersPopup from './FiltersPopup'
 
-
-export default function SubletsPage({sublets,handleChange, handleDateIn,handleDateOut,showIn,showOut}) {
+export default function SubletsPage({sublets,handlePriceChange,price,handleDaysChange, days, handleDateIn,handleDateOut,showIn,showOut}) {
 
   const marks = [
     {
@@ -42,8 +42,14 @@ export default function SubletsPage({sublets,handleChange, handleDateIn,handleDa
 
   return (
     <>
+    <div>
+    <FiltersPopup
+    handleDaysChange={handleDaysChange}
+    days={days}
+    />
+    </div>
 
-<MuiPickersUtilsProvider utils={DateFnsUtils}>
+  <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justify="space-around" style={{direction:"rtl"}}>
         <KeyboardDatePicker
           disableToolbar
@@ -73,10 +79,10 @@ export default function SubletsPage({sublets,handleChange, handleDateIn,handleDa
             'aria-label': 'change date',
           }}
         />
-          </Grid>
+      </Grid>
     </MuiPickersUtilsProvider>
 
-    <Grid container  >
+    <Grid container>
 
         {sublets.map((sub)=>(
         <SubItem 
@@ -93,10 +99,12 @@ export default function SubletsPage({sublets,handleChange, handleDateIn,handleDa
         orientation="vertical"
         min={0}
         max={500}
-        defaultValue={[0, 500]}
+        defaultValue={[price.min,price.max]}
         aria-labelledby="vertical-slider"
-        onChange={(event,value)=>handleChange(event,value)}
+        onChangeCommitted={(event,value)=>handlePriceChange(event,value)}
         marks={marks}
+        valueLabelDisplay="on"
+        track="normal"
         />
         </Grid>
         </Grid>

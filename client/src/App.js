@@ -11,11 +11,13 @@ import SubletsPage from './Components/SubletsPage';
 
 function App(){ 
 
-  // State of sublets, price, and dates
+  // State of sublets, price, days and dates
   const [sublets, setSublets] = useState([])
 
   const [price,setPrice] = useState({min:0, max:1001})
 
+  const [days,setDays] = useState({min:0, max:80})
+ 
   // const [selectedDateIn, setDateIn]= useState(null)
 
   // const [selectedDateOut, setDateOut]= useState(null)
@@ -28,26 +30,29 @@ function App(){
   //   setDateOut(selectedDateOut)
   // }
 
-  const handleChange=(event,value)=>{
+  const handlePriceChange=(event,value)=>{
 
     setPrice({min:value[0],max:value[1]})
   }
  
+  const handleDaysChange=(event,value)=>{
+    setDays({min:value[0],max:value[1]})
+  }
   
   useEffect(()=> {
    
     const fetchData = async () =>{
-      const result = await axios.get(`/sublets/cost?min=${price.min}&max=${price.max}`)
+      const result = await axios.get(`/sublets/cost?min=${price.min}&max=${price.max}&daysMin=${days.min}&daysMax=${days.max}`)
      setSublets(result.data);
     }
     fetchData();
-    },[price]);
+    },[days,price]);
     
 
     console.log(price)
+    console.log(days)
     
    // console.log(selectedDateOut,selectedDateIn)
-   console.log(sublets)
     
   
 
@@ -89,12 +94,17 @@ function App(){
          <Header/>
         <SubletsPage 
         sublets={sublets} 
-        handleChange={handleChange} 
+        handlePriceChange={handlePriceChange} 
+        price={price}
+        handleDaysChange ={handleDaysChange}
+        days={days}
         // handleDateIn ={handleDateIn} 
         // handleDateOut={handleDateOut} 
         // showIn= {selectedDateIn} 
         // showOut={selectedDateOut}
         />
+                
+
           </React.Fragment>
           )}/>
         </div>
