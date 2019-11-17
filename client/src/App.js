@@ -11,45 +11,68 @@ import SubletsPage from './Components/SubletsPage';
 
 function App(){ 
 
-  // State of sublets, price, and dates
+  // State of sublets, price, days and dates
   const [sublets, setSublets] = useState([])
 
   const [price,setPrice] = useState({min:0, max:1001})
 
-  // const [selectedDateIn, setDateIn]= useState(null)
+  const [days,setDays] = useState({min:0, max:80})
+ 
+  const date= new Date;
 
-  // const [selectedDateOut, setDateOut]= useState(null)
-  
-  // const handleDateIn=(selectedDateIn)=> {
-  //   setDateIn(selectedDateIn)
-  // }
-  
-  // const handleDateOut=(selectedDateOut)=> {
-  //   setDateOut(selectedDateOut)
-  // }
+  const [dates, setDates]= useState(
+    {
+      min:new Date(),
+      max: date.setMonth(date.getMonth()+1)
+    
+    })
 
-  const handleChange=(event,value)=>{
+  
+  const handleDates=(dateName,dateValue)=> {  
+    let {min,max} =dates;
+    if(dateName==='startDate'){
+      min=dateValue.toISOString();
+    } else {
+      max =dateValue.toISOString();
+    }
+    setDates({
+      min:(min),
+      max:(max)
+    })    
+  }
+  console.log(dates)
+
+  const handlePriceChange=(event,value)=>{
 
     setPrice({min:value[0],max:value[1]})
   }
  
+  const handleDaysChange=(event,value)=>{
+    setDays({min:value[0],max:value[1]})
+  }
   
   useEffect(()=> {
    
     const fetchData = async () =>{
-      const result = await axios.get(`http://localhost:5000/sublets/cost?min=${price.min}&max=${price.max}`)
+      const result = await axios.get(`/sublets/cost?min=${price.min}&max=${price.max}&daysMin=${days.min}&daysMax=${days.max}&dateMin=${dates.min}&dateMax=${dates.max}`)
      setSublets(result.data);
     }
     fetchData();
-    },[price]);
-    
+    },[days,price,dates]);
 
-    console.log(price)
-    
-   // console.log(selectedDateOut,selectedDateIn)
-   console.log(sublets)
-    
-  
+   console.log(price)
+    console.log(days)
+
+    // useEffect(()=> {
+   
+    //   const fetchData = async () =>{
+    //     const result = await axios.get(`/sublets/date?dateMin=${dates.min}&dateMax=${dates.max}`)
+    //    setSublets(result.data);
+    //   }
+    //   fetchData();
+    //   },[dates]);
+      
+      console.log(sublets)
 
   return (
     <Router>
@@ -89,12 +112,16 @@ function App(){
          <Header/>
         <SubletsPage 
         sublets={sublets} 
-        handleChange={handleChange} 
-        // handleDateIn ={handleDateIn} 
-        // handleDateOut={handleDateOut} 
-        // showIn= {selectedDateIn} 
-        // showOut={selectedDateOut}
+        handlePriceChange={handlePriceChange} 
+        price={price}
+        handleDaysChange ={handleDaysChange}
+        days={days}
+        handleDates={handleDates}
+        dates={dates}
+
         />
+                
+
           </React.Fragment>
           )}/>
         </div>

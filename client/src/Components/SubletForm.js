@@ -63,7 +63,8 @@ const INITIAL_VALUES = {
       description:"",
       floorLevel: "" ,
       rooms:"",
-      roomatesLeft: "",
+      availableBedrooms:"",
+      roomatesLeft:"",
       cost:0,
       details: "",
       phone:"",
@@ -172,8 +173,8 @@ const INITIAL_VALUES = {
       name="media"
       type="file"
       multiple
-      label="תמונות"
-      content="Select Image"
+      label="תמונות (שיהיו רוחביות בבקשה)"
+      content="תעלו תמונות רוחביות בבקשה"
       onChange={handleImageChange}
       />
 
@@ -220,16 +221,16 @@ const INITIAL_VALUES = {
       
       
       <br/>
-<Form.Group widths ='equal' >
-<Form.Field
+      <Form.Group widths ='equal' >
+      <Form.Field
 
-control ={Input}
-type="text" 
-name="description"  
-placeholder="תיאור"  
-value={values.description} 
-onChange= {handleChange}
-/>
+      control ={Input}
+      type="text" 
+      name="description"  
+      placeholder="תיאור"  
+      value={values.description} 
+      onChange= {handleChange}
+      />
 
 
     <br/>
@@ -237,7 +238,7 @@ onChange= {handleChange}
     <Form.Field
     icon="building"
     control ={Input}
-    type="text" 
+    type="number" 
     name="floorLevel"  
     placeholder="קומה"  
     value={values.floorLevel} 
@@ -249,11 +250,24 @@ onChange= {handleChange}
 
     <Form.Field
     control ={Input}
-    type="text" 
+    type="number" 
     className="input" 
     name="rooms" 
-    placeholder="כמה חדרים?"  
+    placeholder="כמה חדרים בדירה?"  
     value={values.rooms} 
+    onChange= {handleChange}
+    />
+
+    
+    <br/>
+
+    <Form.Field
+    control ={Input}
+    type="number" 
+    className="input" 
+    name="availableBedrooms" 
+    placeholder="כמה חדרי שינה פנויים?" 
+    value={values.availableBedrooms} 
     onChange= {handleChange}
     />
 
@@ -263,7 +277,7 @@ onChange= {handleChange}
     <Form.Field
     icon="users"
     control ={Input}
-    type="text" 
+    type="number" 
     className="input" 
     name="roomatesLeft" 
     placeholder="כמה שותפים נשארים?"  
@@ -411,7 +425,7 @@ onChange= {handleChange}
         
         
 
-        <KeyboardDatePicker
+        <KeyboardDatePicker style={{width:'30%'}}
           margin="normal"
           id="date-picker-dialog"
           name= "dateIn"
@@ -424,9 +438,9 @@ onChange= {handleChange}
           }}
         />
 
-        <h2>-עד</h2>
+        <h2>עד-</h2>
 
-        <KeyboardDatePicker 
+        <KeyboardDatePicker style={{width:'30%'}}
           margin="normal"
           id="date-picker-dialog"
           name= "dateOut"

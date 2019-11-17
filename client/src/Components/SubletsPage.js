@@ -7,9 +7,9 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import FiltersPopup from './FiltersPopup'
 
-
-export default function SubletsPage({sublets,handleChange, handleDateIn,handleDateOut,showIn,showOut}) {
+export default function SubletsPage({sublets,handlePriceChange,price,handleDaysChange, days, handleDates,dates}) {
 
   const marks = [
     {
@@ -42,41 +42,50 @@ export default function SubletsPage({sublets,handleChange, handleDateIn,handleDa
 
   return (
     <>
+    <div>
+    <FiltersPopup
+    handleDaysChange={handleDaysChange}
+    days={days}
+    />
+    </div>
 
-<MuiPickersUtilsProvider utils={DateFnsUtils}>
+  <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justify="space-around" style={{direction:"rtl"}}>
-        <KeyboardDatePicker
+        <KeyboardDatePicker style={{width:"30%"}}
           disableToolbar
+          name="startDate"
           variant="inline"
           format="dd/MM/yyyy"
           margin="normal"
           id="date-picker-inline"
           label="כניסה"
-          // value={showIn}
-          // onChange={handleDateIn}
+          value={dates.min}
+          onChange={(date)=>handleDates('startDate',date)}
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}
         />
 
-        <KeyboardDatePicker
+        <KeyboardDatePicker style={{width:"30%"}}
         
           disableToolbar
+          name="endDate"
           variant="inline"
           format="dd/MM/yyyy"
           margin="normal"
           id="date-picker-inline"
           label="יציאה"
-          // value={showOut}
-          // onChange={handleDateOut}
+          defaultValue={new Date()}
+          value={dates.max}
+          onChange={(date)=>handleDates('endDate',date)}
           KeyboardButtonProps={{
             'aria-label': 'change date',
           }}
         />
-          </Grid>
+      </Grid>
     </MuiPickersUtilsProvider>
 
-    <Grid container  >
+    <Grid container>
 
         {sublets.map((sub)=>(
         <SubItem 
@@ -89,14 +98,16 @@ export default function SubletsPage({sublets,handleChange, handleDateIn,handleDa
         <Grid item >
         <Slider style={{ 
         position:"fixed", bottom:0, 
-        right:10, top:100, height:'70vh'}}
+        right:10, top:120, height:'70vh'}}
         orientation="vertical"
         min={0}
         max={500}
-        defaultValue={[0, 500]}
+        defaultValue={[price.min,price.max]}
         aria-labelledby="vertical-slider"
-        onChange={(event,value)=>handleChange(event,value)}
+        onChangeCommitted={(event,value)=>handlePriceChange(event,value)}
         marks={marks}
+        valueLabelDisplay="on"
+        track="normal"
         />
         </Grid>
         </Grid>
