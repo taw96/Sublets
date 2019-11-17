@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Header, Modal } from 'semantic-ui-react'
+import { Button, Modal } from 'semantic-ui-react'
 import { FaSlidersH } from 'react-icons/fa';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';

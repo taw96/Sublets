@@ -75,7 +75,6 @@ export default function SubletsPage({sublets,handlePriceChange,price,handleDaysC
           margin="normal"
           id="date-picker-inline"
           label="יציאה"
-          defaultValue={new Date()}
           value={dates.max}
           onChange={(date)=>handleDates('endDate',date)}
           KeyboardButtonProps={{

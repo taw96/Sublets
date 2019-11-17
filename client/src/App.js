@@ -12,13 +12,13 @@ import SubletsPage from './Components/SubletsPage';
 function App(){ 
 
   // State of sublets, price, days and dates
-  const [sublets, setSublets] = useState([])
+  const [sublets, setSublets] = useState([]);
 
-  const [price,setPrice] = useState({min:0, max:1001})
+  const [price,setPrice] = useState({min:0, max:1001});
 
-  const [days,setDays] = useState({min:0, max:80})
+  const [days,setDays] = useState({min:0, max:80});
  
-  const date= new Date;
+  const date = new Date();
 
   const [dates, setDates]= useState(
     {
@@ -63,15 +63,7 @@ function App(){
    console.log(price)
     console.log(days)
 
-    // useEffect(()=> {
-   
-    //   const fetchData = async () =>{
-    //     const result = await axios.get(`/sublets/date?dateMin=${dates.min}&dateMax=${dates.max}`)
-    //    setSublets(result.data);
-    //   }
-    //   fetchData();
-    //   },[dates]);
-      
+    
       console.log(sublets)
 
   return (
