@@ -23,7 +23,7 @@ function App(){
   const [dates, setDates]= useState(
     {
       min:new Date(),
-      max: date.setMonth(date.getMonth()+6)
+      max: date.setMonth(date.getMonth()+1)
     
     })
 
