@@ -5,27 +5,45 @@ const router = express.Router();
 let Sublet = require('../../models/sublet.model')
 
 router.route('/').get((req,res)=> {
-    Sublet.find()
+  Sublet.find()
   .then(Sublet => res.json(Sublet))
   .catch(err=> res.status(400).json('Error: ' + err));
 })
 
+
+// router.route('/date').get((req,res)=> {
+  
+
+//   Sublet.find({
+//     $and:[
+   
+//         ]})
+//   .then(Sublet => res.json(Sublet))
+//   .catch(err=> res.status(400).json('Error:' + err));
+// })
+
+
 router.route('/cost').get((req,res)=> {
+  const dateMin=req.query.dateMin;
+  const dateMax=req.query.dateMax
   const min = req.query.min;
   const max =req.query.max;
   const daysMin = req.query.daysMin;
   const daysMax =req.query.daysMax;
-console.log(daysMin)
+
+
   Sublet.find({
     $and:[
     {costPerNight:{$gte:min}},
     {costPerNight:{$lte:max}},
     {days:{$gte:daysMin}},
-    {days:{$lte:daysMax}}
+    {days:{$lte:daysMax}},
+    {dateIn:{$gte:dateMin}},
+    {dateOut:{$lte:dateMax}}
 
         ]})
   .then(Sublet => res.json(Sublet))
-  .catch(err=> res.status(400).json('Error: ' + err));
+  .catch(err=> res.status(400).json('Error:' + err));
 })
 
 
@@ -35,6 +53,7 @@ router.route('/add').post((req, res) => {
   const description= req.body.description;
   const floorLevel = req.body.floorLevel;
   const rooms = req.body.rooms;
+  const availableBedrooms = req.body.availableBedrooms;
   const roomatesLeft = req.body.roomatesLeft;
   const cost = req.body.cost;
   const costPerNight = req.body.costPerNight;
@@ -56,7 +75,7 @@ router.route('/add').post((req, res) => {
   
 
 
-  const newSublet = new Sublet ({address,description, floorLevel,rooms,roomatesLeft,cost,costPerNight,days,details,
+  const newSublet = new Sublet ({address,description, floorLevel,rooms,availableBedrooms,roomatesLeft,cost,costPerNight,days,details,
   phone, elevator,airCon,balcony,washMachine,wifi,tv,streamer,dateIn,dateOut,lat,lng,mediaUrl});
 
   newSublet.save()

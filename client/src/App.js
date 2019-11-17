@@ -18,17 +18,29 @@ function App(){
 
   const [days,setDays] = useState({min:0, max:80})
  
-  // const [selectedDateIn, setDateIn]= useState(null)
+  const date= new Date;
 
-  // const [selectedDateOut, setDateOut]= useState(null)
+  const [dates, setDates]= useState(
+    {
+      min:new Date(),
+      max: date.setMonth(date.getMonth()+6)
+    
+    })
+
   
-  // const handleDateIn=(selectedDateIn)=> {
-  //   setDateIn(selectedDateIn)
-  // }
-  
-  // const handleDateOut=(selectedDateOut)=> {
-  //   setDateOut(selectedDateOut)
-  // }
+  const handleDates=(dateName,dateValue)=> {  
+    let {min,max} =dates;
+    if(dateName==='startDate'){
+      min=dateValue.toISOString();
+    } else {
+      max =dateValue.toISOString();
+    }
+    setDates({
+      min:(min),
+      max:(max)
+    })    
+  }
+  console.log(dates)
 
   const handlePriceChange=(event,value)=>{
 
@@ -42,19 +54,25 @@ function App(){
   useEffect(()=> {
    
     const fetchData = async () =>{
-      const result = await axios.get(`/sublets/cost?min=${price.min}&max=${price.max}&daysMin=${days.min}&daysMax=${days.max}`)
+      const result = await axios.get(`/sublets/cost?min=${price.min}&max=${price.max}&daysMin=${days.min}&daysMax=${days.max}&dateMin=${dates.min}&dateMax=${dates.max}`)
      setSublets(result.data);
     }
     fetchData();
-    },[days,price]);
-    
+    },[days,price,dates]);
 
-    console.log(price)
+   console.log(price)
     console.log(days)
-    
-   // console.log(selectedDateOut,selectedDateIn)
-    
-  
+
+    // useEffect(()=> {
+   
+    //   const fetchData = async () =>{
+    //     const result = await axios.get(`/sublets/date?dateMin=${dates.min}&dateMax=${dates.max}`)
+    //    setSublets(result.data);
+    //   }
+    //   fetchData();
+    //   },[dates]);
+      
+      console.log(sublets)
 
   return (
     <Router>
@@ -98,10 +116,9 @@ function App(){
         price={price}
         handleDaysChange ={handleDaysChange}
         days={days}
-        // handleDateIn ={handleDateIn} 
-        // handleDateOut={handleDateOut} 
-        // showIn= {selectedDateIn} 
-        // showOut={selectedDateOut}
+        handleDates={handleDates}
+        dates={dates}
+
         />
                 
 

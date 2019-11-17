@@ -13,7 +13,7 @@ const SubletSchema = new Schema({
   },
 
   floorLevel: {
-    type:String
+    type:Number
   },
 
   dateIn: {
@@ -25,13 +25,17 @@ const SubletSchema = new Schema({
     },
 
   rooms: {
-    type:String},
+    type:Number},
+
+  availabelBedrooms: {
+      type:Number},
+  
 
   rommatesLeft: {
-    type:String},
+    type:Number},
 
   cost: {
-    type:String},
+    type:Number},
 
   costPerNight:{
     type:Number
