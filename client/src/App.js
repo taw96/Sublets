@@ -40,7 +40,6 @@ function App(){
       max:(max)
     })    
   }
-  console.log(dates)
 
   const handlePriceChange=(event,value)=>{
 
@@ -60,11 +59,7 @@ function App(){
     fetchData();
     },[days,price,dates]);
 
-   console.log(price)
-    console.log(days)
-
-    
-      console.log(sublets)
+ 
 
   return (
     <Router>

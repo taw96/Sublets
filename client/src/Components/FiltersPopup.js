@@ -70,7 +70,7 @@ export default function FiltersPopup({handleDaysChange,days}) {
         aria-labelledby="rangeg-slider"
         onChangeCommitted={(event,value)=>handleDaysChange(event,value)}
         marks={daysMarks}
-        valueLabelDisplay="active"
+        valueLabelDisplay="on"
 
         />
       </div>
