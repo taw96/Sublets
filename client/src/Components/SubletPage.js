@@ -19,7 +19,7 @@ export default function SubletPage({match}) {
 
   useEffect(()=> {
     const fetchData = async () =>{
-        const result = await axios.get(`http://localhost:5000/sublets/${id}`);
+        const result = await axios.get(`/sublets/${id}`);
 
      setSublet(result.data);
     }

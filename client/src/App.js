@@ -37,7 +37,7 @@ function App(){
   useEffect(()=> {
    
     const fetchData = async () =>{
-      const result = await axios.get(`http://localhost:5000/sublets/cost?min=${price.min}&max=${price.max}`)
+      const result = await axios.get(`/sublets/cost?min=${price.min}&max=${price.max}`)
      setSublets(result.data);
     }
     fetchData();
