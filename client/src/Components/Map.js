@@ -102,7 +102,7 @@ s
           >
             {Object.keys(selectedPoint.mediaUrl).map((img)=>(
               <div>
-          <GalleryImage  src={selectedPoint.mediaUrl[img]}/>
+          <GalleryImage key={selectedPoint.mediaUrl[img]} src={selectedPoint.mediaUrl[img]}/>
               </div>
             ))}
 
