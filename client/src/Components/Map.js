@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { CardMedia }  from '@material-ui/core';
 import { Gallery, GalleryImage } from 'react-gesture-gallery'
-require('dotenv').config();
+require('dotenv').config()
 
 
 const WrappedMap = withScriptjs(withGoogleMap(Map))
@@ -102,7 +102,7 @@ s
           >
             {Object.keys(selectedPoint.mediaUrl).map((img)=>(
               <div>
-          <GalleryImage  src={selectedPoint.mediaUrl[img]}/>
+          <GalleryImage key={selectedPoint.mediaUrl[img]} src={selectedPoint.mediaUrl[img]}/>
               </div>
             ))}
 

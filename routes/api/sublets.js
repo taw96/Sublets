@@ -11,19 +11,7 @@ router.route('/').get((req,res)=> {
 })
 
 
-// router.route('/date').get((req,res)=> {
-  
-
-//   Sublet.find({
-//     $and:[
-   
-//         ]})
-//   .then(Sublet => res.json(Sublet))
-//   .catch(err=> res.status(400).json('Error:' + err));
-// })
-
-
-router.route('/cost').get((req,res)=> {
+router.route('/filters').get((req,res)=> {
   const dateMin=req.query.dateMin;
   const dateMax=req.query.dateMax
   const min = req.query.min;

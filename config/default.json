@@ -1,4 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://tomeramit:taw314875519@reactreserve-shv1o.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtSecret": "sl_myJwtSecret"
-}
