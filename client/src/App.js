@@ -53,7 +53,7 @@ function App(){
   useEffect(()=> {
    
     const fetchData = async () =>{
-      const result = await axios.get(`/sublets/filters?min=${price.min}&max=${price.max}&daysMin=${days.min}&daysMax=${days.max}&dateMin=${dates.min}&dateMax=${dates.max}`)
+      const result = await axios.get(`/sublets/cost?min=${price.min}&max=${price.max}&daysMin=${days.min}&daysMax=${days.max}&dateMin=${dates.min}&dateMax=${dates.max}`)
      setSublets(result.data);
     }
     fetchData();
