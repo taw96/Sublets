@@ -4,10 +4,10 @@ const router = express.Router();
 
 let Sublet = require('../../models/sublet.model')
 
-router.route('/').get((req,res)=> {
+router.route('/map').get((req,res)=>{
   Sublet.find()
   .then(Sublet => res.json(Sublet))
-  .catch(err=> res.status(400).json('Error: ' + err));
+  .catch(err=> res.status(400).json('Error:' + err));
 })
 
 
