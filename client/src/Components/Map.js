@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { CardMedia }  from '@material-ui/core';
 import { Gallery, GalleryImage } from 'react-gesture-gallery'
-require('dotenv').config();
+require('dotenv').config()
 
 
 const WrappedMap = withScriptjs(withGoogleMap(Map))
