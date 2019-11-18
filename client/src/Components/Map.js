@@ -14,8 +14,6 @@ export default function MapPage() {
   return (
     <div>
       
-  
-  
     <div style={{width:'100vw',height: '50vh'}} >
       <WrappedMap googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GOOGLE_MAPS}`}
       loadingElement={<div style={{ height: `100%` }} />}
@@ -36,7 +34,7 @@ function Map() {
   useEffect(()=> {
    
     const fetchData = async () =>{
-      const result = await axios.get(`/sublets/`)
+      const result = await axios.get(`/sublets/map`)
 
      setSublets(result.data);
     }
@@ -78,12 +76,12 @@ function Map() {
     lat: selectedPoint.lat,
     lng: selectedPoint.lng
   }}
-s
+
   onCloseClick={()=>{
     setSelectedPoint(null)
   }}
   >
-      <div >
+      <div>
       <div style={{direction:"rtl"}}>
 
       <Link  to={`/sublet/${selectedPoint._id}`}> 
