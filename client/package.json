@@ -17,7 +17,6 @@
     "moment": "^2.24.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-facebook-login": "^4.1.1",
     "react-gesture-gallery": "^1.1.0",
     "react-gesture-responder": "^2.1.0",
     "react-google-maps": "^9.4.5",
