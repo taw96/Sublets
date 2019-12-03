@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Header from './Layouts/Header'
+import Header from '../Components/Layouts/Header'
 import { Card, Grid,CardContent, Divider } from '@material-ui/core';
 import { Gallery, GalleryImage } from 'react-gesture-gallery'
 import formatDate from '../utills/formatDate'
@@ -9,7 +9,6 @@ import { FaSmileWink } from 'react-icons/fa'
 
 
 export default function SubletPage({match}) {
-
 
   const {params:{id},} =match;
 

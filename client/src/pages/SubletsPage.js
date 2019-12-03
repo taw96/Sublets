@@ -1,15 +1,19 @@
-import React from 'react'
+import React,{ useState,useEffect,useContext } from 'react'
 import { Grid, Slider } from '@material-ui/core';
-import SubItem from './SubItem'
+import SubItem from '../Components/SubItem'
 import { FaShekelSign } from 'react-icons/fa'
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import FiltersPopup from './FiltersPopup'
+import FiltersPopup from '../Components/FiltersPopup';
+import axios from 'axios';
+import { UserContext } from '../UserContext';
+
 
 export default function SubletsPage({sublets,handlePriceChange,price,handleDaysChange, days, handleDates,dates}) {
+
 
   const marks = [
     {
@@ -39,6 +43,25 @@ export default function SubletsPage({sublets,handlePriceChange,price,handleDaysC
   
   ];
 
+const [alreadyLikedSublets,SetAlreadyLikedSublets]= useState([])
+const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
+
+  
+
+    useEffect(()=> {
+    const fetchData= async()=>{
+    
+    const result = await axios.get(`/users/getUser/${facebookUserDetails.id}`)
+    
+    SetAlreadyLikedSublets(result.data[0].likedSublets)
+    };
+
+    fetchData();
+    
+    },[facebookUserDetails]);  
+
+
+    
 
   return (
     <>
@@ -90,6 +113,8 @@ export default function SubletsPage({sublets,handlePriceChange,price,handleDaysC
         <SubItem 
         key={sub._id}
         sublet = {sub}
+        alLikedSublets={alreadyLikedSublets}
+        
          />
         ))}
 

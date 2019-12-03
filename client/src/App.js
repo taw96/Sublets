@@ -1,15 +1,19 @@
-import React,{ Fragment , useEffect , useState } from 'react';
+import React,{ Fragment , useEffect , useState, useContext } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'; 
-import SubletPage from './Components/SubletPage'
+import SubletPage from './pages/SubletPage'
 import SubletForm from './Components/SubletForm';
-import MapPage from './Components/Map';
+import MapPage from './pages/Map';
 import Header from './Components/Layouts/Header'
 import About from '../src/Components/About';
 import axios from 'axios';
-import HomePage from './Components/HomePage';
-import SubletsPage from './Components/SubletsPage';
+import HomePage from './pages/HomePage';
+import SubletsPage from './pages/SubletsPage';
+import SavedSublets from './pages/SavedSublets';
+import {UserProvider} from './/UserContext'
+
 
 function App(){ 
+
 
   // State of sublets, price, days and dates
   const [sublets, setSublets] = useState([]);
@@ -49,6 +53,8 @@ function App(){
   const handleDaysChange=(event,value)=>{
     setDays({min:value[0],max:value[1]})
   }
+
+
   
   useEffect(()=> {
    
@@ -59,32 +65,33 @@ function App(){
     fetchData();
     },[days,price,dates]);
 
- 
-
+     
   return (
     <Router>
+    <UserProvider>
+      <Header/>
       <div>
       <Route exact path="/" render={ props =>(
         <Fragment>
-          <Header/>
+          
           <HomePage/>
         </Fragment>
         )}/>
         <Route exact path="/about" render={ props =>(
         <Fragment>
-          <Header/>
+          
           <About/>
         </Fragment>
         )}/>
         <Route exact path="/map" render ={props => (
           <React.Fragment>
-            <Header/>
+            
             <MapPage sublets= {sublets} />
           </React.Fragment>
         )}/>
         <Route exact path="/addSublet" render={props => (
           <React.Fragment>
-            <Header/>
+            
             <SubletForm  />
           </React.Fragment>
         )}
@@ -96,7 +103,7 @@ function App(){
         <Route exact path="/sublets" render={props => (
         <React.Fragment>
 
-         <Header/>
+         
         <SubletsPage 
         sublets={sublets} 
         handlePriceChange={handlePriceChange} 
@@ -106,12 +113,20 @@ function App(){
         handleDates={handleDates}
         dates={dates}
 
-        />
-                
 
+        />
+      
           </React.Fragment>
           )}/>
+           <Route exact path="/savedSublets" render={props => (
+          <React.Fragment>
+            
+            <SavedSublets/>
+          </React.Fragment>
+        )}
+        />
         </div>
+        </UserProvider>
       </Router>
   )
 }

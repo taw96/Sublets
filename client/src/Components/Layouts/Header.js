@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useState , useContext } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -12,8 +12,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
-import {Link} from 'react-router-dom'
-
+import {Link} from 'react-router-dom';
+import FacebookLogin from 'react-facebook-login';
+import axios from 'axios';
+import {UserContext} from '../../UserContext';
 
 
 const drawerWidth = 240;
@@ -75,10 +77,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Header() {
-  let fbContent;
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -89,8 +90,40 @@ export default function Header() {
   };
 
 
+  const [facebookUserDetails,setFacebookUserDetails] = useContext(UserContext)
 
-  
+    async function handleLogout(){
+      setFacebookUserDetails({
+        isLoggedIn:false,
+        name:"",
+        id:"",
+        fbProfilePic:"",
+        likedSublets:[]
+        
+      })
+    }
+
+    async function handleFacebookResponse(data){
+     
+       setFacebookUserDetails({
+        isLoggedIn:true,
+        name:data.name,
+        id:data.id,
+        email:data.email,
+        fbProfilePic:data.picture.data.url,
+        likedSublets:[]
+
+      })
+    }
+
+    if(facebookUserDetails.name===""){
+      console.log("just a refresh!")
+    } else {
+
+      axios.post('/users/addUser',{...facebookUserDetails})
+    }
+    
+
 
   return (
     <div className={classes.root}>
@@ -103,6 +136,7 @@ export default function Header() {
       >
 
         <Toolbar>
+
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -115,8 +149,28 @@ export default function Header() {
           <Typography variant="h6" noWrap>
             Sublets
           </Typography>
-          <span style={{position:"absolute", right:0,backgroundColor:"blue"}} >{fbContent}</span>
+          <span style={{position:"absolute", right:0,backgroundColor:"blue"}} >
+          </span>
+         
+          <div style={{
+            display:"flex",
+            flex: '1',
+            justifyContent:"flex-end"
+            }}>
+            
+          <img src={facebookUserDetails.fbProfilePic}></img>
+          
+          <FacebookLogin 
+          textButton= {facebookUserDetails.isLoggedIn ? "Logout" : "Login"}
+          appId='411589506442437'
+          autoLoad={false}
+          fields="name,email,picture"
+          callback = {(facebookUserDetails.isLoggedIn) ? handleLogout : handleFacebookResponse}
+          // onFailure = {handleError}
+          />
 
+          </div>
+          
         </Toolbar>
 
       </AppBar>
@@ -126,7 +180,7 @@ export default function Header() {
         anchor="left"
         open={open}
         classes={{
-          paper: classes.drawerPaper,
+        paper: classes.drawerPaper,
         }}
       >
         <div className={classes.drawerHeader}>
@@ -143,9 +197,11 @@ export default function Header() {
             <ListItem >
               <Link to="/"><h3>Home</h3></Link>
             </ListItem>
+
             <ListItem >
               <Link to="/map"><h3>Map</h3></Link>
             </ListItem>
+
             <ListItem>
               <Link to="/addsublet"><h3>Add Sublet</h3></Link>
             </ListItem>
@@ -153,9 +209,13 @@ export default function Header() {
             <ListItem>
               <Link to="/sublets"><h3>Sublets</h3></Link>
             </ListItem>
+
+            <ListItem>
+              <Link to="/savedSublets"><h3>Saved Sublets</h3></Link>
+            </ListItem>
+
         </List>
       
-
       </Drawer>
       <main
         className={clsx(classes.content, {
