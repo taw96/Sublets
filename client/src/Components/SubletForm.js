@@ -1,12 +1,12 @@
-import React, { useReducer, useState } from 'react'
 import PlaceAutoComplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import React, { useReducer, useState, useContext } from 'react'
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
 import { MuiPickersUtilsProvider,KeyboardDatePicker} from '@material-ui/pickers';
 import axios from 'axios';
 import { Form, Message, Input, TextArea, Image, Header, Icon, Button } from 'semantic-ui-react'
-
+import {UserContext} from '../UserContext'
 
 export default function SubletForm() {
 
@@ -38,7 +38,6 @@ export default function SubletForm() {
   
   setCostPerNight(Math.ceil((values.cost)/( (selectedDateOut-selectedDateIn)/86400000)))
   };
-
 
   //state declaration of address and coordinates
  
@@ -81,6 +80,15 @@ const INITIAL_VALUES = {
   const [values, setValues] = useReducer((state, newState) => ({...state,...newState}),INITIAL_VALUES
     );
 
+    //declare currnet user STATE
+
+    const [facebookUserDetails]=useContext(UserContext)
+
+    const userName = facebookUserDetails.name;
+    const userID = facebookUserDetails.id;
+    const profilePicture = facebookUserDetails.fbProfilePic;
+
+
     
     //handling most of the inputs 
 
@@ -96,15 +104,13 @@ const INITIAL_VALUES = {
     }
  
 
-
-
     //submiting the sublet by using the current state values
 
 
     async function handleSubmit(){
     setLoading(true)
     const mediaUrl = await handleImageUpload()
-    const response = await axios.post('/sublets/add',{address: address,...values,selectedDateIn,selectedDateOut,...coordinate,days,costPerNight,mediaUrl})
+    const response = await axios.post('/sublets/add',{userName,userID,profilePicture,address: address,...values,selectedDateIn,selectedDateOut,...coordinate,days,costPerNight,mediaUrl})
     console.log({response})
     setLoading(false)
     setValues(INITIAL_VALUES)
@@ -186,8 +192,6 @@ const INITIAL_VALUES = {
     </Image.Group>
 
       <br/>
-
-
 
       <PlaceAutoComplete 
       value={address}

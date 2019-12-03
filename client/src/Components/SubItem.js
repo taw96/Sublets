@@ -1,5 +1,5 @@
 
-import React,{ useState } from 'react';
+import React,{ useState, useContext,useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -11,13 +11,14 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import Avatar from '@material-ui/core/Avatar';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Gallery, GalleryImage } from 'react-gesture-gallery'
 import { Link } from 'react-router-dom'
 import formatDate from '../utills/formatDate'
-
+import {UserContext} from '../UserContext';
+import axios from 'axios';
 
 
 const useStyles = makeStyles(theme => ({
@@ -42,40 +43,74 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     backgroundColor: red[500],
-  },
-}));
 
-export default function SubItem({sublet}) {
+  }
+}))
+
+
+export default function SubItem({sublet,alLikedSublets}) {
   const classes = useStyles();
+
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+
   };
-  
-  
+
+  const [facebookUserDetails] = useContext(UserContext)
+
   const [index,setIndex] = useState(0)
+
+  let initialBoolean = alLikedSublets.includes(sublet._id)
+
+  let [likedSublet, SetLikedSublet]=useState(initialBoolean)
+  
+  console.log("initial boolean: "  + initialBoolean)
+  console.log("is liked? " + likedSublet)
+  
+  const toggleLike =()=>{
+
+    SetLikedSublet(state=>!state)
+    if(!likedSublet){
+    alLikedSublets.push(sublet._id)
+    axios.post(`/users/updateUser/${facebookUserDetails.id}`,{alLikedSublets})
+
+    }
+    else{
+        let deletePos = (alLikedSublets
+        .indexOf(sublet._id))  
+
+
+        alLikedSublets.splice(deletePos,1)
+
+        axios.post(`/users/updateUser/${facebookUserDetails.id}`,{alLikedSublets})
+
+    }
+  }
+
 
   return (
 
 
     <div 
+
     style={{textAlign:"right",marginLeft:'50px'}}
     >
     <Card className={classes.card} style={{marginTop:"40px"}}>
       
       
       <Link to={`/sublet/${sublet._id}`}> 
-      <CardHeader
-       
-        action={
-        <IconButton aria-label="settings">
-        <MoreVertIcon />
-        </IconButton>
-        }
-
-        title={sublet.description}
+      <CardHeader 
+        title= {`${sublet.userName}'s place`}
+         
+        
         subheader= {<h5>{formatDate(sublet.dateIn)} - {formatDate(sublet.dateOut)}</h5>}
+         avatar={ 
+          <Avatar aria-label="recipe" className={classes.avatar}>
+            <img alt="imagealt" src={sublet.profilePicture} />
+          </Avatar>
+        }
         />
       </Link> 
 
@@ -98,14 +133,14 @@ export default function SubItem({sublet}) {
 
 
         <CardContent>
-
         <Typography variant="body2" color="textSecondary" component="p">{sublet.address}</Typography>
         מחיר ללילה: {sublet.costPerNight}
         </CardContent>
 
         <CardActions disableSpacing>
-        <IconButton 
-        aria-label="add to favorites"
+        <IconButton
+        onClick={toggleLike} 
+        style={{color:likedSublet?"red":"#313131"}}
         >
         <FavoriteIcon  />
         </IconButton>

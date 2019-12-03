@@ -3,6 +3,16 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const SubletSchema = new Schema({
+
+  userName:{
+    type:String
+  },
+  userID:{
+    type:String
+  },
+  profilePicture:{
+    type:String 
+  },
  
   address:{
     type:String 

@@ -37,6 +37,9 @@ router.route('/cost').get((req,res)=> {
 
 
 router.route('/add').post((req, res) => {
+  const userName = req.body.userName;
+  const userID = req.body.userID;
+  const profilePicture = req.body.profilePicture;
   const address = req.body.address;
   const description= req.body.description;
   const floorLevel = req.body.floorLevel;
@@ -63,7 +66,7 @@ router.route('/add').post((req, res) => {
   
 
 
-  const newSublet = new Sublet ({address,description, floorLevel,rooms,availableBedrooms,roomatesLeft,cost,costPerNight,days,details,
+  const newSublet = new Sublet ({userName,userID,profilePicture,address,description, floorLevel,rooms,availableBedrooms,roomatesLeft,cost,costPerNight,days,details,
   phone, elevator,airCon,balcony,washMachine,wifi,tv,streamer,dateIn,dateOut,lat,lng,mediaUrl});
 
   newSublet.save()
