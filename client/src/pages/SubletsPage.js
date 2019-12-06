@@ -12,7 +12,7 @@ import axios from 'axios';
 import { UserContext } from '../UserContext';
 
 
-export default function SubletsPage({sublets,handlePriceChange,price,handleDaysChange, days, handleDates,dates}) {
+export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChange,price,handleDaysChange, days, handleDates,dates}) {
 
 
   const marks = [
@@ -43,22 +43,6 @@ export default function SubletsPage({sublets,handlePriceChange,price,handleDaysC
   
   ];
 
-const [alreadyLikedSublets,SetAlreadyLikedSublets]= useState([])
-const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
-
-  
-
-    useEffect(()=> {
-    const fetchData= async()=>{
-    
-    const result = await axios.get(`/users/getUser/${facebookUserDetails.id}`)
-    
-    SetAlreadyLikedSublets(result.data[0].likedSublets)
-    };
-
-    fetchData();
-    
-    },[facebookUserDetails]);  
 
 
     
