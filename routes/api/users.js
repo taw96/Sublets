@@ -35,6 +35,7 @@ router.route('/getUsers').get(async(req,res)=>{
 })
 
 router.route('/getUser/:id').get(async(req,res)=>{
+
   User.find({
     facebook_id:req.params.id
   })
