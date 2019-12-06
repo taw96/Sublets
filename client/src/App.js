@@ -16,7 +16,9 @@ function App(){
 
 
   // State of sublets, price, days and dates
+  
   const [sublets, setSublets] = useState([]);
+
 
   const [price,setPrice] = useState({min:0, max:1001});
 
