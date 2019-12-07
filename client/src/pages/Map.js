@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { CardMedia }  from '@material-ui/core';
 import { Gallery, GalleryImage } from 'react-gesture-gallery'
-require('dotenv').config()
 
 
 const WrappedMap = withScriptjs(withGoogleMap(Map))
 
 export default function MapPage() {
+
 
   return (
     <div>
@@ -45,6 +45,7 @@ function Map() {
 
   const [selectedPoint, setSelectedPoint] =useState(null)
 
+  console.log(process.env.REACT_APP_GOOGLE_MAPS)
 
   return (
  

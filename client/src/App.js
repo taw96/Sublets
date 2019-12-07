@@ -9,11 +9,24 @@ import axios from 'axios';
 import HomePage from './pages/HomePage';
 import SubletsPage from './pages/SubletsPage';
 import SavedSublets from './pages/SavedSublets';
-import {UserProvider} from './/UserContext'
-
+import {UserContext} from './UserContext'
 
 function App(){ 
 
+const [alreadyLikedSublets,SetAlreadyLikedSublets]= useState([])
+const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
+
+    useEffect(()=> {
+    const fetchData= async()=>{
+    
+    const result = await axios.get(`/users/getUser/${facebookUserDetails.id}`)
+    
+    SetAlreadyLikedSublets(result.data[0].likedSublets)
+    };
+
+    fetchData();
+    
+    },[facebookUserDetails]);  
 
   // State of sublets, price, days and dates
   
@@ -70,7 +83,6 @@ function App(){
      
   return (
     <Router>
-    <UserProvider>
       <Header/>
       <div>
       <Route exact path="/" render={ props =>(
@@ -114,7 +126,7 @@ function App(){
         days={days}
         handleDates={handleDates}
         dates={dates}
-
+        alreadyLikedSublets={alreadyLikedSublets}
 
         />
       
@@ -123,12 +135,14 @@ function App(){
            <Route exact path="/savedSublets" render={props => (
           <React.Fragment>
             
-            <SavedSublets/>
+            <SavedSublets
+             alreadyLikedSublets={alreadyLikedSublets}
+
+            />
           </React.Fragment>
         )}
         />
         </div>
-        </UserProvider>
       </Router>
   )
 }

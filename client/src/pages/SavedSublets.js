@@ -7,7 +7,7 @@ import {UserContext} from '../UserContext'
 const mongoose = require('mongoose');
 
 
-export default function SavedSublets() {
+export default function SavedSublets({alreadyLikedSublets}) {
 
 const [facebookUserDetails,setFacebookUserDetails]= useContext(UserContext)
 
@@ -57,11 +57,11 @@ const [returnedSublets,setRerurnedSublets]=useState([])
         <SubItem 
         key={sub._id}
         sublet = {sub}
-        alLikedSublets={savedSublets}
+        alLikedSublets={alreadyLikedSublets}
         
          />
         ))}
-        </Grid>>
+        </Grid>
 
 
         
