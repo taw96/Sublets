@@ -164,6 +164,7 @@ export default function Header() {
           textButton= {facebookUserDetails.isLoggedIn ? "Logout" : "Login"}
           appId='411589506442437'
           autoLoad={false}
+          isMobile={false}
           fields="name,email,picture"
           callback = {(facebookUserDetails.isLoggedIn) ? handleLogout : handleFacebookResponse}
           // onFailure = {handleError}
