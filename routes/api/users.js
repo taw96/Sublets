@@ -40,7 +40,7 @@ router.route('/getUser/:id').get(async(req,res)=>{
     facebook_id:req.params.id
   })
   .then(User=> res.json(User))
-  .catch((err=> err +"there is an error" + err))
+  .catch((err=> console.log(err +"there is an error" + err)))
   
 })
 
