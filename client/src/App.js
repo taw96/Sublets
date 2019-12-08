@@ -29,12 +29,10 @@ const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
       } else{
         SetAlreadyLikedSublets([])
       }
- 
-
     
     },[facebookUserDetails]);  
 
-    console.log(alreadyLikedSublets)
+    // console.log(alreadyLikedSublets)
     
   
   // State of sublets, price, days and dates

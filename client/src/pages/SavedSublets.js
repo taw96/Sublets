@@ -28,8 +28,8 @@ const [returnedSublets,setRerurnedSublets]=useState([])
     
     },[facebookUserDetails]);    
 
-    console.log(facebookUserDetails.id)
-    console.log(savedSublets)
+    // console.log(facebookUserDetails.id)
+    // console.log(savedSublets)
 
 
     useEffect(()=> {

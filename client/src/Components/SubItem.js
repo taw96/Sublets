@@ -67,8 +67,8 @@ export default function SubItem({sublet,alLikedSublets}) {
 
   let [likedSublet, SetLikedSublet]=useState(initialBoolean)
   
-  console.log("initial boolean: "  + initialBoolean)
-  console.log("is liked? " + likedSublet)
+  // console.log("initial boolean: "  + initialBoolean)
+  // console.log("is liked? " + likedSublet)
   
   
   const toggleLike =()=>{
