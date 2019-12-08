@@ -43,10 +43,6 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
   
   ];
 
-
-
-    
-
   return (
     <>
     <div>
