@@ -18,13 +18,9 @@ const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
 
     useEffect(()=> {
     const fetchData= async()=>{
-    if(facebookUserDetails.id===null){
-    SetAlreadyLikedSublets([])
-    }else{
     const result = await axios.get(`/users/getUser/${facebookUserDetails.id}`)
     SetAlreadyLikedSublets(result.data[0].likedSublets)
-    }
-    
+  
     };
 
     fetchData();
