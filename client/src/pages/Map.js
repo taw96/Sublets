@@ -45,8 +45,6 @@ function Map() {
 
   const [selectedPoint, setSelectedPoint] =useState(null)
 
-  console.log(process.env.REACT_APP_GOOGLE_MAPS)
-
   return (
  
   <GoogleMap defaultZoom={14} defaultCenter={{ lat:32.0804808 ,lng:34.7805274}}
