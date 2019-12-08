@@ -62,13 +62,7 @@ export default function SubItem({sublet,alLikedSublets}) {
 
   const [index,setIndex] = useState(0)
   
-  if(facebookUserDetails.isLoggedIn){
-
-  } else {
-    
-    alLikedSublets=[]
-  }
-  
+ 
   let initialBoolean = alLikedSublets.includes(sublet._id)
 
   let [likedSublet, SetLikedSublet]=useState(initialBoolean)
