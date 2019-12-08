@@ -9,9 +9,6 @@ router.route('/getUserSavedSublets').get((req,res)=>{
 
 let savedSublets = JSON.parse(req.query.savedSublets)
 
-
-console.log(savedSublets)
-
   Sublet.find({_id:{$in:(savedSublets)}})
   .then(Sublet => res.json(Sublet))
   .catch(err=> res.status(400).json('Error:' + err));
