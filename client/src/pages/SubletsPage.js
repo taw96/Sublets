@@ -13,6 +13,7 @@ import { UserContext } from '../UserContext';
 
 
 export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChange,price,handleDaysChange, days, handleDates,dates}) {
+  const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
 
 
   const marks = [
@@ -42,10 +43,6 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
     }
   
   ];
-
-
-
-    
 
   return (
     <>
