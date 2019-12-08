@@ -13,11 +13,12 @@ import { UserContext } from '../UserContext';
 
 
 export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChange,price,handleDaysChange, days, handleDates,dates}) {
-const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
+  const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
 
   if(facebookUserDetails.isLoggedIn){
 
   } else {
+    
     alreadyLikedSublets=[]
   }
   const marks = [

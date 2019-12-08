@@ -62,6 +62,12 @@ export default function SubItem({sublet,alLikedSublets}) {
 
   const [index,setIndex] = useState(0)
   
+  if(facebookUserDetails.isLoggedIn){
+
+  } else {
+    
+    alLikedSublets=[]
+  }
   
   let initialBoolean = alLikedSublets.includes(sublet._id)
 
@@ -69,6 +75,7 @@ export default function SubItem({sublet,alLikedSublets}) {
   
   console.log("initial boolean: "  + initialBoolean)
   console.log("is liked? " + likedSublet)
+  
   
   const toggleLike =()=>{
 
