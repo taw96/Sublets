@@ -11,6 +11,13 @@ export default function SavedSublets({alreadyLikedSublets}) {
 
 const [facebookUserDetails,setFacebookUserDetails]= useContext(UserContext)
 
+  if(facebookUserDetails.isLoggedIn){
+
+  } else {
+    
+    alreadyLikedSublets=[]
+  }
+  
 const [savedSublets,setSavedSublets]= useState([])
 
 const [returnedSublets,setRerurnedSublets]=useState([])
