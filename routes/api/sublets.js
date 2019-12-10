@@ -30,31 +30,18 @@ router.route('/cost').get((req,res)=> {
   const daysMin = req.query.daysMin;
   const daysMax =req.query.daysMax;
   const floorAsked = req.query.floorParam;
-  // let newElevator = req.query.elevator==="true" ? true : {$type:8};
-  // let newAirCon = req.query.airCon==="true" ? true : {$type:8};
-  // let newWashingMachine = req.query.washingMachine==="true" ? true : {$type:8};
-  // let newWifi = req.query.wifi==="true" ? true : {$type:8};
-  // let newTv = req.query.tv==="true" ? true : {$type:8};
-  // let newNetflix = req.query.netflix==="true" ? true : {$type:8};
+
   
+  let Arr =['elevator','airCon','balcony','washMachine','wifi','tv','streamer']
 
-  let newElevator = req.query.elevator
-  let newAirCon = req.query.airCon
-  let newWashingMachine = req.query.washingMachine
-  let newWifi = req.query.wifi
-  let newTv = req.query.tv
-  let newNetflix = req.query.netflix
+  let newArr=[]
 
-  let paramArr=[newElevator,newAirCon,newWashingMachine,newWifi,newTv,newNetflix]
-  
-  console.log(paramArr)
-
-  let newArr= paramArr.filter((param)=>{
-     param==="true      "
+  Arr.forEach((item)=>{
+    if(req.query[item]==="true"){
+      
+      newArr.push({[item]:true})
+    }
   })
-
-  console.log(newArr)
-
 
 
   Sublet.find({
@@ -66,13 +53,7 @@ router.route('/cost').get((req,res)=> {
     {dateIn:{$gte:dateMin}},
     {dateOut:{$lte:dateMax}},
     {floorLevel:{$lte:floorAsked}},
-
-    // {elevator: newElevator},
-    // {airCon: newAirCon},
-    // {washMachine: newWashingMachine},
-    // {wifi: newWifi},
-    // {tv: newTv},
-    // {streamer: newNetflix}
+    ...newArr
     
 ]})
   .then(Sublet => res.json(Sublet))

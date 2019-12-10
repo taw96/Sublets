@@ -87,36 +87,27 @@ const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
       elevator:false,
       airCon:false,
       balcony:false,
-      washingMachine:false,
+      washMachine:false,
       wifi:false,
       tv:false,
-      netflix:false
+      streamer:false
     })
 
     const handleOtherParams= name => event =>{
       setOtherParams({
-        ...otherParams,[name]:event.target.checked
+        ...otherParams,[name]:(event.target.checked)
       })
     }
 
     console.log(otherParams)
-let array= ["elevator"];
-
+  
   useEffect(()=> {
    
     const fetchData = async () =>{
       const result = await axios.get(`/sublets/cost?min=${price.min}&max=${price.max}
       &daysMin=${days.min}&daysMax=${days.max}
       &dateMin=${dates.min}&dateMax=${dates.max}
-      &floorParam=${floorAsked}
-      &arr=${array}
-      &elevator=${otherParams.elevator}
-      &airCon=${otherParams.airCon}
-      &balcony=${otherParams.balcony}
-      &washingMachine=${otherParams.washingMachine}
-      &wifi=${otherParams.wifi}
-      &tv=${otherParams.tv}
-      &netflix=${otherParams.netflix}
+      &floorParam=${floorAsked}&elevator=${otherParams.elevator}&airCon=${otherParams.airCon}&balcony=${otherParams.balcony}&washMachine=${otherParams.washMachine}&wifi=${otherParams.wifi}&tv=${otherParams.tv}&streamer=${otherParams.streamer}
       
       `)
      setSublets(result.data);

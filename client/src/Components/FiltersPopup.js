@@ -121,12 +121,12 @@ export default function FiltersPopup({handleDaysChange,days,handleFloorChange,fl
       <Divider/>
       <FormGroup aria-label="position" row >
         <FormControlLabel
-          checked={otherParams.neflix}
-          value="neflix"
+          checked={otherParams.streamer}
+          value="streamer"
           control={<Checkbox color="primary" />}
           label="נטפליקס"
           labelPlacement="bottom"
-          onChange={handleOtherParams('netflix')} />
+          onChange={handleOtherParams('streamer')} />
 
         <FormControlLabel
           checked={otherParams.tv}
@@ -147,12 +147,12 @@ export default function FiltersPopup({handleDaysChange,days,handleFloorChange,fl
          />
 
         <FormControlLabel
-          checked={otherParams.washingMachine}
-          value="washingMachine"
+          checked={otherParams.washMachine}
+          value="washMachine"
           control={<Checkbox color="primary" />}
           label="מכונת כביסה"
           labelPlacement="bottom"
-          onChange={handleOtherParams('washingMachine')}
+          onChange={handleOtherParams('washMachine')}
         />
         <FormControlLabel
           checked={otherParams.balcony}
