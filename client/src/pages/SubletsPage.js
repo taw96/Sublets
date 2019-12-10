@@ -13,8 +13,9 @@ import { UserContext } from '../UserContext';
 
 
 export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChange,price,handleDaysChange, days, handleDates,dates,handleFloorChange,floorAsked,handleOtherParams,otherParams}) {
+  
+  
   const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
-
 
   const marks = [
     {
@@ -58,8 +59,8 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
     </div>
 
   <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid container justify="space-around" style={{direction:"rtl"}}>
-        <KeyboardDatePicker style={{width:"30%"}}
+      <Grid container justify="space-evenly" style={{direction:"rtl"}}>
+        <KeyboardDatePicker style={{width:"20%"}}
           disableToolbar
           name="startDate"
           variant="inline"
@@ -74,7 +75,7 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
           }}
         />
 
-        <KeyboardDatePicker style={{width:"30%"}}
+        <KeyboardDatePicker style={{width:"20%"}}
         
           disableToolbar
           name="endDate"

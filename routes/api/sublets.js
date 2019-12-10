@@ -32,7 +32,7 @@ router.route('/cost').get((req,res)=> {
   const floorAsked = req.query.floorParam;
 
   
-  let Arr =['elevator','airCon','balcony','washMachine','wifi','tv','streamer']
+  let Arr =['parking','elevator','airCon','balcony','washMachine','wifi','tv','streamer']
 
   let newArr=[]
 
@@ -80,6 +80,7 @@ router.route('/add').post((req, res) => {
   const days = req.body.days;
   const details = req.body.details;
   const phone = req.body.phone;
+  const parking =req.body.parking;
   const elevator = req.body.elevator;
   const airCon=req.body.airCon;
   const balcony=req.body.balcony;
@@ -96,7 +97,7 @@ router.route('/add').post((req, res) => {
 
 
   const newSublet = new Sublet ({userName,userID,profilePicture,address,description, floorLevel,rooms,availableBedrooms,roomatesLeft,cost,costPerNight,days,details,
-  phone, elevator,airCon,balcony,washMachine,wifi,tv,streamer,dateIn,dateOut,lat,lng,mediaUrl});
+  phone,parking, elevator,airCon,balcony,washMachine,wifi,tv,streamer,dateIn,dateOut,lat,lng,mediaUrl});
 
   newSublet.save()
     .then(() => res.json('sublet added!'))
@@ -127,6 +128,7 @@ router.route('/update/:id').post((req,res)=>{
   Sublet.Price = req.body.Price
   Sublet.textAndExtras = req.body.textAndExtras
   Sublet.phone = req.body.phone
+  Sublet.parking=req.body.parking
   Sublet.elevator = req.body.elevator
   Sublet.airCon = req.body.airCon
   Sublet.balcony = req.body.balcony

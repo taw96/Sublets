@@ -84,6 +84,7 @@ const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
     };
   
   const [otherParams,setOtherParams] = useState({
+      parking:false,
       elevator:false,
       airCon:false,
       balcony:false,
@@ -107,7 +108,7 @@ const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
       const result = await axios.get(`/sublets/cost?min=${price.min}&max=${price.max}
       &daysMin=${days.min}&daysMax=${days.max}
       &dateMin=${dates.min}&dateMax=${dates.max}
-      &floorParam=${floorAsked}&elevator=${otherParams.elevator}&airCon=${otherParams.airCon}&balcony=${otherParams.balcony}&washMachine=${otherParams.washMachine}&wifi=${otherParams.wifi}&tv=${otherParams.tv}&streamer=${otherParams.streamer}
+      &floorParam=${floorAsked}&parking=${otherParams.parking}&elevator=${otherParams.elevator}&airCon=${otherParams.airCon}&balcony=${otherParams.balcony}&washMachine=${otherParams.washMachine}&wifi=${otherParams.wifi}&tv=${otherParams.tv}&streamer=${otherParams.streamer}
       
       `)
      setSublets(result.data);

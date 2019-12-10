@@ -178,6 +178,14 @@ export default function FiltersPopup({handleDaysChange,days,handleFloorChange,fl
           labelPlacement="bottom"
           onChange={handleOtherParams('elevator')}
         />
+        <FormControlLabel
+          checked={otherParams.parking}
+          value="parking"
+          control={<Checkbox color="primary" />}
+          label="חנייה"
+          labelPlacement="bottom"
+          onChange={handleOtherParams('parking')}
+        />
        </FormGroup>
      </FormControl>
       

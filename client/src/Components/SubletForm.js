@@ -67,6 +67,7 @@ const INITIAL_VALUES = {
       cost:0,
       details: "",
       phone:"",
+      parking:false,
       elevator: false ,
       airCon:false ,
       balcony:false,
@@ -321,6 +322,18 @@ const INITIAL_VALUES = {
     <br/>
 
   <div>
+  
+    <div>
+    <input
+    type="checkbox"
+    name="parking" 
+    value={values.parking} 
+    onChange={handleChange}
+    />
+    חנייה?
+    </div>
+
+    <br/>
 
     <div>
     <input
