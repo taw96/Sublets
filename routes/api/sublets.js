@@ -29,6 +29,32 @@ router.route('/cost').get((req,res)=> {
   const max =req.query.max;
   const daysMin = req.query.daysMin;
   const daysMax =req.query.daysMax;
+  const floorAsked = req.query.floorParam;
+  // let newElevator = req.query.elevator==="true" ? true : {$type:8};
+  // let newAirCon = req.query.airCon==="true" ? true : {$type:8};
+  // let newWashingMachine = req.query.washingMachine==="true" ? true : {$type:8};
+  // let newWifi = req.query.wifi==="true" ? true : {$type:8};
+  // let newTv = req.query.tv==="true" ? true : {$type:8};
+  // let newNetflix = req.query.netflix==="true" ? true : {$type:8};
+  
+
+  let newElevator = req.query.elevator
+  let newAirCon = req.query.airCon
+  let newWashingMachine = req.query.washingMachine
+  let newWifi = req.query.wifi
+  let newTv = req.query.tv
+  let newNetflix = req.query.netflix
+
+  let paramArr=[newElevator,newAirCon,newWashingMachine,newWifi,newTv,newNetflix]
+  
+  console.log(paramArr)
+
+  let newArr= paramArr.filter((param)=>{
+     param==="true      "
+  })
+
+  console.log(newArr)
+
 
 
   Sublet.find({
@@ -38,9 +64,17 @@ router.route('/cost').get((req,res)=> {
     {days:{$gte:daysMin}},
     {days:{$lte:daysMax}},
     {dateIn:{$gte:dateMin}},
-    {dateOut:{$lte:dateMax}}
+    {dateOut:{$lte:dateMax}},
+    {floorLevel:{$lte:floorAsked}},
 
-        ]})
+    // {elevator: newElevator},
+    // {airCon: newAirCon},
+    // {washMachine: newWashingMachine},
+    // {wifi: newWifi},
+    // {tv: newTv},
+    // {streamer: newNetflix}
+    
+]})
   .then(Sublet => res.json(Sublet))
   .catch(err=> res.status(400).json('Error:' + err));
 })

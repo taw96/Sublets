@@ -12,7 +12,7 @@ import axios from 'axios';
 import { UserContext } from '../UserContext';
 
 
-export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChange,price,handleDaysChange, days, handleDates,dates}) {
+export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChange,price,handleDaysChange, days, handleDates,dates,handleFloorChange,floorAsked,handleOtherParams,otherParams}) {
   const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
 
 
@@ -50,6 +50,10 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
     <FiltersPopup
     handleDaysChange={handleDaysChange}
     days={days}
+    handleFloorChange={handleFloorChange}
+    floorAsked={floorAsked}
+    handleOtherParams={handleOtherParams}
+    otherParams={otherParams}
     />
     </div>
 

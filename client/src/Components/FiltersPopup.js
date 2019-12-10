@@ -1,16 +1,13 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Button, Modal } from 'semantic-ui-react'
 import { FaSlidersH } from 'react-icons/fa';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import { makeStyles,useStyles,useTheme } from '@material-ui/core/styles';
+import {Divider, FormLabel, FormControlLabel, FormGroup, Grid, Slider, Select, Checkbox, ListItemText,FormControl, Input,InputLabel, MenuItem } from '@material-ui/core';
+import clsx from 'clsx';
 
 
-import Slider from '@material-ui/core/Slider';
-
-
-
-export default function FiltersPopup({handleDaysChange,days}) {
+export default function FiltersPopup({handleDaysChange,days,handleFloorChange,floorAsked,handleOtherParams,otherParams}) {
   
   const daysMarks = [
     {
@@ -65,22 +62,18 @@ export default function FiltersPopup({handleDaysChange,days}) {
     }
   });
   
-
- 
     const classes = useStyles();
-
 
   return (
     <div>
       <Modal trigger={<Button><FaSlidersH size={20}/></Button>}>
-    <Modal.Header>מסננים</Modal.Header> 
+    <Modal.Header>מסננים נוספים</Modal.Header> 
     <Modal.Content>
     <Grid container spacing={3}>
       <Grid item xs={12}>
       <Typography id="range-slider" gutterBottom>
-        Days
+        ?כמה ימים
       </Typography>
-      <div>
       <Slider 
         orientation="horizontal"
         min={0}
@@ -91,7 +84,104 @@ export default function FiltersPopup({handleDaysChange,days}) {
         marks={daysMarks}
         valueLabelDisplay="on"
         />
-        </div>
+        
+      </Grid>
+       <Grid item xs={12}>
+      <Typography id="range-slider" gutterBottom>
+     ?קומה
+      </Typography>
+      <FormControl variant="outlined" className={classes.formControl}>
+     
+        <Select
+          native
+          value={floorAsked}
+          onChange={(event,value)=>handleFloorChange(event,value)}
+          inputProps={{
+            id: 'outlined-age-native-simple',
+          }}
+        >
+          <option>לא</option>
+          <option value={0}>רק קרקע</option>
+          <option value={1}>ראשונה</option>
+          <option value={2}>שנייה</option>
+          <option value={3}>שלישית</option>
+          <option value={4}>רביעית</option>
+
+
+        </Select>
+      </FormControl>
+      <Typography>
+      ומטה
+      </Typography>
+      </Grid>
+
+        <Grid item xs={12}>
+       <FormControl component="fieldset">
+      <FormLabel component="legend">:רק דירות עם</FormLabel>
+      <Divider/>
+      <FormGroup aria-label="position" row >
+        <FormControlLabel
+          checked={otherParams.neflix}
+          value="neflix"
+          control={<Checkbox color="primary" />}
+          label="נטפליקס"
+          labelPlacement="bottom"
+          onChange={handleOtherParams('netflix')} />
+
+        <FormControlLabel
+          checked={otherParams.tv}
+          value="tv"
+          control={<Checkbox color="primary"/>}
+          label="טלוויזיה"
+          labelPlacement="bottom"
+          onChange={handleOtherParams('tv')}        
+
+        />
+        <FormControlLabel
+          checked={otherParams.wifi}
+          value="wifi"
+          control={<Checkbox color="primary" />}
+          label="wifi"
+          labelPlacement="bottom"
+         onChange={handleOtherParams('wifi')}        
+         />
+
+        <FormControlLabel
+          checked={otherParams.washingMachine}
+          value="washingMachine"
+          control={<Checkbox color="primary" />}
+          label="מכונת כביסה"
+          labelPlacement="bottom"
+          onChange={handleOtherParams('washingMachine')}
+        />
+        <FormControlLabel
+          checked={otherParams.balcony}
+          value="balcony"
+          control={<Checkbox color="primary" />}
+          label="מרפסת"
+          labelPlacement="bottom"
+          onChange={handleOtherParams('balcony')}
+        />
+        <FormControlLabel
+          checked={otherParams.airCon}
+          value="airCon"
+          control={<Checkbox color="primary" />}
+          label="מזגן"
+          labelPlacement="bottom"
+          onChange={handleOtherParams('airCon')}
+        />
+         <FormControlLabel
+          checked={otherParams.elevator}
+          value="elevator"
+          control={<Checkbox color="primary" />}
+          label="מעלית"
+          labelPlacement="bottom"
+          onChange={handleOtherParams('elevator')}
+        />
+       </FormGroup>
+     </FormControl>
+      
+      
       </Grid>
     </Grid>
 

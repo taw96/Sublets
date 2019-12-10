@@ -135,8 +135,20 @@ export default function SubItem({sublet,alLikedSublets}) {
 
 
         <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">{sublet.address}</Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+        {sublet.address}
+        </Typography>
+         <Typography variant="body1" color="textPrimary" component="p">
         מחיר ללילה: {sublet.costPerNight}
+        </Typography>
+         <Typography variant="body1" color="textPrimary" component="p">
+        קומה: {sublet.floorLevel}
+        </Typography>
+        <Typography variant="body1" color="textPrimary" component="p">
+        מעלית: {sublet.elevator ? "יש" : "אין"}
+        </Typography>
+       
+       
         </CardContent>
 
         <CardActions disableSpacing>

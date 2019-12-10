@@ -163,7 +163,7 @@ export default function Header() {
           <FacebookLogin 
           textButton= {facebookUserDetails.isLoggedIn ? "Logout" : "Login"}
           appId='411589506442437'
-          autoLoad={true}
+          autoLoad={false}
           isMobile={false}
           fields="name,email,picture"
           callback = {(facebookUserDetails.isLoggedIn) ? handleLogout : handleFacebookResponse}
