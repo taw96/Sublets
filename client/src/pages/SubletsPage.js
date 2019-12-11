@@ -40,7 +40,11 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
     },
     {
       value: 500,
-      label:<FaShekelSign><h1>750</h1></FaShekelSign>,
+      label:<h5>
+      <FaShekelSign/>
+      <br/>
+      ללילה
+      </h5>
     }
   
   ];
@@ -60,7 +64,7 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
 
   <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justify="space-evenly" style={{direction:"rtl"}}>
-        <KeyboardDatePicker style={{width:"20%"}}
+        <KeyboardDatePicker style={{width:"28%"}}
           disableToolbar
           name="startDate"
           variant="inline"
@@ -75,7 +79,7 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
           }}
         />
 
-        <KeyboardDatePicker style={{width:"20%"}}
+        <KeyboardDatePicker style={{width:"28%"}}
         
           disableToolbar
           name="endDate"
@@ -108,7 +112,7 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
         <Grid item >
         <Slider style={{ 
         position:"fixed", bottom:0, 
-        right:10, top:120, height:'70vh'}}
+        right:15, top:120, height:'70vh'}}
         orientation="vertical"
         min={0}
         max={500}

@@ -195,12 +195,12 @@ export default function Header() {
             <Link to="/about"><h3>About</h3></Link>
             </ListItem>
 
-            <ListItem >
+            {/* <ListItem >
               <Link to="/"><h3>Home</h3></Link>
-            </ListItem>
+            </ListItem> */}
 
             <ListItem >
-              <Link to="/map"><h3>Map</h3></Link>
+              <Link to="/"><h3>Map</h3></Link>
             </ListItem>
 
             <ListItem>

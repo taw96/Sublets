@@ -115,11 +115,11 @@ export default function FiltersPopup({handleDaysChange,days,handleFloorChange,fl
       </Typography>
       </Grid>
 
-        <Grid item xs={12}>
-       <FormControl component="fieldset">
+      <Grid container justify="space-evenly" spacing={0}>      
+       <FormControl container component="fieldset">
       <FormLabel component="legend">:רק דירות עם</FormLabel>
       <Divider/>
-      <FormGroup aria-label="position" row >
+      <FormGroup  aria-label="position" row >
         <FormControlLabel
           checked={otherParams.streamer}
           value="streamer"

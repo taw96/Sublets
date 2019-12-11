@@ -25,7 +25,9 @@ const useStyles = makeStyles(theme => ({
 
   card: {
     maxWidth:'250px',
-    maxHeight:'95vh'
+    maxHeight:'95vh',
+    borderRadius: '25px',
+    backgroundColor:'#dcdcdc'
   },
   media: {
     height: 0,
