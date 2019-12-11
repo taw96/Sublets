@@ -24,8 +24,8 @@ import axios from 'axios';
 const useStyles = makeStyles(theme => ({
 
   card: {
-    maxWidth:'250px',
-    maxHeight:'95vh',
+    maxWidth:'25vw',
+    maxHeight:'90vh',
     borderRadius: '25px',
     backgroundColor:'#dcdcdc'
   },
@@ -44,6 +44,7 @@ const useStyles = makeStyles(theme => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
+    borderRadius: '15px',
     backgroundColor: red[500],
 
   }

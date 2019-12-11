@@ -13,7 +13,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import {Link} from 'react-router-dom';
-import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import axios from 'axios';
 import {UserContext} from '../../UserContext';
 
@@ -155,10 +155,12 @@ export default function Header() {
           <div style={{
             display:"flex",
             flex: '1',
-            justifyContent:"flex-end"
+            justifyContent:"flex-end",
+            justify:"space-between"
+
             }}>
             
-          <img src={facebookUserDetails.fbProfilePic}></img>
+          <img style={{borderRadius:'15px'}} src={facebookUserDetails.fbProfilePic}></img>
           
           <FacebookLogin 
           textButton= {facebookUserDetails.isLoggedIn ? "Logout" : "Login"}
@@ -167,6 +169,23 @@ export default function Header() {
           isMobile={false}
           fields="name,email,picture"
           callback = {(facebookUserDetails.isLoggedIn) ? handleLogout : handleFacebookResponse}
+           render={renderProps => (
+         <button style={{
+          border: 'none',
+          backgroundColor: 'inherit',
+          color: 'white',
+          padding: '15px',
+          textAlign: 'center',
+          display: 'inline-block',
+          fontSize: '16px',
+         }} 
+         onClick={renderProps.onClick}
+         
+         >
+         {facebookUserDetails.isLoggedIn? "Logout": "Login"}
+         </button>
+  )}
+
           // onFailure = {handleError}
           />
 
