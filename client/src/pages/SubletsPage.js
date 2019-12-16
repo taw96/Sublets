@@ -1,4 +1,4 @@
-import React,{ useState,useEffect,useContext } from 'react'
+import React from 'react'
 import { Grid, Slider } from '@material-ui/core';
 import SubItem from '../Components/SubItem'
 import { FaShekelSign } from 'react-icons/fa'
@@ -8,14 +8,13 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import FiltersPopup from '../Components/FiltersPopup';
-import axios from 'axios';
-import { UserContext } from '../UserContext';
+// import { UserContext } from '../UserContext';
 
 
 export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChange,price,handleDaysChange, days, handleDates,dates,handleFloorChange,floorAsked,handleOtherParams,otherParams}) {
   
   
-  const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
+  // const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
 
   const marks = [
     {

@@ -160,16 +160,16 @@ export default function Header() {
 
             }}>
             
-          <img style={{borderRadius:'15px'}} src={facebookUserDetails.fbProfilePic}></img>
+          <img style={{borderRadius:'15px'}} src={facebookUserDetails.fbProfilePic}g alt=""></img>
           
           <FacebookLogin 
-          textButton= {facebookUserDetails.isLoggedIn ? "Logout" : "Login"}
           appId='411589506442437'
           autoLoad={false}
           isMobile={false}
           fields="name,email,picture"
           callback = {(facebookUserDetails.isLoggedIn) ? handleLogout : handleFacebookResponse}
-           render={renderProps => (
+          render={renderProps => (
+
          <button style={{
           border: 'none',
           backgroundColor: 'inherit',
@@ -180,11 +180,11 @@ export default function Header() {
           fontSize: '16px',
          }} 
          onClick={renderProps.onClick}
-         
          >
          {facebookUserDetails.isLoggedIn? "Logout": "Login"}
          </button>
-  )}
+          
+         )}
 
           // onFailure = {handleError}
           />
@@ -210,7 +210,7 @@ export default function Header() {
         </div>
         
         <List>
-            <ListItem >
+            <ListItem onClick={handleDrawerClose}>
             <Link to="/about"><h3>About</h3></Link>
             </ListItem>
 
@@ -218,19 +218,19 @@ export default function Header() {
               <Link to="/"><h3>Home</h3></Link>
             </ListItem> */}
 
-            <ListItem >
+            <ListItem onClick={handleDrawerClose} >
               <Link to="/"><h3>Map</h3></Link>
             </ListItem>
 
-            <ListItem>
+            <ListItem onClick={handleDrawerClose}>
               <Link to="/addsublet"><h3>Add Sublet</h3></Link>
             </ListItem>
 
-            <ListItem>
+            <ListItem onClick={handleDrawerClose}>
               <Link to="/sublets"><h3>Sublets</h3></Link>
             </ListItem>
 
-            <ListItem>
+            <ListItem onClick={handleDrawerClose}>
               <Link to="/savedSublets"><h3>Saved Sublets</h3></Link>
             </ListItem>
 

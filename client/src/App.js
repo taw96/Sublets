@@ -6,7 +6,7 @@ import MapPage from './pages/Map';
 import Header from './Components/Layouts/Header'
 import About from '../src/Components/About';
 import axios from 'axios';
-import HomePage from './pages/HomePage';
+// import HomePage from './pages/HomePage';
 import SubletsPage from './pages/SubletsPage';
 import SavedSublets from './pages/SavedSublets';
 import {UserContext} from './UserContext'
@@ -14,7 +14,7 @@ import {UserContext} from './UserContext'
 function App(){ 
 
 const [alreadyLikedSublets,SetAlreadyLikedSublets]= useState([])
-const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
+const [facebookUserDetails]=useContext(UserContext)
  
 
     useEffect(()=> {

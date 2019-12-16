@@ -1,10 +1,9 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { Button, Modal } from 'semantic-ui-react'
 import { FaSlidersH } from 'react-icons/fa';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles,useStyles,useTheme } from '@material-ui/core/styles';
-import {Divider, FormLabel, FormControlLabel, FormGroup, Grid, Slider, Select, Checkbox, ListItemText,FormControl, Input,InputLabel, MenuItem } from '@material-ui/core';
-import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import {Divider, FormLabel, FormControlLabel, FormGroup, Grid, Slider, Select, Checkbox,FormControl } from '@material-ui/core';
 
 
 export default function FiltersPopup({handleDaysChange,days,handleFloorChange,floorAsked,handleOtherParams,otherParams}) {

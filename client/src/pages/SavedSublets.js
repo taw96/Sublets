@@ -1,15 +1,14 @@
 import React,{useState,useContext,useEffect} from 'react'
 import SubItem from '../Components/SubItem'
-import { Grid, Slider } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
 import axios from 'axios';
 import {UserContext} from '../UserContext'
-const mongoose = require('mongoose');
 
 
 export default function SavedSublets({alreadyLikedSublets}) {
 
-const [facebookUserDetails,setFacebookUserDetails]= useContext(UserContext)
+const [facebookUserDetails]= useContext(UserContext)
 
 const [savedSublets,setSavedSublets]= useState([])
 
