@@ -2,7 +2,7 @@ import React,{ useEffect , useState } from 'react';
 import { GoogleMap , withScriptjs, withGoogleMap, Marker, InfoWindow } from 'react-google-maps';
 import { Link } from 'react-router-dom'
 import axios from 'axios';
-import { CardMedia }  from '@material-ui/core';
+import { Card, CardMedia }  from '@material-ui/core';
 import { Gallery, GalleryImage } from 'react-gesture-gallery'
 
 
@@ -80,38 +80,48 @@ function Map() {
     setSelectedPoint(null)
   }}
   >
-      <div>
-          <div style={{marginTop:'20px', marginLeft:'30px', maxWidth:'25vw' ,maxHight:'25vh'}}>
+
+          <Card>
+          <CardMedia>
+          <div  style={{
+            display:'flex',
+            flex:'1',
+            justifyContent:'center',
+            maxWidth:'40vw',
+            maxHeight:'60vh',
+            borderRadius: '25px',
+            backgroundColor:'#dcdcdc'}}>
           <Gallery 
           
           index={index}
           onRequestChange = {i=>{
           setIndex(i)
           }} 
-          
           >
-            {Object.keys(selectedPoint.mediaUrl).map((img)=>(
-              <div style={{maxWidth:'100%',maxHight:'100%'}}>
+          {Object.keys(selectedPoint.mediaUrl).map((img)=>(
+              <div>
           <GalleryImage key={selectedPoint.mediaUrl[img]} src={selectedPoint.mediaUrl[img]}/>
               </div>
-            ))}
+          ))}
 
           </Gallery>
           </div>
-         
-        <div style={{direction: 'rtl'}}>
-       <Link  
-       to={`/sublet/${selectedPoint._id}`}> 
+          </CardMedia>
+
+          <br/>
+
+
+      
+      <div style={{direction:"rtl"}}>
+
+      <Link  to={`/sublet/${selectedPoint._id}`}> 
        {selectedPoint.address}
-       </Link> 
+       </Link>
        <br/>
        {selectedPoint.details}
-        </div>
-
-          
-         
-
-      </div>
+       </div>
+      
+      </Card>
    </InfoWindow>
  )}
 
