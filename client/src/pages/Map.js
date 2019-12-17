@@ -81,31 +81,36 @@ function Map() {
   }}
   >
       <div>
-      <div style={{direction:"rtl"}}>
-
-      <Link  to={`/sublet/${selectedPoint._id}`}> 
-       {selectedPoint.address}
-       </Link>
-       </div>
-
-       <CardMedia style={{maxWidth:'25vw',maxHeight:'25vh'}}>
-
+          <div style={{marginTop:'20px', marginLeft:'30px', maxWidth:'25vw' ,maxHight:'25vh'}}>
           <Gallery 
           
           index={index}
           onRequestChange = {i=>{
           setIndex(i)
           }} 
+          
           >
             {Object.keys(selectedPoint.mediaUrl).map((img)=>(
-              <div>
+              <div style={{maxWidth:'100%',maxHight:'100%'}}>
           <GalleryImage key={selectedPoint.mediaUrl[img]} src={selectedPoint.mediaUrl[img]}/>
               </div>
             ))}
 
           </Gallery>
+          </div>
+         
+        <div style={{direction: 'rtl'}}>
+       <Link  
+       to={`/sublet/${selectedPoint._id}`}> 
+       {selectedPoint.address}
+       </Link> 
+       <br/>
+       {selectedPoint.details}
+        </div>
 
-       </CardMedia>
+          
+         
+
       </div>
    </InfoWindow>
  )}
