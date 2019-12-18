@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     maxHeight:'90vh',
     borderRadius: '25px',
     backgroundColor:'#dcdcdc'
-  }
+  },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
