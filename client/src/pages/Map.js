@@ -3,7 +3,7 @@ import { GoogleMap , withScriptjs, withGoogleMap, Marker, InfoWindow } from 'rea
 import MarkerWithLabel from "react-google-maps/lib/components/addons/MarkerWithLabel";
 import { Link } from 'react-router-dom'
 import axios from 'axios';
-import { Card, CardMedia }  from '@material-ui/core';
+import { Card, CardMedia, CardContent }  from '@material-ui/core';
 import { Gallery, GalleryImage } from 'react-gesture-gallery'
 import { FaShekelSign } from 'react-icons/fa'
 
@@ -59,9 +59,13 @@ function Map() {
    lat: sub.lat,
    lng: sub.lng
  }}
-//  label={sub.costPerNight.toString()}
+ icon={{
+   url:'whitePin.png',
+   scaledSize:new window.google.maps.Size(40,40)
+ }}
+ label={
+"₪" + sub.costPerNight.toString()}
 //  labelStyle= {color:'red'}
-//  icon={'none'}
 
 
 
@@ -82,16 +86,18 @@ function Map() {
     setSelectedPoint(null)
   }}
   >
-          <div>
+    {/* <div> */}
+      {/* <div style={{direction:"rtl"}}>
 
-          <div  style={{
-            display:'flex',
-            flex:'1',
-            justifyContent:'center',
-            maxWidth:'25vw',
-            maxHeight:'35vh',
-            borderRadius: '25px',
-            backgroundColor:'#dcdcdc'}}>
+      
+       </div> */}
+
+       <Card>
+
+       <CardMedia 
+       style={{position:'relative', top:'15px',left:'30px',maxWidth:'210px',maxHeight:'200px'}}
+       >
+
           <Gallery 
           
           index={index}
@@ -99,28 +105,27 @@ function Map() {
           setIndex(i)
           }} 
           >
-          {Object.keys(selectedPoint.mediaUrl).map((img)=>(
+            {Object.keys(selectedPoint.mediaUrl).map((img)=>(
               <div>
           <GalleryImage key={selectedPoint.mediaUrl[img]} src={selectedPoint.mediaUrl[img]}/>
               </div>
-          ))}
+            ))}
 
           </Gallery>
-          </div>
 
-          <br/>
-
-
-      
-      <div style={{direction:"rtl"}}>
-
-      <Link  to={`/sublet/${selectedPoint._id}`}> 
+       </CardMedia>
+       
+       <CardContent>
+       <div style={{direction:'rtl'}}>
+       <Link  to={`/sublet/${selectedPoint._id}`}> 
        {selectedPoint.address}
-       </Link>
        <br/>
+       </Link>
+
        {selectedPoint.details}
        </div>
-      </div>
+       </CardContent>
+       </Card>
    </InfoWindow>
  )}
 
