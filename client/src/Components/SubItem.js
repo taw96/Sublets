@@ -24,11 +24,11 @@ import axios from 'axios';
 const useStyles = makeStyles(theme => ({
 
   card: {
-    maxWidth:'25vw',
+    width:'200px',
     maxHeight:'90vh',
     borderRadius: '25px',
     backgroundColor:'#dcdcdc'
-  },
+  }
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9

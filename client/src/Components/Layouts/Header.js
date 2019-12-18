@@ -114,7 +114,9 @@ export default function Header() {
         likedSublets:[]
 
       })
+
     }
+    console.log(facebookUserDetails)
 
     if(facebookUserDetails.name===""){
       console.log("just a refresh!")
@@ -160,12 +162,12 @@ export default function Header() {
 
             }}>
             
-          <img style={{borderRadius:'15px'}} src={facebookUserDetails.fbProfilePic}g alt=""></img>
+          <img style={{borderRadius:'15px'}} src={facebookUserDetails.fbProfilePic} alt=""></img>
           
           <FacebookLogin 
           appId='411589506442437'
           autoLoad={false}
-          isMobile={true}
+          isMobile={false}
           fields="name,email,picture"
           callback = {(facebookUserDetails.isLoggedIn) ? handleLogout : handleFacebookResponse}
           render={renderProps => (

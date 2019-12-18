@@ -121,17 +121,11 @@ const [facebookUserDetails]=useContext(UserContext)
     <Router>
       <Header/>
       <div>
-      {/* <Route exact path="/" render={ props =>(
-        <Fragment>
-          
-          <HomePage/>
-        </Fragment>
-        )}/> */}
         <Route exact path="/about" render={ props =>(
-        <Fragment>
+          <React.Fragment>
           
           <About/>
-        </Fragment>
+          </React.Fragment>
         )}/>
         <Route exact path="/" render ={props => (
           <React.Fragment>
