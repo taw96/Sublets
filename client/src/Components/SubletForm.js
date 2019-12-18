@@ -145,8 +145,7 @@ const INITIAL_VALUES = {
   data.append('file',(images[i]))
   data.append('upload_preset','sublets' )
   data.append('cloud_name','tomeramit')
-  let response = await axios.post('https://api.cloudinary.com/v1_1/tomeramit/image/upload'
-  ,data)
+  let response = await axios.post('https://api.cloudinary.com/v1_1/tomeramit/image/upload',data)
   let mediaUrl = response.data.url
   imageArr.push(mediaUrl)
   }

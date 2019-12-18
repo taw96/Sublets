@@ -1,7 +1,6 @@
 import React from 'react'
 import { Grid, Slider } from '@material-ui/core';
 import SubItem from '../Components/SubItem'
-import { FaShekelSign } from 'react-icons/fa'
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -16,42 +15,12 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
   
   // const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
 
-  const marks = [
-    {
-      value: 0,
-      label: '0',
-    },
-    {
-      value: 100,
-      label: '100',
-    },
-    {
-      value: 200,
-      label: '200',
-    },
-    {
-      value: 300,
-      label: '300',
-    },
-    {
-      value: 400,
-      label: '400',
-    },
-    {
-      value: 500,
-      label:<h5>
-      <FaShekelSign/>
-      <br/>
-      ללילה
-      </h5>
-    }
-  
-  ];
 
   return (
     <>
-    <div>
     <FiltersPopup
+    price={price}
+    handlePriceChange={handlePriceChange}
     handleDaysChange={handleDaysChange}
     days={days}
     handleFloorChange={handleFloorChange}
@@ -59,7 +28,6 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
     handleOtherParams={handleOtherParams}
     otherParams={otherParams}
     />
-    </div>
 
   <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justify="space-evenly" style={{direction:"rtl"}}>
@@ -96,33 +64,16 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
       </Grid>
     </MuiPickersUtilsProvider>
 
-    <Grid container>
-
+    <Grid container >
         {sublets.map((sub)=>(
         <SubItem 
         key={sub._id}
         sublet = {sub}
         alLikedSublets={alreadyLikedSublets}
-        
          />
         ))}
+      
 
-       
-        <Grid item >
-        <Slider style={{ 
-        position:"fixed", bottom:0, 
-        right:15, top:120, height:'70vh'}}
-        orientation="vertical"
-        min={0}
-        max={500}
-        defaultValue={[price.min,price.max]}
-        aria-labelledby="vertical-slider"
-        onChangeCommitted={(event,value)=>handlePriceChange(event,value)}
-        marks={marks}
-        valueLabelDisplay="on"
-        track="normal"
-        />
-        </Grid>
         </Grid>
        
     </>

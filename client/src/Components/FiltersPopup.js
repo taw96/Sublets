@@ -4,10 +4,44 @@ import { FaSlidersH } from 'react-icons/fa';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {Divider, FormLabel, FormControlLabel, FormGroup, Grid, Slider, Select, Checkbox,FormControl } from '@material-ui/core';
+import { FaShekelSign } from 'react-icons/fa'
 
 
-export default function FiltersPopup({handleDaysChange,days,handleFloorChange,floorAsked,handleOtherParams,otherParams}) {
+export default function FiltersPopup({handlePriceChange,price,handleDaysChange,days,handleFloorChange,floorAsked,handleOtherParams,otherParams}) {
   
+  
+  const marks = [
+    {
+      value: 0,
+      label: '0',
+    },
+    {
+      value: 100,
+      label: '100',
+    },
+    {
+      value: 200,
+      label: '200',
+    },
+    {
+      value: 300,
+      label: '300',
+    },
+    {
+      value: 400,
+      label: '400',
+    },
+    {
+      value: 500,
+      label:<h5>
+      <FaShekelSign/>
+      <br/>
+      ללילה
+      </h5>
+    }
+  
+  ];
+
   const daysMarks = [
     {
       value: 0,
@@ -69,6 +103,28 @@ export default function FiltersPopup({handleDaysChange,days,handleFloorChange,fl
     <Modal.Header>מסננים נוספים</Modal.Header> 
     <Modal.Content>
     <Grid container spacing={3}>
+
+      <Grid item xs={12}>
+      <Typography id="range-slider" gutterBottom>
+      מחיר ללילה
+      </Typography>
+
+      <Slider 
+      // style={{ 
+        // position:"fixed", bottom:0, 
+        // right:15, top:120, height:'70vh'}}
+        orientation="horizontal"
+        min={0}
+        max={500}
+        defaultValue={[price.min,400]}
+        aria-labelledby="horizontal-slider"
+        onChangeCommitted={(event,value)=>handlePriceChange(event,value)}
+        marks={marks}
+        valueLabelDisplay="on"
+        track="normal"
+        />
+       </Grid>
+
       <Grid item xs={12}>
       <Typography id="range-slider" gutterBottom>
         ?כמה ימים
@@ -85,12 +141,14 @@ export default function FiltersPopup({handleDaysChange,days,handleFloorChange,fl
         />
         
       </Grid>
+      
        <Grid item xs={12}>
       <Typography id="range-slider" gutterBottom>
      ?קומה
       </Typography>
       <FormControl variant="outlined" className={classes.formControl}>
-     
+           <div style={{direction:'rtl'}}>
+
         <Select
           native
           value={floorAsked}
@@ -99,7 +157,7 @@ export default function FiltersPopup({handleDaysChange,days,handleFloorChange,fl
             id: 'outlined-age-native-simple',
           }}
         >
-          <option>לא</option>
+          <option>הכל</option>
           <option value={0}>רק קרקע</option>
           <option value={1}>ראשונה</option>
           <option value={2}>שנייה</option>
@@ -108,6 +166,8 @@ export default function FiltersPopup({handleDaysChange,days,handleFloorChange,fl
 
 
         </Select>
+              </div>
+
       </FormControl>
       <Typography>
       ומטה

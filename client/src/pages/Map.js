@@ -1,9 +1,11 @@
 import React,{ useEffect , useState } from 'react';
 import { GoogleMap , withScriptjs, withGoogleMap, Marker, InfoWindow } from 'react-google-maps';
+import MarkerWithLabel from "react-google-maps/lib/components/addons/MarkerWithLabel";
 import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { Card, CardMedia }  from '@material-ui/core';
 import { Gallery, GalleryImage } from 'react-gesture-gallery'
+import { FaShekelSign } from 'react-icons/fa'
 
 
 const WrappedMap = withScriptjs(withGoogleMap(Map))
@@ -29,7 +31,6 @@ export default function MapPage() {
 function Map() {
 
   const [sublets, setSublets] = useState([])
-
 
   useEffect(()=> {
    
@@ -58,10 +59,11 @@ function Map() {
    lat: sub.lat,
    lng: sub.lng
  }}
- icon={{
-   url:'house.jpg',
-   scaledSize:new window.google.maps.Size(40,40)
- }}
+//  label={sub.costPerNight.toString()}
+//  labelStyle= {color:'red'}
+//  icon={'none'}
+
+
 
   onClick = {()=>{
     setSelectedPoint(sub)
@@ -80,15 +82,14 @@ function Map() {
     setSelectedPoint(null)
   }}
   >
+          <div>
 
-          <Card>
-          <CardMedia>
           <div  style={{
             display:'flex',
             flex:'1',
             justifyContent:'center',
-            maxWidth:'40vw',
-            maxHeight:'60vh',
+            maxWidth:'25vw',
+            maxHeight:'35vh',
             borderRadius: '25px',
             backgroundColor:'#dcdcdc'}}>
           <Gallery 
@@ -106,7 +107,6 @@ function Map() {
 
           </Gallery>
           </div>
-          </CardMedia>
 
           <br/>
 
@@ -120,8 +120,7 @@ function Map() {
        <br/>
        {selectedPoint.details}
        </div>
-      
-      </Card>
+      </div>
    </InfoWindow>
  )}
 
