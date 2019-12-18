@@ -33,11 +33,7 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
     },
     {
       value: 500,
-      label:<h5>
-      <FaShekelSign/>
-      <br/>
-      ללילה
-      </h5>
+      label:'500'
     }
   
   ];
@@ -89,6 +85,7 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
     },
   ];
 
+
   const useStyles = makeStyles({
     root: {
       width: 300,
@@ -106,7 +103,7 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
 
       <Grid item xs={12}>
       <Typography id="range-slider" gutterBottom>
-      מחיר ללילה
+      מחיר ב-₪ ללילה
       </Typography>
 
       <Slider 
@@ -159,22 +156,20 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
         >
           <option>הכל</option>
           <option value={0}>רק קרקע</option>
-          <option value={1}>ראשונה</option>
-          <option value={2}>שנייה</option>
-          <option value={3}>שלישית</option>
-          <option value={4}>רביעית</option>
+          <option value={1}>ראשונה ומטה</option>
+          <option value={2}>שנייה ומטה</option>
+          <option value={3}>שלישית ומטה</option>
+          <option value={4}>רביעית ומטה</option>
 
 
         </Select>
               </div>
 
       </FormControl>
-      <Typography>
-      ומטה
-      </Typography>
+
       </Grid>
 
-      <Grid container justify="space-evenly" spacing={0}>      
+      <Grid container justify="center" spacing={0}>      
        <FormControl container component="fieldset">
       <FormLabel component="legend">:רק דירות עם</FormLabel>
       <Divider/>

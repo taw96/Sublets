@@ -161,9 +161,9 @@ export default function SubItem({sublet,alLikedSublets}) {
         >
         <FavoriteIcon  />
         </IconButton>
-        <IconButton aria-label="share">
+        {/* <IconButton aria-label="share">
         <ShareIcon />
-        </IconButton>
+        </IconButton> */}
         <IconButton
           className={clsx(classes.expand, {
           [classes.expandOpen]: expanded,

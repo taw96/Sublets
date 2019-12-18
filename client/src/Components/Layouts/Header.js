@@ -166,8 +166,8 @@ export default function Header() {
           
           <FacebookLogin 
           appId='411589506442437'
-          autoLoad={false}
-          isMobile={false}
+          autoLoad={true}
+          isMobile={true}
           fields="name,email,picture"
           callback = {(facebookUserDetails.isLoggedIn) ? handleLogout : handleFacebookResponse}
           render={renderProps => (
