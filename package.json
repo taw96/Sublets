@@ -34,7 +34,8 @@
     "passport-facebook-token": "^3.3.0",
     "react-facebook": "^8.1.4",
     "react-flexbox-grid": "^2.1.2",
-    "react-image-gallery": "^0.9.1"
+    "react-image-gallery": "^0.9.1",
+    "react-responsive": "^8.0.1"
   },
   "devDependencies": {
     "nodemon": "^1.17.5"

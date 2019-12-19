@@ -44,9 +44,7 @@ const useStyles = makeStyles(theme => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    borderRadius: '15px',
-    backgroundColor: red[500],
-
+    borderRadius: '15px'
   }
 }))
 
