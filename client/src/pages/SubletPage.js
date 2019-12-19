@@ -103,26 +103,36 @@ export default function SubletPage({match}) {
   </CardMedia>
              
       <CardContent style={{direction:'rtl',fontSize:"17px"}}>
-         <CardHeader 
-        title= {`${sublet.description}`}
+         <div style={{
+            display:'flex',
+            flex:'1',
+            justifyContent:'space-between'
+          }}>
+        <h1>{sublet.description}</h1>
+          <div>
+          <Avatar aria-label="recipe" className={classes.avatar}
+            src={sublet.profilePicture}
+          />
+          <span style={{fontSize:'13px'}}>{   sublet.userName}</span>
+          </div>
+        </div>
          
-         avatar={ 
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            <img alt="imagealt" src={sublet.profilePicture} />
-          </Avatar>
-        }
-        />
 
-        <div>  
+        <h3>  
+        <div>
         {sublet.address}
         </div>
+        <div>
         תאריכים: <span>{formatDate(sublet.dateOut)} -   {formatDate(sublet.dateIn)}</span>
-        
+        </div>
         <div>  
           מחיר ללילה:
          {sublet.costPerNight}  ₪
         </div>
-        <div> 
+        </h3>
+
+        <br/>
+        <div>
           פירוט: 
 
           לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך רוגצה. לפמעט מוסן מנת. 
