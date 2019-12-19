@@ -120,7 +120,7 @@ const [facebookUserDetails]=useContext(UserContext)
   return (
     <Router>
       <Header/>
-      <div>
+      <div style={{paddingTop:'15px'}}>
         <Route exact path="/about" render={ props =>(
           <React.Fragment>
           
@@ -129,7 +129,6 @@ const [facebookUserDetails]=useContext(UserContext)
         )}/>
         <Route exact path="/" render ={props => (
           <React.Fragment>
-            
             <MapPage sublets= {sublets} />
           </React.Fragment>
         )}/>

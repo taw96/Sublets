@@ -244,7 +244,7 @@ export default function Header() {
           [classes.contentShift]: open,
         })}
       >
-        <div className={classes.drawerHeader} />
+        {/* <div className={classes.drawerHeader} /> */}
     
       </main>
     </div>

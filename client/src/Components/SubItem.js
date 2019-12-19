@@ -45,6 +45,7 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     borderRadius: '15px'
+
   }
 }))
 
