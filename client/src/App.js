@@ -42,7 +42,7 @@ const [facebookUserDetails]=useContext(UserContext)
 
   const [price,setPrice] = useState({min:0, max:1001});
 
-  const [days,setDays] = useState({min:0, max:80});
+  const [days,setDays] = useState({min:0, max:120});
  
   const date = new Date();
 
@@ -120,7 +120,7 @@ const [facebookUserDetails]=useContext(UserContext)
   return (
     <Router>
       <Header/>
-      <div style={{paddingTop:'15px'}}>
+      <div style={{paddingTop:'10px'}}>
         <Route exact path="/about" render={ props =>(
           <React.Fragment>
           

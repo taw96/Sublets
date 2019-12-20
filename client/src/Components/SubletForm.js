@@ -155,8 +155,7 @@ const INITIAL_VALUES = {
 
   return (
 
-      
-      <div style={{direction:"rtl"}}>
+      <div style={{paddingTop:'15px',direction:"rtl"}}>
       <Header as="h2" block>
         <Icon name="add" color="orange" />
         צור סאבלט חדש

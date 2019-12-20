@@ -44,45 +44,29 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
       label: '0',
     },
     {
-      value: 5,
-      label: '5',
+      value: 7,
+      label: 'שבוע',
     },
     {
-      value: 10,
-      label: '10',
-    },
-    {
-      value: 15,
-      label: '15',
-    },
-    {
-      value: 20,
-      label: '20',
-    },
-    {
-      value: 25,
-      label: '25',
+      value: 14,
+      label: 'שבועיים',
     },
     {
       value: 30,
-      label: '30',
+      label: 'חודש',
     },
     {
-      value: 40,
-      label: '40',
+      value: 60,
+      label: 'חודשיים',
     },
     {
-      value: 50,
-      label: '50',
+      value: 90,
+      label: '3 חודשים',
     },
     {
-      value: 75,
-      label: '75',
-    },
-    {
-      value: 100,
-      label: '100',
-    },
+      value: 120,
+      label: '4 חודשים',
+    }
   ];
 
 
@@ -105,15 +89,18 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
       <Typography id="range-slider" gutterBottom>
       מחיר ב-₪ ללילה
       </Typography>
-
+      <br/>
+      <br/>
       <Slider 
-      // style={{ 
-        // position:"fixed", bottom:0, 
-        // right:15, top:120, height:'70vh'}}
+      style={{ 
+        display:'flex',flex:'1',
+        // justifyContent:'center',
+        // width:'100vh'
+        }}
         orientation="horizontal"
         min={0}
         max={500}
-        defaultValue={[price.min,400]}
+        defaultValue={[price.min,price.max]}
         aria-labelledby="horizontal-slider"
         onChangeCommitted={(event,value)=>handlePriceChange(event,value)}
         marks={marks}
@@ -126,6 +113,8 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
       <Typography id="range-slider" gutterBottom>
         ?כמה ימים
       </Typography>
+      <br/>
+      <br/>
       <Slider 
         orientation="horizontal"
         min={0}

@@ -17,7 +17,7 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
 
 
   return (
-    <>
+    <div style={{paddingTop:'10px'}}>
     <FiltersPopup
     price={price}
     handlePriceChange={handlePriceChange}
@@ -76,6 +76,6 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
 
         </Grid>
        
-    </>
+    </div>
   )
 }
