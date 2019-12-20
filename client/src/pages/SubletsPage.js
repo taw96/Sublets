@@ -31,7 +31,7 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
 
   <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justify="space-evenly" style={{direction:"rtl"}}>
-        <KeyboardDatePicker style={{width:"28%"}}
+        <KeyboardDatePicker style={{width:"30%"}}
           disableToolbar
           name="startDate"
           variant="inline"
@@ -46,7 +46,7 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
           }}
         />
 
-        <KeyboardDatePicker style={{width:"28%"}}
+        <KeyboardDatePicker style={{width:"30%"}}
         
           disableToolbar
           name="endDate"
@@ -64,7 +64,7 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
       </Grid>
     </MuiPickersUtilsProvider>
 
-    <Grid container justify={"center"}  >
+    <Grid container justify={"space-evenly"}  >
         {sublets.map((sub)=>(
         <SubItem 
         key={sub._id}

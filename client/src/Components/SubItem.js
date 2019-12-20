@@ -24,11 +24,12 @@ import axios from 'axios';
 const useStyles = makeStyles(theme => ({
 
   card: {
-    width:'200px',
+    width:'250px',
     maxHeight:'90vh',
     borderRadius: '25px',
     backgroundColor:'#dcdcdc'
   },
+ 
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
@@ -98,18 +99,20 @@ export default function SubItem({sublet,alLikedSublets}) {
 
 
     <div 
-
-    style={{textAlign:"right",marginLeft:'50px'}}
     >
     <Card className={classes.card} style={{marginTop:"40px"}}>
       
       
       <Link to={`/sublet/${sublet._id}`}> 
-      <CardHeader 
-        title= {`${sublet.userName}'s place`}
-         
-        
-        subheader= {<h5>{formatDate(sublet.dateIn)} - {formatDate(sublet.dateOut)}</h5>}
+      <CardHeader  className={classes.cardHeader} 
+
+        title= {
+        <div style={{direction:'rtl'}}>
+          {`הדירה של ${sublet.userName}`}
+          {<h5>{formatDate(sublet.dateOut)} - {formatDate(sublet.dateIn)}</h5>}
+
+        </div>
+        }
          avatar={ 
           <Avatar aria-label="recipe" className={classes.avatar}>
             <img alt="imagealt" src={sublet.profilePicture} />
@@ -136,12 +139,12 @@ export default function SubItem({sublet,alLikedSublets}) {
         </Gallery>
 
 
-        <CardContent>
+        <CardContent style={{direction:'rtl'}}>
         <Typography variant="body2" color="textSecondary" component="p">
         {sublet.address}
         </Typography>
          <Typography variant="body1" color="textPrimary" component="p">
-        מחיר ללילה: {sublet.costPerNight}
+        מחיר ללילה:  {sublet.costPerNight} ₪
         </Typography>
          <Typography variant="body1" color="textPrimary" component="p">
         קומה: {sublet.floorLevel}
