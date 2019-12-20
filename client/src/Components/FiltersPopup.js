@@ -91,7 +91,7 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
       </Typography>
       <br/>
       <br/>
-      <Slider 
+      <Slider  
       style={{ 
         display:'flex',flex:'1',
         // justifyContent:'center',
@@ -115,6 +115,7 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
       </Typography>
       <br/>
       <br/>
+     
       <Slider 
         orientation="horizontal"
         min={0}
@@ -126,6 +127,7 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
         valueLabelDisplay="on"
         />
         
+        
       </Grid>
       
        <Grid item xs={12}>
@@ -133,9 +135,8 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
      ?קומה
       </Typography>
       <FormControl variant="outlined" className={classes.formControl}>
-           <div style={{direction:'rtl'}}>
 
-        <Select
+        <Select style={{direction:'rtl'}}
           native
           value={floorAsked}
           onChange={(event,value)=>handleFloorChange(event,value)}
@@ -143,7 +144,7 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
             id: 'outlined-age-native-simple',
           }}
         >
-          <option>הכל</option>
+          <option >הכל</option>
           <option value={0}>רק קרקע</option>
           <option value={1}>ראשונה ומטה</option>
           <option value={2}>שנייה ומטה</option>
@@ -152,7 +153,6 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
 
 
         </Select>
-              </div>
 
       </FormControl>
 

@@ -64,7 +64,7 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
       </Grid>
     </MuiPickersUtilsProvider>
 
-    <Grid container >
+    <Grid container justify={"center"}  >
         {sublets.map((sub)=>(
         <SubItem 
         key={sub._id}
