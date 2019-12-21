@@ -13,7 +13,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import {Link} from 'react-router-dom';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import FacebookLogin from 'react-facebook-login'
 import axios from 'axios';
 import {UserContext} from '../../UserContext';
 
@@ -92,7 +92,7 @@ export default function Header() {
 
   const [facebookUserDetails,setFacebookUserDetails] = useContext(UserContext)
 
-    async function handleLogout(){
+    async function handleLogout(data){
       setFacebookUserDetails({
         isLoggedIn:false,
         name:"",
@@ -101,6 +101,20 @@ export default function Header() {
         likedSublets:[]
         
       })
+      console.log("logging out")
+    }
+
+    async function handleError(data){
+     
+       setFacebookUserDetails({
+        isLoggedIn:false,
+        name:"",
+        id:"",
+        fbProfilePic:"",
+        likedSublets:[]
+
+      })
+
     }
 
     async function handleFacebookResponse(data){
@@ -114,19 +128,20 @@ export default function Header() {
         likedSublets:[]
 
       })
+            console.log("logging in")
+
 
     }
     console.log(facebookUserDetails)
 
     if(facebookUserDetails.name===""){
       console.log("just a refresh!")
+    
     } else {
 
       axios.post('/users/addUser',{...facebookUserDetails})
     }
     
-
-
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -164,13 +179,25 @@ export default function Header() {
             
           <img style={{borderRadius:'15px'}} src={facebookUserDetails.fbProfilePic} alt=""></img>
           
-          <FacebookLogin 
+          <FacebookLogin
+            appId="411589506442437"
+            autoLoad={true}
+            // isMobile={true}
+            fields="name,email,picture"
+            // onClick={componentClicked}
+            callback = {(facebookUserDetails.isLoggedIn) ? handleLogout : handleFacebookResponse}
+            onFailure={handleError}
+            textButton={facebookUserDetails.isLoggedIn ? "Logout" : "Login"}
+            />
+
+          {/* <FacebookLogin 
           appId='411589506442437'
           autoLoad={false}
           isMobile={true}
           fields="name,email,picture"
           callback = {(facebookUserDetails.isLoggedIn) ? handleLogout : handleFacebookResponse}
-          render={renderProps => (
+    
+          render={(facebookUserDetails=>(
 
          <button style={{
           border: 'none',
@@ -179,17 +206,16 @@ export default function Header() {
           padding: '15px',
           textAlign: 'center',
           display: 'inline-block',
-          fontSize: '16px',
+          fontSize: '16px'
          }} 
-         onClick={renderProps.onClick}
+         onClick={(facebookUserDetails.isLoggedIn)? handleLogout: handleFacebookResponse}
          >
          {facebookUserDetails.isLoggedIn? "Logout": "Login"}
          </button>
           
-         )}
+         ))} */}
 
-          // onFailure = {handleError}
-          />
+          {/* /> */}
 
           </div>
           

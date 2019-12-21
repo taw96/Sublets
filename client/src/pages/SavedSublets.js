@@ -1,6 +1,7 @@
 import React,{useState,useContext,useEffect} from 'react'
 import SubItem from '../Components/SubItem'
 import { Grid } from '@material-ui/core';
+import {IoMdHappy} from 'react-icons/io'
 
 import axios from 'axios';
 import {UserContext} from '../UserContext'
@@ -46,8 +47,7 @@ const [returnedSublets,setRerurnedSublets]=useState([])
     
     },[savedSublets]); 
 
-    if(facebookUserDetails.isLoggedIn){
-
+    if(facebookUserDetails.isLoggedIn && returnedSublets.length>0){
     
       return (
 
@@ -65,8 +65,18 @@ const [returnedSublets,setRerurnedSublets]=useState([])
         </Grid>
     
     )
+
+    }else if(facebookUserDetails.isLoggedIn && returnedSublets.length===0){
+       return(
+      <div style={{display:'flex',paddingTop: '50px',alignItems:'center',justifyContent:'center'}} >
+      <h1 style={{display:'flex',alignItems:'center',textAlign:'center'}}>  🤔 אין כרגע סאבלטים להצגה</h1>
+      </div>
+      )
+
     }else{
       return(
-      <h1>dsfsdfsadf</h1>
+      <div style={{display:'flex',paddingTop: '50px',alignItems:'center',justifyContent:'center'}} >
+      <h1 style={{display:'flex',alignItems:'center',textAlign:'center'}}> 🙄 עלייך להתחבר באמצעות פייסבוק על מנת לראות את הסאבלטים השמורים </h1>
+      </div>
       )}
 }

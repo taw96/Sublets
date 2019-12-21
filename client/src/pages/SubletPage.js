@@ -174,7 +174,7 @@ export default function SubletPage({match}) {
         </div>
         <div>
         נטפליקס:
-        {sublet.streamer? <div>בדוק שיש  <FaSmileWink style={{color:"yellow"}}/></div> : no}
+        {sublet.streamer? <div>בדוק שיש  <FaSmileWink/></div> : no}
         </div>
         
         </div>
@@ -228,7 +228,7 @@ export default function SubletPage({match}) {
           <Avatar aria-label="recipe" className={classes.avatar}
             src={sublet.profilePicture}
           />
-          <span style={{fontSize:'13px'}}>{   sublet.userName}</span>
+          <span style={{fontSize:'13px'}}>{sublet.userName}</span>
           </div>
         </div>
          
