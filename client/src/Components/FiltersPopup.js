@@ -61,12 +61,9 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
     },
     {
       value: 90,
-      label: '3 חודשים',
+      label: "שלושה"
     },
-    {
-      value: 120,
-      label: '4 חודשים',
-    }
+
   ];
 
 
@@ -80,7 +77,7 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
 
   return (
     <div>
-      <Modal trigger={<Button><FaSlidersH size={20}/></Button>}>
+    <Modal trigger={<Button><FaSlidersH size={20}/></Button>}>
     <Modal.Header>מסננים נוספים</Modal.Header> 
     <Modal.Content>
     <Grid container spacing={3}>
@@ -89,8 +86,9 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
       <Typography id="range-slider" gutterBottom>
       מחיר ב-₪ ללילה
       </Typography>
+      <div style={{display:'block', marginTop:'20px'}}>
       <br/>
-      <br/>
+      </div>
       <Slider  
       style={{ 
         display:'flex',flex:'1',
@@ -113,18 +111,21 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
       <Typography id="range-slider" gutterBottom>
         ?כמה ימים
       </Typography>
+      
+      <div style={{display:'block', marginTop:'20px'}}>
       <br/>
-      <br/>
-     
+      </div>
+    
       <Slider 
         orientation="horizontal"
         min={0}
-        max={100}
+        max={90}
         defaultValue={[days.min, days.max]}
         aria-labelledby="rangeg-slider"
         onChangeCommitted={(event,value)=>handleDaysChange(event,value)}
         marks={daysMarks}
         valueLabelDisplay="on"
+        mae
         />
         
         

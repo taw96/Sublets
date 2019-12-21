@@ -46,11 +46,13 @@ const [returnedSublets,setRerurnedSublets]=useState([])
     
     },[savedSublets]); 
 
+    if(facebookUserDetails.isLoggedIn){
+
     
       return (
 
-        <div>
-         <Grid container>
+
+         <Grid container justify={"space-evenly"}  >
 
         {returnedSublets.map((sub)=>(
         <SubItem 
@@ -61,9 +63,10 @@ const [returnedSublets,setRerurnedSublets]=useState([])
          />
         ))}
         </Grid>
-
-
-        
-        </div>
+    
     )
+    }else{
+      return(
+      <h1>dsfsdfsadf</h1>
+      )}
 }

@@ -42,7 +42,7 @@ const [facebookUserDetails]=useContext(UserContext)
 
   const [price,setPrice] = useState({min:0, max:1001});
 
-  const [days,setDays] = useState({min:0, max:120});
+  const [days,setDays] = useState({min:0, max:90});
  
   const date = new Date();
 
