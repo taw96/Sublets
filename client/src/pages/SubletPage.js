@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
 export default function SubletPage({match}) {
   const classes = useStyles();
 
-  const yes = <span style={{color:'green', fontSize:'25px'}}>🗸</span> 
+  const yes = <span style={{color:'green', fontSize:'25px'}}>✔</span> 
 
   const no = <span style={{color:'red', fontSize:'20px'}}>✖</span>
   const {params:{id},} =match;
