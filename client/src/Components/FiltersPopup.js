@@ -48,10 +48,6 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
       label: 'שבוע',
     },
     {
-      value: 14,
-      label: 'שבועיים',
-    },
-    {
       value: 30,
       label: 'חודש',
     },
@@ -61,7 +57,7 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
     },
     {
       value: 90,
-      label: "שלושה"
+      label: "שלושה חודשים"
     },
 
   ];
@@ -80,9 +76,9 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
     <Modal trigger={<Button><FaSlidersH size={20}/></Button>}>
     <Modal.Header>מסננים נוספים</Modal.Header> 
     <Modal.Content>
-    <Grid container spacing={3}>
+    <Grid container justify="center" spacing={0}>
 
-      <Grid item xs={12}>
+      <Grid item xs={11}>
       <Typography id="range-slider" gutterBottom>
       מחיר ב-₪ ללילה
       </Typography>
@@ -107,7 +103,7 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
         />
        </Grid>
 
-      <Grid item xs={12}>
+      <Grid  item xs={11}>
       <Typography id="range-slider" gutterBottom>
         ?כמה ימים
       </Typography>
@@ -159,7 +155,7 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
 
       </Grid>
 
-      <Grid container justify="center" spacing={0}>      
+       <Grid container justify="center" xs={12}>
        <FormControl container component="fieldset">
       <FormLabel component="legend">:רק דירות עם</FormLabel>
       <Divider/>

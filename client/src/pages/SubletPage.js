@@ -42,9 +42,9 @@ const useStyles = makeStyles(theme => ({
 export default function SubletPage({match}) {
   const classes = useStyles();
 
-  const yes = <IoMdCheckmarkCircleOutline style={{color:'green'}}/>
+  const yes = <span style={{color:'green', fontSize:'25px'}}>🗸</span> 
 
-  const no = <IoMdCloseCircleOutline style={{color:'red'}}/>
+  const no = <span style={{color:'red', fontSize:'20px'}}>✖</span>
   const {params:{id},} =match;
 
   const [index,setIndex] = useState(0)
@@ -53,9 +53,9 @@ export default function SubletPage({match}) {
 
   //responsive design
 
-  const isDesktopOrLaptop = useMediaQuery({minDeviceWidth:1300})
+  const isDesktopOrLaptop = useMediaQuery({minWidth:1224})
   
-  const isTabletOrMobileDevice = useMediaQuery({maxDeviceWidth:1300})
+  const isTabletOrMobileDevice = useMediaQuery({maxWidth:1224})
   
   useEffect(()=> {
     const fetchData = async () =>{
@@ -83,12 +83,11 @@ export default function SubletPage({match}) {
      </div>
     ))
 
-    
-
+  
   return (
     <>
     {isTabletOrMobileDevice && <> 
-    <Card style={{borderRadius:"30px",'maxWidth':'90%',marginLeft:'30px', marginBottom:"30px"}}>
+    <Card style={{borderRadius:"30px",'maxWidth':'90%',marginLeft:'30px', marginBottom:"30px",marginTop:'20px'}}>
     <CardMedia>
     <Gallery
           
@@ -133,9 +132,9 @@ export default function SubletPage({match}) {
 
         <br/>
         <div>
-          פירוט: 
+          <h4>פירוט:</h4>
 
-          לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך רוגצה. לפמעט מוסן מנת. 
+          {sublet.details}
         </div>
         <Divider/>
         
@@ -145,36 +144,36 @@ export default function SubletPage({match}) {
           
         <h4>קצת פרטים יבשים:</h4>
         <div>
-        חנייה: 
         {sublet.parking? yes : no}
+        חנייה
         </div>
         <div>
-        מעלית: 
         {sublet.elevator? yes : no}
+        מעלית
         </div>
         <div>
-        מזגן:
         {sublet.airCon? yes : no}
+        מזגן
         </div>
         <div>
-        טלוויזיה:
         {sublet.tv? yes : no}
+        טלוויזיה
         </div>
         <div>
-        מרפסת:
         {sublet.balcony? yes : no}
+        מרפסת
         </div>
         <div>
-        מכונת כביסה:
         {sublet.washMachine? yes : no}
+        מכונת כביסה
         </div>
         <div>
-        wifi:
         {sublet.wifi? yes : no}
+        wifi
         </div>
         <div>
-        נטפליקס:
-        {sublet.streamer? <div>בדוק שיש  <FaSmileWink/></div> : no}
+        {sublet.streamer? yes : no}
+        נטפליקס
         </div>
         
         </div>
@@ -196,12 +195,14 @@ export default function SubletPage({match}) {
      
      </Card>
      </>}
-    {isDesktopOrLaptop && 
+    {isDesktopOrLaptop &&  
 
-    <Card style={{borderRadius:"30px",'maxWidth':'90%',marginLeft:'30px', marginBottom:"30px"}}>
+
+
+    <Card style={{borderRadius:"30px",'maxWidth':'90%',marginLeft:'30px', marginBottom:"30px",marginTop:'20px'}}>
     <Grid container spacing={3}>
     <Grid item xs={6}>
-        <CardMedia>
+    <CardMedia>
     <Gallery
           
           index={index}
@@ -248,9 +249,10 @@ export default function SubletPage({match}) {
 
         <br/>
         <div> 
-          פירוט: 
+         <h4>פירוט:</h4>
 
-          לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך רוגצה. לפמעט מוסן מנת. 
+          {sublet.details}
+
         </div>
         <Divider/>
         
@@ -260,36 +262,36 @@ export default function SubletPage({match}) {
           
         <h4>קצת פרטים יבשים:</h4>
         <div>
-        חנייה: 
         {sublet.parking? yes : no}
+        חנייה
         </div>
         <div>
-        מעלית: 
         {sublet.elevator? yes : no}
+        מעלית
         </div>
         <div>
-        מזגן:
         {sublet.airCon? yes : no}
+        מזגן
         </div>
         <div>
-        טלוויזיה:
         {sublet.tv? yes : no}
+        טלוויזיה
         </div>
         <div>
-        מרפסת:
         {sublet.balcony? yes : no}
+        מרפסת
         </div>
         <div>
-        מכונת כביסה:
         {sublet.washMachine? yes : no}
+        מכונת כביסה
         </div>
         <div>
-        wifi:
         {sublet.wifi? yes : no}
+        wifi
         </div>
         <div>
-        נטפליקס:
-        {sublet.streamer? <span> בדוק שיש <FaSmileWink /></span> : no}
+        {sublet.streamer? yes : no}
+        נטפליקס
         </div>
         
         </div>

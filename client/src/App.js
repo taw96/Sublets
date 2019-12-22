@@ -49,17 +49,25 @@ const [facebookUserDetails]=useContext(UserContext)
   const [dates, setDates]= useState(
     {
       min:new Date(),
-      max: date.setMonth(date.getMonth()+1)
+      max: date.setMonth(date.getMonth()+2)
     
     })
 
   
   const handleDates=(dateName,dateValue)=> {  
-    let {min,max} =dates;
-    if(dateName==='startDate'){
-      min=dateValue.toISOString();
-    } else {
-      max =dateValue.toISOString();
+    let {min,max} = dates;
+    if(dateName ==='startDate'){
+      min = dateValue.toISOString();
+      console.log(min)
+    }
+    else if(dateName ==='endDate'){
+      max = dateValue.toISOString();
+
+            console.log(max)
+
+    } else{
+      max = max.toISOString();
+      min = min.toISOString()
     }
     setDates({
       min:(min),
@@ -106,9 +114,7 @@ const [facebookUserDetails]=useContext(UserContext)
    
     const fetchData = async () =>{
       const result = await axios.get(`/sublets/cost?min=${price.min}&max=${price.max}
-      &daysMin=${days.min}&daysMax=${days.max}
-      &dateMin=${dates.min}&dateMax=${dates.max}
-      &floorParam=${floorAsked}&parking=${otherParams.parking}&elevator=${otherParams.elevator}&airCon=${otherParams.airCon}&balcony=${otherParams.balcony}&washMachine=${otherParams.washMachine}&wifi=${otherParams.wifi}&tv=${otherParams.tv}&streamer=${otherParams.streamer}
+      &daysMin=${days.min}&daysMax=${days.max}&dateMin=${dates.min}&dateMax=${dates.max}&floorParam=${floorAsked}&parking=${otherParams.parking}&elevator=${otherParams.elevator}&airCon=${otherParams.airCon}&balcony=${otherParams.balcony}&washMachine=${otherParams.washMachine}&wifi=${otherParams.wifi}&tv=${otherParams.tv}&streamer=${otherParams.streamer}
       
       `)
      setSublets(result.data);

@@ -74,6 +74,15 @@ const useStyles = makeStyles(theme => ({
     }),
     marginLeft: 0,
   },
+  facebook:{
+    border: 'none',
+          backgroundColor: 'inherit',
+          color: 'white',
+          padding: '15px',
+          textAlign: 'center',
+          display: 'inline-block',
+          fontSize: '16px'
+  }
 }));
 
 export default function Header() {
@@ -92,17 +101,6 @@ export default function Header() {
 
   const [facebookUserDetails,setFacebookUserDetails] = useContext(UserContext)
 
-    async function handleLogout(data){
-      setFacebookUserDetails({
-        isLoggedIn:false,
-        name:"",
-        id:"",
-        fbProfilePic:"",
-        likedSublets:[]
-        
-      })
-      console.log("logging out")
-    }
 
     async function handleError(data){
      
@@ -116,10 +114,21 @@ export default function Header() {
       })
 
     }
+   
+   
+   function handleLogout() {
+        setFacebookUserDetails({
+        isLoggedIn:false,
+        name:"",
+        id:"",
+        fbProfilePic:"",
+        likedSublets:[]
 
+      })
+    }
     async function handleFacebookResponse(data){
-     
-       setFacebookUserDetails({
+
+        setFacebookUserDetails({
         isLoggedIn:true,
         name:data.name,
         id:data.id,
@@ -181,41 +190,14 @@ export default function Header() {
           
           <FacebookLogin
             appId="411589506442437"
-            autoLoad={true}
-            isMobile={true}
+            // isMobile={true}
             fields="name,email,picture"
-            // onClick={componentClicked}
-            callback = {(facebookUserDetails.isLoggedIn) ? handleLogout : handleFacebookResponse}
+            callback = {facebookUserDetails.isLoggedIn? handleLogout : handleFacebookResponse}
             onFailure={handleError}
+
             textButton={facebookUserDetails.isLoggedIn ? "Logout" : "Login"}
+            cssClass={classes.facebook}
             />
-
-          {/* <FacebookLogin 
-          appId='411589506442437'
-          autoLoad={false}
-          isMobile={true}
-          fields="name,email,picture"
-          callback = {(facebookUserDetails.isLoggedIn) ? handleLogout : handleFacebookResponse}
-    
-          render={(facebookUserDetails=>(
-
-         <button style={{
-          border: 'none',
-          backgroundColor: 'inherit',
-          color: 'white',
-          padding: '15px',
-          textAlign: 'center',
-          display: 'inline-block',
-          fontSize: '16px'
-         }} 
-         onClick={(facebookUserDetails.isLoggedIn)? handleLogout: handleFacebookResponse}
-         >
-         {facebookUserDetails.isLoggedIn? "Logout": "Login"}
-         </button>
-          
-         ))} */}
-
-          {/* /> */}
 
           </div>
           

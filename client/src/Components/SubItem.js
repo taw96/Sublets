@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 
   card: {
     width:'250px',
-    maxHeight:'90vh',
+    maxHeight:'100vh',
     borderRadius: '25px',
     backgroundColor:'#dcdcdc'
   },
@@ -180,14 +180,16 @@ export default function SubItem({sublet,alLikedSublets}) {
          </CardActions>
          <Collapse in={expanded} timeout="auto"  unmountOnExit>
 
-         <CardContent>
+         <CardContent 
+         style={{direction:'rtl'}}
+         >
           <Typography paragraph>
             <header>
-              <h3>:פרטים נוספים</h3>
+              <h3>פרטים נוספים:</h3>
             </header>
           {sublet.details}
           
-            <h4>:ליצירת קשר</h4>
+            <h4>ליצירת קשר:</h4>
             {sublet.phone}
           </Typography>
         </CardContent>

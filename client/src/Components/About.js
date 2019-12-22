@@ -1,25 +1,39 @@
 import React from 'react'
-import Background from '../livingRoom3.jpg'
+import Background from '../urbanView.png'
 
 export default function About() {
   return (
     
-    <div style={{backgroundImage:`url(${Background})`,height:"100vh",width:"100vw"
+<div style={{backgroundImage:`url(${Background})`, width:'100vw',height:'100vh'
  }}>
-    <div style={{textAlign:'center',paddingTop:'150px',direction:"rtl"}}>
-    <h3>
-    פלטפורמת סאבלט'ס הוקמה בשלהי 2019 עקב מעבר מקיבוץ גלילי לעיר הגדולה. <br/>
-    המאמצים וחוסר השקט שנלוו לתקופה זו עקב חיפושים יומיומיים בעשרות קבוצות פייסבוק שונות,<br/>
-    ללא יכולת סינון וחיפוש יעילים,
-    בטח ובטח שללא הצגה נוחה של מיקום הסאבלט,<br/>
-     דירבנו אותי לפתח את האפליקציה, 
-     על מנת להנגיש לכולנו ברמה גבוהה ובצורה יעיkלה את התופעה המדהימה שנקראת סאבלט! 
-     <br/>
-     תהנו,
-     <br/>
+  <div style={{textAlign:'center',paddingRight:'5%',paddingTop:'2%',paddingLeft:'5%',direction:"rtl"}}>
+    <h2>
+      Sublets הוקמה בשלהי 2019 בעקבות מעבר מקיבוץ בגליל העליון לעיר הגדולה.
+      <br/>
+          
+      המעבר התחיל בחיפוש יום- יומי אחר סאבלט החלומות, שהרבה מאיתנו מתחילים בו את הרומן התל אביבי שלנו.
+      <br/>
+      <br/>
+
+      החיפוש הפגיש אותי עם עשרות קבוצות בפייסבוק ווואטסאפ, שהיו לא יעילות בכלל, ויצרו המון עבודה, מאמץ לא פרופורציונאלי וחוסר שקט ממושך- הובילו אותי לפתח את האפליקציה הזו. 
+      <br/>
+      <br/>
+
+      מטרת האפליקציה היא להנגיש לכולנו בצורה יעילה וברמה גבוהה את התופעה הנהדרת שנקראת סאבלט.
+      <br/>
+      
+      הייחודיות שלה באה לידי ביטוי באופציות החיפוש והסינון, תצוגה של הסאבלטים על מפה ומפרט מסודר שלא משאיר מקום לטעויות בבחירת הסאבלט הבא שלכם!
+
+      <br/>
+      <br/>
+
+      נתראה בעיר😉
+
+      <br/>
+
       תומר
-    </h3>  
-    </div>
-    </div>
+    </h2>  
+  </div>
+</div>
   )
 }
