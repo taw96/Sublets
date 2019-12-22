@@ -190,7 +190,8 @@ export default function Header() {
           
           <FacebookLogin
             appId="411589506442437"
-            // isMobile={true}
+            isMobile={false}
+            redirectUri={"https://sublets12.herokuapp.com"}
             fields="name,email,picture"
             callback = {facebookUserDetails.isLoggedIn? handleLogout : handleFacebookResponse}
             onFailure={handleError}
