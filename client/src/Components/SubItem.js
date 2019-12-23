@@ -119,8 +119,6 @@ export default function SubItem({sublet,alLikedSublets}) {
           </Avatar>
         }
         />
-      </Link> 
-
           
         <Gallery
           
@@ -138,6 +136,7 @@ export default function SubItem({sublet,alLikedSublets}) {
 
         </Gallery>
 
+      </Link> 
 
         <CardContent style={{direction:'rtl'}}>
         <Typography variant="body2" color="textSecondary" component="p">
@@ -145,6 +144,9 @@ export default function SubItem({sublet,alLikedSublets}) {
         </Typography>
          <Typography variant="body1" color="textPrimary" component="p">
         מחיר ללילה:  {sublet.costPerNight} ₪
+        </Typography>
+         <Typography variant="body1" color="textPrimary" component="p">
+        מחיר לתקופה:  {sublet.cost} ₪
         </Typography>
          <Typography variant="body1" color="textPrimary" component="p">
         קומה: {sublet.floorLevel}
