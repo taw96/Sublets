@@ -79,7 +79,11 @@ export default function SubletPage({match}) {
 
     <Card style={{borderRadius:"30px",'maxWidth':'90%',marginLeft:'30px', marginBottom:"30px",marginTop:'20px'}}>
 
-     <Carousel showThumbs={false}>
+     <Carousel 
+     showThumbs={false}
+     showStatus={false}
+     infiniteLoop={true}
+     >
        {Object.keys(img).map((key)=>(
               
         <img src={img[key]} height='300' width="250"/>
@@ -187,13 +191,17 @@ export default function SubletPage({match}) {
 
 
     <Card style={{borderRadius:"30px",'maxWidth':'90%',marginLeft:'30px', marginBottom:"30px",marginTop:'20px'}}>
-    <Grid container spacing={3}>
+    <Grid container spacing={0}>
     <Grid item xs={6}>
     <CardMedia>
-    <Carousel showThumbs={false}>
+    <Carousel 
+     showThumbs={false}
+     showStatus={false}
+     infiniteLoop={false}   
+      >
        {Object.keys(img).map((key)=>(
               
-        <img src={img[key]} height='400' width="450"/>
+        <img src={img[key]} height='500' width="1000"/>
 
        ))}
     

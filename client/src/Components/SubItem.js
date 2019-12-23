@@ -146,7 +146,11 @@ export default function SubItem({sublet,alLikedSublets}) {
                </Link> 
 
         {/* <img src={sublet.mediaUrl[0]} height="170" width="250"/> */}
-            <Carousel showThumbs={false}>
+            <Carousel 
+             showThumbs={false}
+             showStatus={false}
+             infiniteLoop={false}              
+             >
               {(sublet.mediaUrl).map((item)=>(
               
               <img src={item} height='170' width="250"/>

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Button, Modal } from 'semantic-ui-react'
+import React,{useState} from 'react'
+import { Button, Modal, Icon} from 'semantic-ui-react'
 import { FaSlidersH } from 'react-icons/fa';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -70,13 +70,23 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
   });
   
     const classes = useStyles();
+  const [state,setState] = useState({ modalOpen: false })
 
+  const handleOpen = () => setState({ modalOpen: true })
+
+  const handleClose = () => setState({ modalOpen: false })
+
+  console.log(state)
   return (
     <div>
-    <Modal trigger={<Button><FaSlidersH size={20}/></Button>}>
-    <Modal.Header>מסננים נוספים</Modal.Header> 
+    <Modal 
+    trigger={<Button onClick={handleOpen}><FaSlidersH size={20}/></Button> }
+    open={state.modalOpen}
+    size='fullscreen'
+    >
+    <Modal.Header></Modal.Header> 
     <Modal.Content>
-    <Grid container justify="center" spacing={0}>
+    <Grid container justify="center" spacing={2}>
 
       <Grid item xs={11}>
       <Typography id="range-slider" gutterBottom>
@@ -155,11 +165,20 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
 
       </Grid>
 
-       <Grid item xs={12}>
+       <Grid container justify="center" style={{paddingTop:'20px'}} item xs={12} >
        <FormControl container component="fieldset">
       <FormLabel component="legend">:רק דירות עם</FormLabel>
       <Divider/>
-      <FormGroup  aria-label="position" row >
+      <FormGroup aria-label='position' row >
+      
+          <FormControlLabel
+          checked={otherParams.washMachine}
+          value="washMachine"
+          control={<Checkbox color="primary" />}
+          label="מכונת כביסה"
+          labelPlacement="bottom"
+          onChange={handleOtherParams('washMachine')}
+        />
         <FormControlLabel
           checked={otherParams.streamer}
           value="streamer"
@@ -186,14 +205,11 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
          onChange={handleOtherParams('wifi')}        
          />
 
-        <FormControlLabel
-          checked={otherParams.washMachine}
-          value="washMachine"
-          control={<Checkbox color="primary" />}
-          label="מכונת כביסה"
-          labelPlacement="bottom"
-          onChange={handleOtherParams('washMachine')}
-        />
+    
+        </FormGroup>
+        
+        <FormGroup aria-label='position' row >
+
         <FormControlLabel
           checked={otherParams.balcony}
           value="balcony"
@@ -226,14 +242,22 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
           labelPlacement="bottom"
           onChange={handleOtherParams('parking')}
         />
-       </FormGroup>
+        </FormGroup>
+
      </FormControl>
       
       
       </Grid>
     </Grid>
+    
+    <Modal.Actions>
+          <Button style={{marginTop:'40px'}} color='green' onClick={handleClose} inverted>
+           שמור<Icon name='checkmark' />  
+          </Button>
+    </Modal.Actions>    
 
-    </Modal.Content>       
+    </Modal.Content>   
+    
   </Modal >
     </div>
   )

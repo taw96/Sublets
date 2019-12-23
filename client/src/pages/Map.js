@@ -6,6 +6,9 @@ import axios from 'axios';
 import { Card, CardMedia, CardContent }  from '@material-ui/core';
 import { Gallery, GalleryImage } from 'react-gesture-gallery'
 import { FaShekelSign } from 'react-icons/fa'
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 
 
 const WrappedMap = withScriptjs(withGoogleMap(Map))
@@ -97,20 +100,19 @@ function Map() {
        style={{position:'relative', top:'15px',left:'30px',maxWidth:'210px',maxHeight:'200px'}}
        >
 
-          <Gallery 
-          
-          index={index}
-          onRequestChange = {i=>{
-          setIndex(i)
-          }} 
-          >
-            {Object.keys(selectedPoint.mediaUrl).map((img)=>(
-              <div>
-          <GalleryImage key={selectedPoint.mediaUrl[img]} src={selectedPoint.mediaUrl[img]}/>
-              </div>
-            ))}
+         <Carousel 
+         showThumbs={false}
+         showStatus={false}
+         infiniteLoop={true}
+         >
+       {(selectedPoint.mediaUrl).map((item)=>(
+              
+        <img src={item} height='150' width="300"/>
 
-          </Gallery>
+       ))}
+    
+    </Carousel>
+             
 
        </CardMedia>
        
