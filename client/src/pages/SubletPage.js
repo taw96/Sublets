@@ -9,6 +9,11 @@ import { IoMdCheckmarkCircleOutline, IoMdCloseCircleOutline } from 'react-icons/
 import { FaSmileWink } from 'react-icons/fa'
 import { useMediaQuery } from 'react-responsive'
 import { makeStyles } from '@material-ui/core/styles';
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
+
+
 
 const useStyles = makeStyles(theme => ({
 
@@ -66,40 +71,22 @@ export default function SubletPage({match}) {
     fetchData();
     },[id]);
 
+    const img = {...sublet.mediaUrl}
 
-
-    let img = {...sublet.mediaUrl}
-
-    const images = Object.keys(img).map((key)=>(
-      
-      <div key={img[key]} 
-      >
-
-      <GalleryImage 
-      objectFit="contain" 
-      src={img[key]}
-      />
- 
-     </div>
-    ))
-
-  
   return (
     <>
     {isTabletOrMobileDevice && <> 
-    <Card style={{borderRadius:"30px",'maxWidth':'90%',marginLeft:'30px', marginBottom:"30px",marginTop:'20px'}}>
-    <CardMedia>
-    <Gallery
-          
-          index={index}
-          onRequestChange = {i=>{
-          setIndex(i)
-          }} 
-          >
-   {images}
 
-  </Gallery>
-  </CardMedia>
+    <Card style={{borderRadius:"30px",'maxWidth':'90%',marginLeft:'30px', marginBottom:"30px",marginTop:'20px'}}>
+
+     <Carousel showThumbs={false}>
+       {Object.keys(img).map((key)=>(
+              
+        <img src={img[key]} height='300' width="250"/>
+
+       ))}
+    
+    </Carousel>
              
       <CardContent style={{direction:'rtl',fontSize:"17px"}}>
          <div style={{
@@ -203,16 +190,15 @@ export default function SubletPage({match}) {
     <Grid container spacing={3}>
     <Grid item xs={6}>
     <CardMedia>
-    <Gallery
-          
-          index={index}
-          onRequestChange = {i=>{
-          setIndex(i)
-          }} 
-          >
-   {images}
+    <Carousel showThumbs={false}>
+       {Object.keys(img).map((key)=>(
+              
+        <img src={img[key]} height='400' width="450"/>
 
-  </Gallery>
+       ))}
+    
+    </Carousel>
+             
   </CardMedia>
       
       </Grid>

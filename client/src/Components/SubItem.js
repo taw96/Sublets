@@ -20,7 +20,10 @@ import { Link } from 'react-router-dom'
 import formatDate from '../utills/formatDate'
 import {UserContext} from '../UserContext';
 import axios from 'axios';
-import ImageGallery from 'react-image-gallery';
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
+
 
 
 
@@ -55,6 +58,7 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function SubItem({sublet,alLikedSublets}) {
+
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
@@ -76,14 +80,8 @@ export default function SubItem({sublet,alLikedSublets}) {
   
   // console.log("initial boolean: "  + initialBoolean)
   // console.log("is liked? " + likedSublet)
-  
-  // let media = sublet.mediaUrl.map((item)=>(
-  //   {
-  //     srcSet: item,
-  //      media:'(max-width:250px)'
-  //   }
-  // ))
-  
+
+    
   const toggleLike =()=>{
 
     SetLikedSublet(state=>!state)
@@ -145,11 +143,17 @@ export default function SubItem({sublet,alLikedSublets}) {
 
         </Gallery> */}
 
-        {/* <ImageGallery items={media} /> */}
-        <img src={sublet.mediaUrl[0]} height="170" width="250"/>
+               </Link> 
 
+        {/* <img src={sublet.mediaUrl[0]} height="170" width="250"/> */}
+            <Carousel showThumbs={false}>
+              {(sublet.mediaUrl).map((item)=>(
+              
+              <img src={item} height='170' width="250"/>
 
-      </Link> 
+              ))}
+          
+            </Carousel>
 
         <CardContent style={{direction:'rtl'}}>
         <Typography variant="body2" color="textSecondary" component="p">
