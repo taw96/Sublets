@@ -3,6 +3,7 @@ import React,{ useState, useContext,useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
+import CardMedia from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -19,6 +20,8 @@ import { Link } from 'react-router-dom'
 import formatDate from '../utills/formatDate'
 import {UserContext} from '../UserContext';
 import axios from 'axios';
+import ImageGallery from 'react-image-gallery';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -61,6 +64,7 @@ export default function SubItem({sublet,alLikedSublets}) {
 
   };
 
+
   const [facebookUserDetails] = useContext(UserContext)
 
   const [index,setIndex] = useState(0)
@@ -73,6 +77,12 @@ export default function SubItem({sublet,alLikedSublets}) {
   // console.log("initial boolean: "  + initialBoolean)
   // console.log("is liked? " + likedSublet)
   
+  // let media = sublet.mediaUrl.map((item)=>(
+  //   {
+  //     srcSet: item,
+  //      media:'(max-width:250px)'
+  //   }
+  // ))
   
   const toggleLike =()=>{
 
@@ -90,7 +100,6 @@ export default function SubItem({sublet,alLikedSublets}) {
         alLikedSublets.splice(deletePos,1)
 
         axios.post(`/users/updateUser/${facebookUserDetails.id}`,{alLikedSublets})
-
     }
   }
 
@@ -120,7 +129,7 @@ export default function SubItem({sublet,alLikedSublets}) {
         }
         />
           
-        <Gallery
+        {/* <Gallery
           
           index={index}
           onRequestChange = {i=>{
@@ -134,7 +143,11 @@ export default function SubItem({sublet,alLikedSublets}) {
             
         ))} 
 
-        </Gallery>
+        </Gallery> */}
+
+        {/* <ImageGallery items={media} /> */}
+        <img src={sublet.mediaUrl[0]} height="170" width="250"/>
+
 
       </Link> 
 

@@ -155,7 +155,7 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
 
       </Grid>
 
-       <Grid container justify="center" xs={12}>
+       <Grid item xs={12}>
        <FormControl container component="fieldset">
       <FormLabel component="legend">:רק דירות עם</FormLabel>
       <Divider/>
