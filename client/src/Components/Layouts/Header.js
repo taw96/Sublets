@@ -137,14 +137,14 @@ export default function Header() {
         likedSublets:[]
 
       })
-            console.log("logging in")
+            // console.log("logging in")
 
 
     }
-    console.log(facebookUserDetails)
+    // console.log(facebookUserDetails)
 
     if(facebookUserDetails.name===""){
-      console.log("just a refresh!")
+      // console.log("just a refresh!")
     
     } else {
 

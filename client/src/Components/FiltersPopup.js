@@ -76,7 +76,7 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
 
   const handleClose = () => setState({ modalOpen: false })
 
-  console.log(state)
+  // console.log(state)
   return (
     <div>
     <Modal 

@@ -39,7 +39,7 @@ const [returnedSublets,setRerurnedSublets]=useState([])
     const result = await axios
     .get(`/sublets/getUserSavedSublets?savedSublets=${savedSublets}`)
     
-    console.log(result.data)
+    // console.log(result.data)
     setRerurnedSublets(result.data)
     
     }

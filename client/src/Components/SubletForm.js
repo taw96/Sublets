@@ -7,6 +7,8 @@ import { MuiPickersUtilsProvider,KeyboardDatePicker} from '@material-ui/pickers'
 import axios from 'axios';
 import { Form, Message, Input, TextArea, Image, Header, Icon, Button } from 'semantic-ui-react'
 import {UserContext} from '../UserContext'
+import {useDropzone} from 'react-dropzone'
+
 
 export default function SubletForm() {
 
@@ -64,8 +66,8 @@ const INITIAL_VALUES = {
       rooms:"",
       availableBedrooms:"",
       roomatesLeft:"",
-      cost:0,
-      details: "",
+      cost:null,
+      details:"",
       phone:"",
       parking:false,
       elevator: false ,
@@ -101,7 +103,7 @@ const INITIAL_VALUES = {
       target.type === "checkbox" ? target.checked : target.value;
 
       setValues({[name]:newValue})
-      console.log(values)
+      // console.log(values)
     }
  
 
@@ -112,7 +114,7 @@ const INITIAL_VALUES = {
     setLoading(true)
     const mediaUrl = await handleImageUpload()
     const response = await axios.post('/sublets/add',{userName,userID,profilePicture,address: address,...values,selectedDateIn,selectedDateOut,...coordinate,days,costPerNight,mediaUrl})
-    console.log({response})
+    // console.log({response})
     setLoading(false)
     setValues(INITIAL_VALUES)
     setSuccess(true)
@@ -169,10 +171,8 @@ const INITIAL_VALUES = {
         header="יאסו!"
         content="הסאבלט נוסף בהצלחה!!"
         />
-
-    
-
-    <Form.Field 
+      
+    <Form.Field   
       control={Input}
       icon="image"
       name="media"
@@ -225,12 +225,12 @@ const INITIAL_VALUES = {
       
       <br/>
       <Form.Group widths ='equal' >
-      <Form.Field
+      <Form.Field required
 
       control ={Input}
       type="text" 
       name="description"  
-      placeholder="תיאור"  
+      placeholder=" תיאור (בכמה מילים)"  
       value={values.description} 
       onChange= {handleChange}
       />
@@ -256,7 +256,7 @@ const INITIAL_VALUES = {
     type="number" 
     className="input" 
     name="rooms" 
-    placeholder="כמה חדרים בדירה?"  
+    placeholder="כמה חדרים בדירה (באופן כללי)?"  
     value={values.rooms} 
     onChange= {handleChange}
     />
@@ -264,20 +264,20 @@ const INITIAL_VALUES = {
     
     <br/>
 
-    <Form.Field
+    <Form.Field required
     control ={Input}
     type="number" 
     className="input" 
     name="availableBedrooms" 
     placeholder="כמה חדרי שינה פנויים?" 
-    value={values.availableBedrooms} 
+    value={values.availableBedrooms}
     onChange= {handleChange}
     />
 
 
     <br/>
 
-    <Form.Field
+    <Form.Field 
     icon="users"
     control ={Input}
     type="number" 
@@ -292,27 +292,27 @@ const INITIAL_VALUES = {
 
     <Form.Group widths="equal" >
 
-    <Form.Field
+    <Form.Field 
     control ={Input}
     icon="shekel sign"
     type="number" 
     className="input" 
     name="cost" 
-    placeholder="כמה עולה?"  
+    placeholder="מחיר לתקופה"  
     value={values.cost} 
     onChange= {handleChange}
     />
 
     <br/> 
     
-    <Form.Field
+    <Form.Field required
     control ={Input}
     icon="phone volume"
-    type="text" 
+    type="number" 
     className="input" 
     name="phone" 
     placeholder="טלפון" 
-    value={values.phone} 
+    value={(values.phone).toString()} 
     onChange= {handleChange}
     />
    </Form.Group>
@@ -439,8 +439,8 @@ const INITIAL_VALUES = {
        
         
         
-
-        <KeyboardDatePicker style={{width:'30%'}}
+        
+        <KeyboardDatePicker style={{width:'30%',direction:'ltr'}}
           margin="normal"
           id="date-picker-dialog"
           name= "dateIn"
@@ -452,10 +452,11 @@ const INITIAL_VALUES = {
             'aria-label': 'change date',
           }}
         />
+      
 
         <h2>עד-</h2>
 
-        <KeyboardDatePicker style={{width:'30%'}}
+        <KeyboardDatePicker style={{width:'30%',direction:"ltr"}}
           margin="normal"
           id="date-picker-dialog"
           name= "dateOut"

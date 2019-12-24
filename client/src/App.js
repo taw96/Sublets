@@ -58,12 +58,12 @@ const [facebookUserDetails]=useContext(UserContext)
     let {min,max} = dates;
     if(dateName ==='startDate'){
       min = dateValue.toISOString();
-      console.log(min)
+      // console.log(min)
     }
     else if(dateName ==='endDate'){
       max = dateValue.toISOString();
 
-            console.log(max)
+            // console.log(max)
 
     } else{
       max = max.toISOString();
@@ -108,7 +108,7 @@ const [facebookUserDetails]=useContext(UserContext)
       })
     }
 
-    console.log(otherParams)
+    // console.log(otherParams)
   
   useEffect(()=> {
    
