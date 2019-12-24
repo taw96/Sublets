@@ -163,7 +163,45 @@ const INITIAL_VALUES = {
         צור סאבלט חדש
       </Header>
       
+ <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <Grid container justify="space-around">
+    
+       
+        
+        
+        
+        <KeyboardDatePicker style={{width:'30%',direction:'ltr'}}
+          margin="normal"
+          id="date-picker-dialog"
+          name= "dateIn"
+          label  ="תאריך כניסה" 
+          format="dd/MM/yy"
+          value={selectedDateIn}
+          onChange={handleDateChangeIn}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+      
 
+        <h2>עד-</h2>
+
+        <KeyboardDatePicker style={{width:'30%',direction:"ltr"}}
+          margin="normal"
+          id="date-picker-dialog"
+          name= "dateOut"
+          label="תאריך יציאה"
+          format="dd/MM/yy"
+          value={selectedDateOut}
+          onChange={handleDateChangeOut}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+
+      
+      </Grid>
+    </MuiPickersUtilsProvider>
       <Form loading={loading} success={success} onSubmit={handleSubmit}>
         <Message
         success
@@ -171,24 +209,7 @@ const INITIAL_VALUES = {
         header="יאסו!"
         content="הסאבלט נוסף בהצלחה!!"
         />
-      
-    <Form.Field   
-      control={Input}
-      icon="image"
-      name="media"
-      type="file"
-      multiple
-      label="תמונות (שיהיו רוחביות בבקשה)"
-      content="תעלו תמונות רוחביות בבקשה"
-      onChange={handleImageChange}
-      />
-
-    <Image.Group size={"small"} >
-    {(imagesPreview.media).map((url)=>(
-    <Image key={`${url}`} src={url} rounded centered/>
-    ))}
-
-    </Image.Group>
+     
 
       <br/>
 
@@ -230,7 +251,7 @@ const INITIAL_VALUES = {
       control ={Input}
       type="text" 
       name="description"  
-      placeholder=" תיאור (בכמה מילים)"  
+      placeholder="כותרת"  
       value={values.description} 
       onChange= {handleChange}
       />
@@ -256,7 +277,7 @@ const INITIAL_VALUES = {
     type="number" 
     className="input" 
     name="rooms" 
-    placeholder="כמה חדרים בדירה (באופן כללי)?"  
+    placeholder="מספר חדרים רלוונטיים"  
     value={values.rooms} 
     onChange= {handleChange}
     />
@@ -312,7 +333,7 @@ const INITIAL_VALUES = {
     className="input" 
     name="phone" 
     placeholder="טלפון" 
-    value={(values.phone).toString()} 
+    value={values.phone} 
     onChange= {handleChange}
     />
    </Form.Group>
@@ -328,7 +349,7 @@ const INITIAL_VALUES = {
     value={values.parking} 
     onChange={handleChange}
     />
-    חנייה?
+    חנייה
     </div>
 
     <br/>
@@ -340,7 +361,7 @@ const INITIAL_VALUES = {
     value={values.elevator} 
     onChange={handleChange}
     />
-    מעלית?
+    מעלית
     </div>
 
     <br/>
@@ -352,7 +373,7 @@ const INITIAL_VALUES = {
     value={values.airCon} 
     onChange={handleChange}
     />
-    מזגן?
+    מזגן
     </div>
     
 
@@ -365,7 +386,7 @@ const INITIAL_VALUES = {
     value={values.balcony} 
     onChange={handleChange}
     />
-    מרפסת?
+    מרפסת
     </div>
     
     <br/>
@@ -377,7 +398,7 @@ const INITIAL_VALUES = {
     value={values.washMachine} 
     onChange={handleChange}
     />
-    מכונת כביסה?
+    מכונת כביסה
     </div>
     
      <br/>
@@ -389,7 +410,7 @@ const INITIAL_VALUES = {
     value={values.wifi} 
     onChange={handleChange}
     />
-    wifi?
+    wifi
     </div>
 
     <br/>
@@ -401,7 +422,7 @@ const INITIAL_VALUES = {
     value={values.tv} 
     onChange={handleChange}
     />
-    טלווזיה?
+    טלווזיה
     </div>
 
     <br/>
@@ -413,7 +434,7 @@ const INITIAL_VALUES = {
     value={values.streamer} 
     onChange={handleChange}
     />
-    נטפליקס?
+    נטפליקס
     </div>
       
   </div>
@@ -431,47 +452,27 @@ const INITIAL_VALUES = {
 
     <br/>
 
+
+    <Form.Field   
+      control={Input}
+      icon="image"
+      name="media"
+      type="file"
+      multiple
+      label="תמונות (שיהיו רוחביות בבקשה)"
+      content="תעלו תמונות רוחביות בבקשה"
+      onChange={handleImageChange}
+      />
+
+    <Image.Group size={"small"} >
+    {(imagesPreview.media).map((url)=>(
+    <Image key={`${url}`} src={url} rounded centered/>
+    ))}
+
+    </Image.Group>
     </Form>
 
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid container justify="space-around">
     
-       
-        
-        
-        
-        <KeyboardDatePicker style={{width:'30%',direction:'ltr'}}
-          margin="normal"
-          id="date-picker-dialog"
-          name= "dateIn"
-          label  ="תאריך כניסה" 
-          format="dd/MM/yy"
-          value={selectedDateIn}
-          onChange={handleDateChangeIn}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
-      
-
-        <h2>עד-</h2>
-
-        <KeyboardDatePicker style={{width:'30%',direction:"ltr"}}
-          margin="normal"
-          id="date-picker-dialog"
-          name= "dateOut"
-          label="תאריך יציאה"
-          format="dd/MM/yy"
-          value={selectedDateOut}
-          onChange={handleDateChangeOut}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
-
-      
-      </Grid>
-    </MuiPickersUtilsProvider>
 
     
    <br/>

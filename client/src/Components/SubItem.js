@@ -22,8 +22,8 @@ import {UserContext} from '../UserContext';
 import axios from 'axios';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
-
+import {WhatsappShareButton, FacebookShareButton} from 'react-share'
+import {FacebookIcon, WhatsappIcon} from 'react-share'
 
 
 
@@ -101,6 +101,7 @@ export default function SubItem({sublet,alLikedSublets}) {
     }
   }
 
+  const url = `https://sublets12.herokuapp.com/sublet/${sublet._id}`
 
   return (
 
@@ -109,8 +110,8 @@ export default function SubItem({sublet,alLikedSublets}) {
     >
     <Card className={classes.card} style={{marginTop:"40px"}}>
       
-      
       <Link to={`/sublet/${sublet._id}`}> 
+
       <CardHeader  className={classes.cardHeader} 
 
         title= {
@@ -126,26 +127,8 @@ export default function SubItem({sublet,alLikedSublets}) {
           </Avatar>
         }
         />
-          
-        {/* <Gallery
-          
-          index={index}
-          onRequestChange = {i=>{
-          setIndex(i)
-          }} 
-          
-          >
-        {sublet.mediaUrl.map(elem => (
-          
-        <GalleryImage objectFit="contain" key={elem} src={elem}/>
-            
-        ))} 
+        </Link>
 
-        </Gallery> */}
-
-               </Link> 
-
-        {/* <img src={sublet.mediaUrl[0]} height="170" width="250"/> */}
             <Carousel 
              showThumbs={false}
              showStatus={false}
@@ -158,6 +141,7 @@ export default function SubItem({sublet,alLikedSublets}) {
               ))}
           
             </Carousel>
+       <Link to={`/sublet/${sublet._id}`}> 
 
         <CardContent style={{direction:'rtl'}}>
         <Typography variant="body2" color="textSecondary" component="p">
@@ -178,6 +162,7 @@ export default function SubItem({sublet,alLikedSublets}) {
        
        
         </CardContent>
+      </Link> 
 
         <CardActions disableSpacing>
         <IconButton
@@ -186,6 +171,20 @@ export default function SubItem({sublet,alLikedSublets}) {
         >
         <FavoriteIcon  />
         </IconButton>
+        <WhatsappShareButton
+        url={url}
+        title={`${sublet.description}`}>
+        <WhatsappIcon
+          size={26}
+          round/>
+        </WhatsappShareButton>
+        <FacebookShareButton
+        url={url}
+        title={`${sublet.description}`}>
+        <FacebookIcon
+        size={26}
+          round/>
+        </FacebookShareButton>
         {/* <IconButton aria-label="share">
         <ShareIcon />
         </IconButton> */}
@@ -218,6 +217,7 @@ export default function SubItem({sublet,alLikedSublets}) {
         </CardContent>
 
       </Collapse>
+
     </Card>
     </div>
   );

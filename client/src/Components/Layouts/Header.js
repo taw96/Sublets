@@ -221,10 +221,6 @@ export default function Header() {
         </div>
         
         <List>
-            <ListItem onClick={handleDrawerClose}>
-            <Link to="/about"><h3>About</h3></Link>
-            </ListItem>
-
             {/* <ListItem >
               <Link to="/"><h3>Home</h3></Link>
             </ListItem> */}
@@ -243,6 +239,10 @@ export default function Header() {
 
             <ListItem onClick={handleDrawerClose}>
               <Link to="/savedSublets"><h3>Saved Sublets</h3></Link>
+            </ListItem>
+
+            <ListItem onClick={handleDrawerClose}>
+            <Link to="/about"><h3>About</h3></Link>
             </ListItem>
 
         </List>
