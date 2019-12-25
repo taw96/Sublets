@@ -4,10 +4,9 @@ import Background from '../urbanView.png'
 export default function About() {
   return (
     
-<div style={{backgroundImage:`url(${Background})`, width:'100vw',height:'100vh'
+<div style={{fontSize:'20px',backgroundImage:`url(${Background})`, width:'100vw',height:'100vh'
  }}>
   <div style={{textAlign:'center',paddingRight:'5%',paddingTop:'2%',paddingLeft:'5%',direction:"rtl"}}>
-    <h2>
      אפליקציית ׳Sublets׳ הוקמה בשנת 2019
 כאשר התקבלה אצלי ההחלטה לעזוב את הקיבוץ הקטן לטובת תקופת היכרות עם העיר.
 <br/>
@@ -21,17 +20,14 @@ export default function About() {
 
 <br/>
 
-אפליקציית ‘sublets’ מנגישה בצורה יעילה את התופעה הנהדרת שנקראת "סאבלט".
-<br/>
-האפליקציה נעזרת בתצוגה בפריסה על מפה, מסננים וממשק מסודר, הכל בכדי להפוך את חוויית המעבר לעיר ומציאת הסאבלט לקלה ונגישה לכולנו!
+אפליקציית 'sublets' נעזרת בתצוגה בפריסה על מפה, מסננים וממשק מסודר, הכל בכדי להפוך את חוויית המעבר לעיר ומציאת הסאבלט לקלה, נגישה ויעילה לכולנו!
 <br/>
 
 שלכם,
-<br/>
+
 <br/>
 
 תומר
-    </h2>  
   </div>
 </div>
   )

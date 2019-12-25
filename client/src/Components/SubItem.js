@@ -2,20 +2,10 @@
 import React,{ useState, useContext,useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
+import {Card, CardMedia, CardHeader,CardContent, IconButton, CardActions, Collapse, Typography, Avatar,Button} from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import Avatar from '@material-ui/core/Avatar';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Gallery, GalleryImage } from 'react-gesture-gallery'
 import { Link } from 'react-router-dom'
 import formatDate from '../utills/formatDate'
 import {UserContext} from '../UserContext';
@@ -171,23 +161,22 @@ export default function SubItem({sublet,alLikedSublets}) {
         >
         <FavoriteIcon  />
         </IconButton>
-        {/* <WhatsappShareButton
+
+        <WhatsappShareButton style={{position:'relative', bottom:'-3px'}}
         url={url}
         title={`${sublet.description}`}>
-        <WhatsappIcon
-          size={26}
-          round/>
+        <ShareIcon/>
         </WhatsappShareButton>
-        <FacebookShareButton
+
+        {/* <FacebookShareButton
         url={url}
         title={`${sublet.description}`}>
         <FacebookIcon
         size={26}
           round/>
         </FacebookShareButton> */}
-        <IconButton aria-label="share">
-        <ShareIcon />
-        </IconButton>
+
+
         <IconButton
           className={clsx(classes.expand, {
           [classes.expandOpen]: expanded,

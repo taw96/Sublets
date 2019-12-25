@@ -30,8 +30,8 @@ router.route('/cost').get((req,res)=> {
   const daysMin = req.query.daysMin;
   const daysMax =req.query.daysMax;
   const floorAsked = req.query.floorParam;
-  console.log(dateMax)
-  console.log(dateMin)
+  // console.log(dateMax)
+  // console.log(dateMin)
   
   let Arr =['parking','elevator','airCon','balcony','washMachine','wifi','tv','streamer']
 

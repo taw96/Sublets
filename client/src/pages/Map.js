@@ -24,6 +24,7 @@ export default function MapPage() {
       loadingElement={<div style={{ height: `100%` }} />}
       containerElement={<div style={{ height: `550px` }} />}
       mapElement={<div style={{ height: `100vh` }} />}
+
         />
     </div>
     </div>
@@ -50,8 +51,11 @@ function Map() {
 
   return (
  
-  <GoogleMap defaultZoom={14} defaultCenter={{ lat:32.0804808 ,lng:34.7805274}}
+
+  <GoogleMap options={{gestureHandling: 'greedy'}}
+ defaultZoom={14} defaultCenter={{ lat:32.0804808 ,lng:34.7805274}}
   >
+
 
  {sublets.map((sub)=>(
 
