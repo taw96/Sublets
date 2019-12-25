@@ -8,6 +8,9 @@ import axios from 'axios';
 import { Form, Message, Input, TextArea, Image, Header, Icon, Button } from 'semantic-ui-react'
 import {UserContext} from '../UserContext'
 import {useDropzone} from 'react-dropzone'
+import IconButton from '@material-ui/core/IconButton';
+
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 
 export default function SubletForm() {
@@ -250,6 +253,7 @@ const INITIAL_VALUES = {
 
       control ={Input}
       type="text" 
+      maxLength="20"
       name="description"  
       placeholder="כותרת"  
       value={values.description} 
@@ -451,27 +455,33 @@ const INITIAL_VALUES = {
     />
 
     <br/>
+ 
+    </Form>
+  <div>
+ <div style={{display:'flex',flex:'1',justifyContent:'center', position:'relative'}}>
+ <input accept="image/*"
+   style={{display:'none'}} 
+   id="icon-button-file"
+   name="media"
+   type="file" 
+   multiple
+   onChange={handleImageChange}
+   />
+      <label htmlFor="icon-button-file">
+        <IconButton color="primary" component="span">
+          <PhotoCamera />
+        </IconButton>
+      </label>
+    </div>
 
-
-    <Form.Field   
-      control={Input}
-      icon="image"
-      name="media"
-      type="file"
-      multiple
-      label="תמונות (שיהיו רוחביות בבקשה)"
-      content="תעלו תמונות רוחביות בבקשה"
-      onChange={handleImageChange}
-      />
-
-    <Image.Group size={"small"} >
+    <div>
+    <Image.Group style={{display:'flex',flex:'1',justifyContent:'center'}} size={"small"} >
     {(imagesPreview.media).map((url)=>(
     <Image key={`${url}`} src={url} rounded centered/>
     ))}
-
     </Image.Group>
-    </Form>
-
+    </div>
+    </div>
     
 
     

@@ -18,7 +18,7 @@ import axios from 'axios';
 import {UserContext} from '../../UserContext';
 
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,8 +45,10 @@ const useStyles = makeStyles(theme => ({
     display: 'none',
   },
   drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
   },
   drawerPaper: {
     width: drawerWidth,
@@ -85,17 +87,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Header() {
+export default function Header(props) {
+  const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
+   const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
   };
 
 
@@ -157,7 +156,7 @@ export default function Header() {
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+          [classes.appBarShift]: mobileOpen,
         })}
       >
 
@@ -166,9 +165,9 @@ export default function Header() {
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={handleDrawerToggle}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
+            className={clsx(classes.menuButton, mobileOpen && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
@@ -206,17 +205,19 @@ export default function Header() {
 
       </AppBar>
       <Drawer
+        container={container}
         className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={open}
+        variant="temporery"
+        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
         classes={{
         paper: classes.drawerPaper,
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          <IconButton onClick={handleDrawerToggle}>
+            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
         
@@ -225,23 +226,23 @@ export default function Header() {
               <Link to="/"><h3>Home</h3></Link>
             </ListItem> */}
 
-            <ListItem onClick={handleDrawerClose} >
+            <ListItem onClick={handleDrawerToggle} >
               <Link to="/"><h3>Map</h3></Link>
             </ListItem>
 
-            <ListItem onClick={handleDrawerClose}>
+            <ListItem onClick={handleDrawerToggle}>
               <Link to="/addsublet"><h3>Add Sublet</h3></Link>
             </ListItem>
 
-            <ListItem onClick={handleDrawerClose}>
+            <ListItem onClick={handleDrawerToggle}>
               <Link to="/sublets"><h3>Sublets</h3></Link>
             </ListItem>
 
-            <ListItem onClick={handleDrawerClose}>
+            <ListItem onClick={handleDrawerToggle}>
               <Link to="/savedSublets"><h3>Saved Sublets</h3></Link>
             </ListItem>
 
-            <ListItem onClick={handleDrawerClose}>
+            <ListItem onClick={handleDrawerToggle}>
             <Link to="/about"><h3>About</h3></Link>
             </ListItem>
 
@@ -250,7 +251,7 @@ export default function Header() {
       </Drawer>
       <main
         className={clsx(classes.content, {
-          [classes.contentShift]: open,
+          [classes.contentShift]: mobileOpen,
         })}
       >
         {/* <div className={classes.drawerHeader} /> */}

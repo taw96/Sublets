@@ -171,7 +171,7 @@ export default function SubItem({sublet,alLikedSublets}) {
         >
         <FavoriteIcon  />
         </IconButton>
-        <WhatsappShareButton
+        {/* <WhatsappShareButton
         url={url}
         title={`${sublet.description}`}>
         <WhatsappIcon
@@ -184,10 +184,10 @@ export default function SubItem({sublet,alLikedSublets}) {
         <FacebookIcon
         size={26}
           round/>
-        </FacebookShareButton>
-        {/* <IconButton aria-label="share">
+        </FacebookShareButton> */}
+        <IconButton aria-label="share">
         <ShareIcon />
-        </IconButton> */}
+        </IconButton>
         <IconButton
           className={clsx(classes.expand, {
           [classes.expandOpen]: expanded,
