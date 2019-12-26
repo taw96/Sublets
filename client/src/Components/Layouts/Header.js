@@ -194,7 +194,6 @@ export default function Header(props) {
           
           <FacebookLogin
             appId="411589506442437"
-            autoLoad={true}
             isMobile={false}
             redirectUri={"https://sublets12.herokuapp.com"}
             fields="name,email,picture"

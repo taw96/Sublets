@@ -1,6 +1,7 @@
 import PlaceAutoComplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import React, { useReducer, useState, useContext } from 'react'
 import 'date-fns';
+import { makeStyles } from '@material-ui/core/styles';
 import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
 import { MuiPickersUtilsProvider,KeyboardDatePicker} from '@material-ui/pickers';
@@ -8,12 +9,29 @@ import axios from 'axios';
 import { Form, Message, Input, TextArea, Image, Header, Icon, Button } from 'semantic-ui-react'
 import {UserContext} from '../UserContext'
 import {useDropzone} from 'react-dropzone'
-import IconButton from '@material-ui/core/IconButton';
-
+import {IconButton, GridList, GridListTile} from '@material-ui/core';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.background.paper,
+  },
+  gridList: {
+    flexWrap: 'nowrap',
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: 'translateZ(0)',
+  },
+
+}));
 
 export default function SubletForm() {
+
+    const classes = useStyles();
+
 
   //state declaration of sublet upload and success
 
@@ -474,13 +492,28 @@ const INITIAL_VALUES = {
       </label>
     </div>
 
-    <div>
+    {/* <div>
     <Image.Group style={{display:'flex',flex:'1',justifyContent:'center'}} size={"small"} >
     {(imagesPreview.media).map((url)=>(
-    <Image key={`${url}`} src={url} rounded centered/>
+    <img key={`${url}`} src={url} rounded centered/>
     ))}
     </Image.Group>
-    </div>
+    </div> */}
+
+    <div 
+    className={classes.root}
+    >
+      <GridList 
+      className={classes.gridList} cols={2.5}
+      >
+        {(imagesPreview.media).map(url => (
+          <GridListTile key={`${url}`}>
+            <img src={url} alt={url}/>
+          </GridListTile>))}
+         </GridList>
+         </div>
+          
+
     </div>
     
 
