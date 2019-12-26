@@ -13,7 +13,7 @@ const [facebookUserDetails]= useContext(UserContext)
 
 const [savedSublets,setSavedSublets]= useState([])
 
-const [returnedSublets,setRerurnedSublets]=useState([])
+const [returnedSublets,setReturnedSublets]=useState([])
     useEffect(()=> {
 
     const fetchData = async()=>{
@@ -40,12 +40,14 @@ const [returnedSublets,setRerurnedSublets]=useState([])
     .get(`/sublets/getUserSavedSublets?savedSublets=${savedSublets}`)
     
     // console.log(result.data)
-    setRerurnedSublets(result.data)
+    setReturnedSublets(result.data)
     
     }
     fetchData();
     
     },[savedSublets]); 
+
+    console.log(returnedSublets)
 
     if(facebookUserDetails.isLoggedIn && returnedSublets.length>0){
     
@@ -78,5 +80,6 @@ const [returnedSublets,setRerurnedSublets]=useState([])
       <div style={{display:'flex',paddingTop: '50px',alignItems:'center',justifyContent:'center'}} >
       <h1 style={{display:'flex',alignItems:'center',textAlign:'center'}}> 🙄 עלייך להתחבר באמצעות פייסבוק על מנת לראות את הסאבלטים השמורים </h1>
       </div>
-      )}
+      )
+      }
 }

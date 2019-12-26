@@ -281,7 +281,7 @@ const INITIAL_VALUES = {
     type="number" 
     className="input" 
     name="rooms" 
-    placeholder="מספר חדרים רלוונטיים"  
+    placeholder="מספר חדרים "  
     value={values.rooms} 
     onChange= {handleChange}
     />

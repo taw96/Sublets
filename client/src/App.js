@@ -6,10 +6,11 @@ import MapPage from './pages/Map';
 import Header from './Components/Layouts/Header'
 import About from '../src/Components/About';
 import axios from 'axios';
-// import HomePage from './pages/HomePage';
+import MySublets from './pages/MySublets';
 import SubletsPage from './pages/SubletsPage';
 import SavedSublets from './pages/SavedSublets';
 import {UserContext} from './UserContext'
+
 
 function App(){ 
 
@@ -38,7 +39,6 @@ const [facebookUserDetails]=useContext(UserContext)
   // State of sublets, price, days and dates
   
   const [sublets, setSublets] = useState([]);
-
 
   const [price,setPrice] = useState({min:0, max:1001});
 
@@ -126,6 +126,7 @@ const [facebookUserDetails]=useContext(UserContext)
   return (
     <Router>
       <Header/>
+
       <div style={{paddingTop:'10px'}}>
         <Route exact path="/about" render={ props =>(
           <React.Fragment>
@@ -145,7 +146,6 @@ const [facebookUserDetails]=useContext(UserContext)
           </React.Fragment>
         )}
         />
-
           <Route exact path= '/sublet/:id' component={SubletPage}
           />
 
@@ -180,7 +180,16 @@ const [facebookUserDetails]=useContext(UserContext)
           </React.Fragment>
         )}
         />
+          <Route exact path="/mySublets" render={props => (
+          <React.Fragment>
+            <MySublets
+            alreadyLikedSublets={alreadyLikedSublets}
+            />
+          </React.Fragment>
+        )}
+        />
         </div>
+
       </Router>
   )
 }

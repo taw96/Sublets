@@ -243,6 +243,10 @@ export default function Header(props) {
             </ListItem>
 
             <ListItem onClick={handleDrawerToggle}>
+              <Link to="/MySublets"><h3>My Sublets</h3></Link>
+            </ListItem>
+
+            <ListItem onClick={handleDrawerToggle}>
             <Link to="/about"><h3>About</h3></Link>
             </ListItem>
 

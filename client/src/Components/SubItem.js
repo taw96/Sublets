@@ -14,13 +14,14 @@ import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {WhatsappShareButton, FacebookShareButton} from 'react-share'
 import {FacebookIcon, WhatsappIcon} from 'react-share'
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 
 
 const useStyles = makeStyles(theme => ({
 
   card: {
-    width:'250px',
+    width:'300px',
     maxHeight:'100vh',
     borderRadius: '25px',
     backgroundColor:'#dcdcdc'
@@ -80,6 +81,7 @@ export default function SubItem({sublet,alLikedSublets}) {
     axios.post(`/users/updateUser/${facebookUserDetails.id}`,{alLikedSublets})
 
     }
+    
     else{
         let deletePos = (alLikedSublets
         .indexOf(sublet._id))  
@@ -93,31 +95,57 @@ export default function SubItem({sublet,alLikedSublets}) {
 
   const url = `https://sublets12.herokuapp.com/sublet/${sublet._id}`
 
+const printIt= ()=>{
+  if(navigator.share){
+    navigator.share({
+      title:'WebShare API Demo',
+      url: url
+    }).then(()=>{
+      console.log('Thanks for sharing!');
+    }).catch(console.error)
+  } else {
+    console.log("It doesn't work!")
+  }
+
+}
   return (
 
 
     <div 
     >
     <Card className={classes.card} style={{marginTop:"40px"}}>
-      
-      <Link to={`/sublet/${sublet._id}`}> 
+     
 
       <CardHeader  className={classes.cardHeader} 
 
+       
         title= {
-        <div style={{direction:'rtl'}}>
-          {`הדירה של ${sublet.userName}`}
+          // <span>
+        /* <Button style={{position:'relative',left:'170px'}} onClick={printIt}>
+        <MoreVertIcon/>
+        </Button> */
+
+        <Link to={`/sublet/${sublet._id}`}>
+        <div style={{direction:'rtl',position:'relative', right:'20px'}}>
+       
+          {`הדירה של ${sublet.userName} `}
           {<h5>{formatDate(sublet.dateOut)} - {formatDate(sublet.dateIn)}</h5>}
 
         </div>
+        </Link>
+      //  </span>
+
         }
          avatar={ 
+        
+        <Link to={`/sublet/${sublet._id}`}> 
           <Avatar aria-label="recipe" className={classes.avatar}>
             <img alt="imagealt" src={sublet.profilePicture} />
           </Avatar>
+        </Link>
+
         }
         />
-        </Link>
 
             <Carousel 
              showThumbs={false}
@@ -162,11 +190,15 @@ export default function SubItem({sublet,alLikedSublets}) {
         <FavoriteIcon  />
         </IconButton>
 
-        <WhatsappShareButton style={{position:'relative', bottom:'-3px'}}
-        url={url}
-        title={`${sublet.description}`}>
+        {/* <WhatsappShareButton style={{position:'relative', bottom:'-3px'}} */}
+        
+        <Button onClick={printIt}>
+        {/* url={url} */}
+        {/* title={`${sublet.description}`}> */}
         <ShareIcon/>
-        </WhatsappShareButton>
+        </Button>
+       
+        {/* </WhatsappShareButton> */}
 
         {/* <FacebookShareButton
         url={url}
