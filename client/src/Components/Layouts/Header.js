@@ -5,7 +5,7 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
+import {List, ListItemIcon} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -16,9 +16,14 @@ import {Link} from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login'
 import axios from 'axios';
 import {UserContext} from '../../UserContext';
+import MapOutlinedIcon from '@material-ui/icons/MapOutlined';
+import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
+import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined';
+import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
+import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
+import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 
-
-const drawerWidth = 200;
+const drawerWidth = 230;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -189,6 +194,7 @@ export default function Header(props) {
           
           <FacebookLogin
             appId="411589506442437"
+            autoLoad={true}
             isMobile={false}
             redirectUri={"https://sublets12.herokuapp.com"}
             fields="name,email,picture"
@@ -222,31 +228,34 @@ export default function Header(props) {
         </div>
         
         <List>
-            {/* <ListItem >
-              <Link to="/"><h3>Home</h3></Link>
-            </ListItem> */}
 
             <ListItem onClick={handleDrawerToggle} >
-              <Link to="/"><h3>Map</h3></Link>
+            <ListItemIcon><MapOutlinedIcon/></ListItemIcon>
+            <Link to="/"><h3>Map</h3></Link>
             </ListItem>
 
             <ListItem onClick={handleDrawerToggle}>
-              <Link to="/addsublet"><h3>Add Sublet</h3></Link>
+            <ListItemIcon><AddBoxOutlinedIcon/></ListItemIcon>
+            <Link to="/addsublet"><h3>Add Sublet</h3></Link>
             </ListItem>
 
             <ListItem onClick={handleDrawerToggle}>
+            <ListItemIcon><HomeWorkOutlinedIcon/></ListItemIcon>
               <Link to="/sublets"><h3>Sublets</h3></Link>
             </ListItem>
 
             <ListItem onClick={handleDrawerToggle}>
+            <ListItemIcon><FavoriteBorderOutlinedIcon/></ListItemIcon>
               <Link to="/savedSublets"><h3>Saved Sublets</h3></Link>
             </ListItem>
 
             <ListItem onClick={handleDrawerToggle}>
-              <Link to="/MySublets"><h3>My Sublets</h3></Link>
+            <ListItemIcon><PersonOutlineOutlinedIcon/></ListItemIcon>
+            <Link to="/MySublets"><h3>My Sublets</h3></Link>
             </ListItem>
 
             <ListItem onClick={handleDrawerToggle}>
+            <ListItemIcon><CreateOutlinedIcon/></ListItemIcon>
             <Link to="/about"><h3>About</h3></Link>
             </ListItem>
 

@@ -63,15 +63,12 @@ router.route('/cost').get((req,res)=> {
 
 router.route('/getUserSublets/:id').get((req,res)=>{
 
-  console.log(req.params.id)
 
   Sublet.find({userID: req.params.id} )
-  .then(Sublet => console.log(res.json(Sublet)))
+  .then(Sublet => res.json(Sublet))
   .catch(err=> res.status(400).json('Error:' + err));
 
 });
-
-
 
 
 router.route('/add').post((req, res) => {

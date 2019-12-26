@@ -2,9 +2,10 @@
 import React,{ useState, useContext,useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import {Card, CardMedia, CardHeader,CardContent, IconButton, CardActions, Collapse, Typography, Avatar,Button} from '@material-ui/core';
+import {Card, CardMedia, CardHeader,CardContent, IconButton, CardActions, Collapse, Typography, Avatar,Button,Dialog, DialogActions, DialogContent,DialogContentText,DialogTitle} from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
+import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link } from 'react-router-dom'
 import formatDate from '../utills/formatDate'
@@ -21,7 +22,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 const useStyles = makeStyles(theme => ({
 
   card: {
-    width:'300px',
+    width:'275px',
     maxHeight:'100vh',
     borderRadius: '25px',
     backgroundColor:'#dcdcdc'
@@ -48,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function SubItem({sublet,alLikedSublets}) {
+export default function SubItem({sublet,alLikedSublets,deleteAbility}) {
 
   const classes = useStyles();
 
@@ -72,7 +73,23 @@ export default function SubItem({sublet,alLikedSublets}) {
   // console.log("initial boolean: "  + initialBoolean)
   // console.log("is liked? " + likedSublet)
 
-    
+  //deleteDialog
+
+ const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
+  const handleSubletDelete =()=>{
+        setOpen(false);
+        axios.delete(`/sublets/${sublet._id}`)
+
+  }
   const toggleLike =()=>{
 
     SetLikedSublet(state=>!state)
@@ -93,21 +110,45 @@ export default function SubItem({sublet,alLikedSublets}) {
     }
   }
 
+
+// conditionl sharing because of web share api available only on mobile 
   const url = `https://sublets12.herokuapp.com/sublet/${sublet._id}`
 
-const printIt= ()=>{
-  if(navigator.share){
-    navigator.share({
-      title:'WebShare API Demo',
+
+ let sharingOption= (navigator.share) ?
+   
+        <IconButton aria-label="share" onClick={share}>   
+          <ShareIcon/>
+        </IconButton>
+
+:     <IconButton aria-label="share">
+      <WhatsappShareButton style={{position:'relative',top:'2px'}}        
+        url={url} 
+        title={`${sublet.description}`}>
+        <ShareIcon/>
+      </WhatsappShareButton> 
+      </IconButton>
+       
+   const share = () =>{
+      navigator.share({
+      title:'נראה לי שהסאבלט הזה בול בשבילך',
+      text:`${sublet.description}`,
       url: url
     }).then(()=>{
       console.log('Thanks for sharing!');
     }).catch(console.error)
-  } else {
-    console.log("It doesn't work!")
-  }
+      }
 
-}
+    const deleteAlert=()=>{
+      alert("are you sure you want to delete this sublet?")
+    }
+    
+    let deleteButton= (deleteAbility) ? 
+        <IconButton aria-label="share" onClick={handleClickOpen}>   
+          <DeleteIcon/>
+        </IconButton>
+        : <div></div>
+
   return (
 
 
@@ -190,16 +231,34 @@ const printIt= ()=>{
         <FavoriteIcon  />
         </IconButton>
 
-        {/* <WhatsappShareButton style={{position:'relative', bottom:'-3px'}} */}
-        
-        <Button onClick={printIt}>
-        {/* url={url} */}
-        {/* title={`${sublet.description}`}> */}
-        <ShareIcon/>
-        </Button>
-       
-        {/* </WhatsappShareButton> */}
+        {(sharingOption)}
 
+        {(deleteButton)}
+
+        <Dialog style={{direction:'rtl'}}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"האם אתה בטוח שברצונך למחוק את הסאבלט?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+             מחיקת הסאבלט תביא להסרתו לצמיתות ממאגר הנתונים. 
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleSubletDelete} color="primary">
+             כן לגמרי
+          </Button>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            לא לא! לחצתי בטעות
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+       
+      
         {/* <FacebookShareButton
         url={url}
         title={`${sublet.description}`}>

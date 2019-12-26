@@ -41,7 +41,8 @@ useEffect(()=> {
         key={sub._id}
         sublet = {sub}
         alLikedSublets={alreadyLikedSublets}
-        
+        deleteAbility={true}
+
          />
         ))}
         </Grid>
@@ -50,16 +51,28 @@ useEffect(()=> {
 
     }else if(facebookUserDetails.isLoggedIn && MySublets.length===0){
        return(
+      <div>
       <div style={{display:'flex',paddingTop: '50px',alignItems:'center',justifyContent:'center'}} >
-      <h1 style={{display:'flex',alignItems:'center',textAlign:'center'}}>  🤔 אין כרגע סאבלטים להצגה</h1>
+      <h1 style={{display:'flex',alignItems:'center',textAlign:'center'}}> אין כרגע סאבלטים להצגה</h1>
       </div>
+      <div style={{textAlign:'center'}}>
+      <h1>🤔</h1>
+      </div>
+      </div>
+
       )
 
     }else{
       return(
+      <div>
       <div style={{display:'flex',paddingTop: '50px',alignItems:'center',justifyContent:'center'}} >
-      <h1 style={{display:'flex',alignItems:'center',textAlign:'center'}}> 🙄 עלייך להתחבר באמצעות פייסבוק על מנת לראות את הסאבלטים השמורים </h1>
+      <h1 style={{display:'flex',alignItems:'center',textAlign:'center'}}> עלייך להתחבר באמצעות פייסבוק על מנת לראות את הסאבלטים שלך</h1>
       </div>
+      <div style={{textAlign:'center'}}>
+      <h1 >🙄</h1>
+      </div>
+      </div>
+
       )
       }
 }
