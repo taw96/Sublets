@@ -11,6 +11,7 @@ import {UserContext} from '../UserContext'
 import {useDropzone} from 'react-dropzone'
 import {IconButton, GridList, GridListTile} from '@material-ui/core';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import { useMediaQuery } from 'react-responsive'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -113,7 +114,6 @@ const INITIAL_VALUES = {
     const profilePicture = facebookUserDetails.fbProfilePic;
 
 
-    
     //handling most of the inputs 
 
     const handleChange = (e) => {
@@ -127,7 +127,6 @@ const INITIAL_VALUES = {
       // console.log(values)
     }
  
-
     //submiting the sublet by using the current state values
 
 
@@ -141,6 +140,10 @@ const INITIAL_VALUES = {
     setSuccess(true)
   }
 
+  const isDesktopOrLaptop = useMediaQuery({minWidth:1224})
+  
+  const isTabletOrMobileDevice = useMediaQuery({maxWidth:1224})
+  
   const [images, setImages] = useState([null])
 
   const [imagesPreview, setImagesPreview] =useState({media:[null]})
@@ -495,15 +498,27 @@ const INITIAL_VALUES = {
     <div 
     className={classes.root}
     >
+    {isDesktopOrLaptop &&
       <GridList 
-      className={classes.gridList} cols={5}
+      className={classes.gridList} cols={4}
       > 
         {(imagesPreview.media).map(url => (
           // <GridListTile key={url} >
-            <img src={url} alt={url} width="300" height="120"/>
-          // </GridListTile>
+            <img src={url} alt={url}/>
+          /* </GridListTile> */
           ))}
-         </GridList>
+         </GridList>}
+    {isTabletOrMobileDevice && 
+    <GridList 
+      className={classes.gridList} cols={2}
+      > 
+        {(imagesPreview.media).map(url => (
+          // <GridListTile key={url} >
+            <img src={url} alt={url}/>
+          /* </GridListTile> */
+          ))}
+         </GridList>}
+    
          </div>
           
     </div>
