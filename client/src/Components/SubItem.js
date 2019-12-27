@@ -117,9 +117,9 @@ export default function SubItem({sublet,alLikedSublets,deleteAbility}) {
 
  let sharingOption= (navigator.share) ?
    
-        <IconButton aria-label="share" onClick={share}>   
+        <Button aria-label="share" onClick={share}>   
           <ShareIcon/>
-        </IconButton>
+        </Button>
 
 :     <IconButton aria-label="share">
       <WhatsappShareButton style={{position:'relative',top:'2px'}}        
@@ -142,6 +142,8 @@ export default function SubItem({sublet,alLikedSublets,deleteAbility}) {
     const deleteAlert=()=>{
       alert("are you sure you want to delete this sublet?")
     }
+
+    //conditional delete button to show only on mySublets page
     
     let deleteButton= (deleteAbility) ? 
         <IconButton aria-label="share" onClick={handleClickOpen}>   

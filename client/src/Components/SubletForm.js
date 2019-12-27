@@ -17,8 +17,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
+    // overflow: 'hidden',
+    // backgroundColor: theme.palette.background.paper,
   },
   gridList: {
     flexWrap: 'nowrap',
@@ -492,28 +492,20 @@ const INITIAL_VALUES = {
       </label>
     </div>
 
-    {/* <div>
-    <Image.Group style={{display:'flex',flex:'1',justifyContent:'center'}} size={"small"} >
-    {(imagesPreview.media).map((url)=>(
-    <img key={`${url}`} src={url} rounded centered/>
-    ))}
-    </Image.Group>
-    </div> */}
-
     <div 
     className={classes.root}
     >
       <GridList 
-      className={classes.gridList} cols={2.5}
-      >
+      className={classes.gridList} cols={5}
+      > 
         {(imagesPreview.media).map(url => (
-          <GridListTile key={`${url}`}>
-            <img src={url} alt={url}/>
-          </GridListTile>))}
+          // <GridListTile key={url} >
+            <img src={url} alt={url} width="300" height="120"/>
+          // </GridListTile>
+          ))}
          </GridList>
          </div>
           
-
     </div>
     
 
