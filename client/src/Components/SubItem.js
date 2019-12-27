@@ -114,22 +114,9 @@ export default function SubItem({sublet,alLikedSublets,deleteAbility}) {
 // conditionl sharing because of web share api available only on mobile 
   const url = `https://sublets12.herokuapp.com/sublet/${sublet._id}`
 
-
- let sharingOption= (navigator.share) ?
-   
-        <Button aria-label="share" onClick={share}>   
-          <ShareIcon/>
-        </Button>
-
-:     <IconButton aria-label="share">
-      <WhatsappShareButton style={{position:'relative',top:'2px'}}        
-        url={url} 
-        title={`${sublet.description}`}>
-        <ShareIcon/>
-      </WhatsappShareButton> 
-      </IconButton>
-       
-   const share = () =>{
+const share = () =>{
+  if(navigator.share){
+    console.log("sharing")
       navigator.share({
       title:'נראה לי שהסאבלט הזה בול בשבילך',
       text:`${sublet.description}`,
@@ -138,7 +125,31 @@ export default function SubItem({sublet,alLikedSublets,deleteAbility}) {
       console.log('Thanks for sharing!');
     }).catch(console.error)
       }
+      else{
+        console.log("unable to share")
+      }
+      
+      }
 
+
+ let sharingOption= (navigator.share) ?
+
+ <IconButton aria-label="share" onClick={share}>   
+          <ShareIcon/>
+        </IconButton>
+
+        :
+   
+   <IconButton aria-label="share">
+      <WhatsappShareButton style={{position:'relative',top:'2px'}}        
+        url={url} 
+        title={`${sublet.description}`}>
+        <ShareIcon/>
+      </WhatsappShareButton> 
+      </IconButton>
+        
+    ;   
+   
     const deleteAlert=()=>{
       alert("are you sure you want to delete this sublet?")
     }
