@@ -16,7 +16,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {WhatsappShareButton, FacebookShareButton} from 'react-share'
 import {FacebookIcon, WhatsappIcon} from 'react-share'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
+import PhoneIcon from '@material-ui/icons/Phone';
 
 
 const useStyles = makeStyles(theme => ({
@@ -248,6 +248,13 @@ const share = () =>{
 
         {(deleteButton)}
 
+          <a href={`tel:+972${sublet.phone}`}> 
+        <IconButton>
+           <PhoneIcon/>
+        </IconButton>
+          </a>
+        
+
         <Dialog style={{direction:'rtl'}}
         open={open}
         onClose={handleClose}
@@ -304,8 +311,6 @@ const share = () =>{
             </header>
           {sublet.details}
           
-            <h4>ליצירת קשר:</h4>
-            {sublet.phone}
           </Typography>
         </CardContent>
 
