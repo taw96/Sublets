@@ -146,7 +146,13 @@ const [facebookUserDetails]=useContext(UserContext)
           </React.Fragment>
         )}
         />
-          <Route exact path= '/sublet/:id' component={SubletPage}
+          <Route exact path= '/sublet/:id' 
+          children={
+          
+          <SubletPage
+          alLikedSublets={alreadyLikedSublets}
+        
+          />}
           />
 
         <Route exact path="/sublets" render={props => (

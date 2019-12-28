@@ -63,9 +63,6 @@ export default function SubItem({sublet,alLikedSublets,deleteAbility}) {
 
   const [facebookUserDetails] = useContext(UserContext)
 
-  const [index,setIndex] = useState(0)
-  
- 
   let initialBoolean = alLikedSublets.includes(sublet._id)
 
   let [likedSublet, SetLikedSublet]=useState(initialBoolean)
