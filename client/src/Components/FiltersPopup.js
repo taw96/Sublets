@@ -5,9 +5,11 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {Divider, FormLabel, FormControlLabel, FormGroup, Grid, Slider, Select, Checkbox,FormControl } from '@material-ui/core';
 import { FaShekelSign } from 'react-icons/fa'
+import { useMediaQuery } from 'react-responsive'
+import DateFnsUtils from '@date-io/date-fns';
+import {MuiPickersUtilsProvider,KeyboardDatePicker} from '@material-ui/pickers';
 
-
-export default function FiltersPopup({handlePriceChange,price,handleDaysChange,days,handleFloorChange,floorAsked,handleOtherParams,otherParams}) {
+export default function FiltersPopup({dates,handleDates,handlePriceChange,price,handleDaysChange,days,handleFloorChange,floorAsked,handleOtherParams,otherParams}) {
   
   
   const marks = [
@@ -76,19 +78,60 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
 
   const handleClose = () => setState({ modalOpen: false })
 
+   //responsive design
+
+  const isDesktopOrLaptop = useMediaQuery({minWidth:600})
+  
+  const isTabletOrMobileDevice = useMediaQuery({maxWidth:600})
+
   // console.log(state)
   return (
     <div>
     <Modal 
     trigger={<Button onClick={handleOpen}><FaSlidersH size={20}/></Button> }
     open={state.modalOpen}
-    size='fullscreen'
+    size='Large'
     >
-    <Modal.Header></Modal.Header> 
-    <Modal.Content>
+    <Modal.Header>מסננים נוספים</Modal.Header> 
+    <Modal.Content scrolling image>
     <Grid container justify="center" spacing={2}>
 
-      <Grid item xs={11}>
+      <Grid item xs={11} >
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <Grid container justify="space-evenly" style={{direction:"rtl"}}>
+        <KeyboardDatePicker style={{width:"35%"}}
+          disableToolbar
+          name="startDate"
+          variant="inline"
+          format="dd/MM/yyyy"
+          margin="normal"
+          id="date-picker-inline"
+          label="כניסה"
+          value={dates.min}
+          onChange={(date)=>handleDates('startDate',date)}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+
+        <KeyboardDatePicker style={{width:"35%"}}
+        
+          disableToolbar
+          name="endDate"
+          variant="inline"
+          format="dd/MM/yyyy"
+          margin="normal"
+          id="date-picker-inline"
+          label="יציאה"
+          value={dates.max}
+          onChange={(date)=>handleDates('endDate',date)}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+      </Grid>
+    </MuiPickersUtilsProvider>
+
       <Typography id="range-slider" gutterBottom>
       מחיר ב-₪ ללילה
       </Typography>
@@ -164,7 +207,7 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
       </FormControl>
 
       </Grid>
-
+        {isTabletOrMobileDevice && 
        <Grid container justify="center" style={{paddingTop:'20px'}} item xs={12} >
        <FormControl container component="fieldset">
       <FormLabel component="legend">:רק דירות עם</FormLabel>
@@ -248,16 +291,99 @@ export default function FiltersPopup({handlePriceChange,price,handleDaysChange,d
       
       
       </Grid>
-    </Grid>
+      } 
+      {isDesktopOrLaptop && 
+      <Grid container justify="center" style={{paddingTop:'20px'}} item xs={12} >
+       <FormControl container component="fieldset">
+      <FormLabel component="legend">:רק דירות עם</FormLabel>
+      <Divider/>
+      <FormGroup aria-label='position' row >
+      
+          <FormControlLabel
+          checked={otherParams.washMachine}
+          value="washMachine"
+          control={<Checkbox color="primary" />}
+          label="מכונת כביסה"
+          labelPlacement="bottom"
+          onChange={handleOtherParams('washMachine')}
+        />
+        <FormControlLabel
+          checked={otherParams.streamer}
+          value="streamer"
+          control={<Checkbox color="primary" />}
+          label="נטפליקס"
+          labelPlacement="bottom"
+          onChange={handleOtherParams('streamer')} />
+
+        <FormControlLabel
+          checked={otherParams.tv}
+          value="tv"
+          control={<Checkbox color="primary"/>}
+          label="טלוויזיה"
+          labelPlacement="bottom"
+          onChange={handleOtherParams('tv')}        
+
+        />
+        <FormControlLabel
+          checked={otherParams.wifi}
+          value="wifi"
+          control={<Checkbox color="primary" />}
+          label="wifi"
+          labelPlacement="bottom"
+         onChange={handleOtherParams('wifi')}        
+         />
+
+        <FormControlLabel
+          checked={otherParams.balcony}
+          value="balcony"
+          control={<Checkbox color="primary" />}
+          label="מרפסת"
+          labelPlacement="bottom"
+          onChange={handleOtherParams('balcony')}
+        />
+        <FormControlLabel
+          checked={otherParams.airCon}
+          value="airCon"
+          control={<Checkbox color="primary" />}
+          label="מזגן"
+          labelPlacement="bottom"
+          onChange={handleOtherParams('airCon')}
+        />
+         <FormControlLabel
+          checked={otherParams.elevator}
+          value="elevator"
+          control={<Checkbox color="primary" />}
+          label="מעלית"
+          labelPlacement="bottom"
+          onChange={handleOtherParams('elevator')}
+        />
+        <FormControlLabel
+          checked={otherParams.parking}
+          value="parking"
+          control={<Checkbox color="primary" />}
+          label="חנייה"
+          labelPlacement="bottom"
+          onChange={handleOtherParams('parking')}
+        />
+        </FormGroup>
+
+     </FormControl>
+      
+      
+      </Grid>}
     
+
     <Modal.Actions>
-          <Button style={{marginTop:'40px'}} color='green' onClick={handleClose} inverted>
+          <Button style={{marginTop:'30px', marginBottom:'10px'}} color='green' onClick={handleClose} inverted>
            שמור<Icon name='checkmark' />  
           </Button>
-    </Modal.Actions>    
+    </Modal.Actions>  
+
+  </Grid>
 
     </Modal.Content>   
-    
+
+
   </Modal >
     </div>
   )

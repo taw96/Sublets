@@ -27,6 +27,8 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
     floorAsked={floorAsked}
     handleOtherParams={handleOtherParams}
     otherParams={otherParams}
+    handleDates={handleDates}
+    dates={dates}
     />
 
   <MuiPickersUtilsProvider utils={DateFnsUtils}>

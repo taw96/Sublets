@@ -205,7 +205,7 @@ const share = () =>{
              >
               {(sublet.mediaUrl).map((item)=>(
               
-              <img src={item} height='170' width="250"/>
+              <img src={item} height='170' width="250" loading='lazy'/>
 
               ))}
           

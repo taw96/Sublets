@@ -56,8 +56,6 @@ export default function SubletPage({alLikedSublets}) {
 
   const no = <span style={{color:'red', fontSize:'20px'}}>✖</span>
  
-  const [index,setIndex] = useState(0)
-
   const [sublet, setSublet] = useState({})
 
   //responsive design
@@ -82,7 +80,7 @@ export default function SubletPage({alLikedSublets}) {
     const img = {...sublet.mediaUrl}
 
     // conditionl sharing because of web share api available only on mobile 
-  const url = `https://sublets12.herokuapp.com/sublet/${sublet._id}`
+  const url = `https://sublets12.herokuapp.com/sublet/${id.id}`
 
 const share = () =>{
   if(navigator.share){
@@ -104,9 +102,9 @@ const share = () =>{
 
  let sharingOption= (navigator.share) ?
 
- <IconButton aria-label="share" onClick={share}>   
-          <ShareIcon/>
-        </IconButton>
+   <IconButton aria-label="share" onClick={share}>   
+      <ShareIcon/>
+   </IconButton>
 
         :
    
@@ -116,11 +114,13 @@ const share = () =>{
         title={`${sublet.description}`}>
         <ShareIcon/>
       </WhatsappShareButton> 
-      </IconButton>
+   </IconButton>
+
+      ;
 
     //liking sublets system
 
-     const [facebookUserDetails] = useContext(UserContext)
+  const [facebookUserDetails] = useContext(UserContext)
 
   let initialBoolean = alLikedSublets.includes(id.id)
 
@@ -144,10 +144,6 @@ const share = () =>{
         axios.post(`/users/updateUser/${facebookUserDetails.id}`,{alLikedSublets})
     }
   }
-
-
-      
-
 
   return (
     <>
@@ -189,7 +185,7 @@ const share = () =>{
         {sublet.address}
         </div>
         <div>
-        {sublet.days} ימים
+        {sublet.days} לילות
         
         </div>
         <div>
@@ -326,11 +322,17 @@ const share = () =>{
         {sublet.address}
         </div>
         <div>
+        {sublet.days} לילות
+        
+        </div>
+        <div>
         תאריכים: <span>{formatDate(sublet.dateOut)} -   {formatDate(sublet.dateIn)}</span>
         </div>
         <div>  
-          מחיר ללילה:
-         {sublet.costPerNight}  ₪
+          מחיר ללילה: {sublet.costPerNight}  ₪
+        </div>
+        <div>  
+          מחיר לתקופה: {sublet.cost}  ₪
         </div>
         </h3>
 
@@ -386,28 +388,28 @@ const share = () =>{
         <Divider/>
 
         <br/>
-        <div style={{display:'flex',flex:'1',justifyContent:'space-evenly'}}>
-          <div>  <a href={`tel:+972${sublet.phone}`}> 
-        <IconButton>
-           <PhoneIcon/>
-        </IconButton>
-          </a>
-        </div>
+  <div style={{display:'flex',flex:'1',justifyContent:'space-evenly'}}>
+    <div><a href={`tel:+972${sublet.phone}`}> 
+      <IconButton>
+        <PhoneIcon/>
+      </IconButton>
+         </a>
+    </div>
 
-        <div>
+    <div>
           {(sharingOption)}
-        </div>
+    </div>
       
-        <div>
-        <IconButton
+    <div>
+      <IconButton
         onClick={toggleLike} 
         style={{color:likedSublet?"red":"#313131"}}
         >
         <FavoriteIcon  />
-        </IconButton>
-        </div>
+      </IconButton>
+    </div>
 
-        </div>
+  </div>
 
       </CardContent>
       </Grid>
