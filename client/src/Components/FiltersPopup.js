@@ -99,7 +99,7 @@ export default function FiltersPopup({dates,handleDates,handlePriceChange,price,
       <Grid item xs={11} >
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justify="space-evenly" style={{direction:"rtl"}}>
-        <KeyboardDatePicker style={{width:"35%"}}
+        <KeyboardDatePicker style={{width:"45%"}}
           disableToolbar
           name="startDate"
           variant="inline"
@@ -114,7 +114,7 @@ export default function FiltersPopup({dates,handleDates,handlePriceChange,price,
           }}
         />
 
-        <KeyboardDatePicker style={{width:"35%"}}
+        <KeyboardDatePicker style={{width:"45%"}}
         
           disableToolbar
           name="endDate"

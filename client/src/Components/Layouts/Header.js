@@ -134,6 +134,8 @@ export default function Header(props) {
     }
     async function handleFacebookResponse(data){
 
+      // console.log(data)
+
         setFacebookUserDetails({
         isLoggedIn:true,
         name:data.name,

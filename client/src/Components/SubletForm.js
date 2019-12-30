@@ -33,6 +33,31 @@ export default function SubletForm() {
 
     const classes = useStyles();
 
+     //decalaring initial state of most of the values
+
+const INITIAL_VALUES = {
+      description:"",
+      floorLevel: "" ,
+      rooms:"",
+      availableBedrooms:"",
+      roomatesLeft:"",
+      cost:0,
+      details:"",
+      phone:"",
+      parking:false,
+      elevator: false ,
+      airCon:false ,
+      balcony:false,
+      washMachine:false,
+      wifi:false,
+      tv:false,
+      streamer:false,
+
+    }
+
+  const [values, setValues] = useReducer((state, newState) => ({...state,...newState}),INITIAL_VALUES
+    );
+
 
   //state declaration of sublet upload and success
 
@@ -47,21 +72,37 @@ export default function SubletForm() {
 
   const [days, setDays] = useState(null)
 
-  const [costPerNight, setCostPerNight]= useState(null)
+  const [cost, setCost] = useState(0)
 
+  const [costPerNight, setCostPerNight]= useState(0)
 
+  const handleCost=(e)=>{
+    setCost(e.target.value)
+  setCostPerNight(Math.ceil(e.target.value/days))
+
+  }
 
   const handleDateChangeIn = selectedDateIn => {
   setSelectedDateIn(selectedDateIn);
+  setDays(Math.ceil((selectedDateOut-selectedDateIn)/86400000))
+  setCostPerNight(Math.ceil(cost/Math.ceil((selectedDateOut-selectedDateIn)/86400000)))
+
   };
 
   const handleDateChangeOut = (selectedDateOut) => {
   setSelectedDateOut(selectedDateOut);
 
   setDays(Math.ceil((selectedDateOut-selectedDateIn)/86400000))
-  
-  setCostPerNight(Math.ceil((values.cost)/( (selectedDateOut-selectedDateIn)/86400000)))
+  setCostPerNight(Math.ceil(cost/Math.ceil((selectedDateOut-selectedDateIn)/86400000)))
+
   };
+
+  // console.log(cost)
+  // console.log(days)
+
+  // console.log(costPerNight)
+
+
 
   //state declaration of address and coordinates
  
@@ -80,30 +121,7 @@ export default function SubletForm() {
       setCoordinate(latlng)
 }
 
-  //decalaring initial state of most of the values
-
-const INITIAL_VALUES = {
-      description:"",
-      floorLevel: "" ,
-      rooms:"",
-      availableBedrooms:"",
-      roomatesLeft:"",
-      cost:null,
-      details:"",
-      phone:"",
-      parking:false,
-      elevator: false ,
-      airCon:false ,
-      balcony:false,
-      washMachine:false,
-      wifi:false,
-      tv:false,
-      streamer:false,
-
-    }
-
-  const [values, setValues] = useReducer((state, newState) => ({...state,...newState}),INITIAL_VALUES
-    );
+ 
 
     //declare currnet user STATE
 
@@ -117,13 +135,13 @@ const INITIAL_VALUES = {
     //handling most of the inputs 
 
     const handleChange = (e) => {
-
       const target=e.target;      
       const name = target.name;
       const newValue=
       target.type === "checkbox" ? target.checked : target.value;
 
       setValues({[name]:newValue})
+
       // console.log(values)
     }
  
@@ -133,12 +151,14 @@ const INITIAL_VALUES = {
     async function handleSubmit(){
     setLoading(true)
     const mediaUrl = await handleImageUpload()
-    const response = await axios.post('/sublets/add',{userName,userID,profilePicture,address: address,...values,selectedDateIn,selectedDateOut,...coordinate,days,costPerNight,mediaUrl})
+    const response = await axios.post('/sublets/add',{userName,userID,profilePicture,address: address,...values,selectedDateIn,selectedDateOut,...coordinate,days,cost,costPerNight,mediaUrl})
     // console.log({response})
     setLoading(false)
     setValues(INITIAL_VALUES)
     setSuccess(true)
   }
+
+  
 
   const isDesktopOrLaptop = useMediaQuery({minWidth:1224})
   
@@ -345,8 +365,8 @@ const INITIAL_VALUES = {
     className="input" 
     name="cost" 
     placeholder="מחיר לתקופה"  
-    value={values.cost} 
-    onChange= {handleChange}
+    value={cost} 
+    onChange= {handleCost}
     />
 
     <br/> 
