@@ -1,82 +1,209 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
+import {UserContext} from '../UserContext';
 import axios from 'axios';
 import Header from '../Components/Layouts/Header'
-import { Card, Grid,CardContent, Divider } from '@material-ui/core';
-import { Gallery, GalleryImage } from 'react-gesture-gallery'
+import { Card,CardHeader,CardMedia, Grid,CardContent, Divider, IconButton } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
 import formatDate from '../utills/formatDate'
 import { IoMdCheckmarkCircleOutline, IoMdCloseCircleOutline } from 'react-icons/io'
 import { FaSmileWink } from 'react-icons/fa'
+import { useMediaQuery } from 'react-responsive'
+import { makeStyles } from '@material-ui/core/styles';
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import {WhatsappShareButton, FacebookShareButton} from 'react-share'
+import {FacebookIcon, WhatsappIcon} from 'react-share'
+import PhoneIcon from '@material-ui/icons/Phone';
+import ShareIcon from '@material-ui/icons/Share';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import { useParams } from "react-router-dom";
 
 
-export default function SubletPage({match}) {
+const useStyles = makeStyles(theme => ({
 
-  const {params:{id},} =match;
+  card: {
+    width:'200px',
+    maxHeight:'90vh',
+    borderRadius: '25px',
+    backgroundColor:'#dcdcdc'
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  avatar: {
+    borderRadius: '50px',
+    height:'50px',
+    width:'50px'
+  }
+}))
 
-  const [index,setIndex] = useState(0)
+export default function SubletPage({alLikedSublets}) {
+  
+  const classes = useStyles();
 
+  const yes = <span style={{color:'green', fontSize:'25px'}}>✔</span> 
+
+  const no = <span style={{color:'red', fontSize:'20px'}}>✖</span>
+ 
   const [sublet, setSublet] = useState({})
 
+  //responsive design
+
+  const isDesktopOrLaptop = useMediaQuery({minWidth:1224})
+  
+  const isTabletOrMobileDevice = useMediaQuery({maxWidth:1224})
+  
+  //fetching specific Sublet
+
+  let id = useParams()
+  
   useEffect(()=> {
     const fetchData = async () =>{
-        const result = await axios.get(`/sublets/${id}`);
+        const result = await axios.get(`/sublets/${id.id}`);
 
      setSublet(result.data);
     }
     fetchData();
-    },[id]);
+    },[]);
 
+    const img = {...sublet.mediaUrl}
 
+    // conditionl sharing because of web share api available only on mobile 
+  const url = `https://sublets12.herokuapp.com/sublet/${id.id}`
 
-    let img = {...sublet.mediaUrl}
-
-    const images = Object.keys(img).map((key)=>(
+const share = () =>{
+  if(navigator.share){
+    console.log("sharing")
+      navigator.share({
+      title:'נראה לי שהסאבלט הזה בול בשבילך',
+      text:`${sublet.description}`,
+      url: url
+    }).then(()=>{
+      console.log('Thanks for sharing!');
+    }).catch(console.error)
+      }
+      else{
+        console.log("unable to share")
+      }
       
-      <div key={img[key]} 
-      >
+      }
 
-      <GalleryImage 
-      objectFit="contain" 
-      src={img[key]}
-      />
- 
-     </div>
-    ))
+
+ let sharingOption= (navigator.share) ?
+
+   <IconButton aria-label="share" onClick={share}>   
+      <ShareIcon/>
+   </IconButton>
+
+        :
+   
+   <IconButton aria-label="share">
+      <WhatsappShareButton style={{position:'relative',top:'2px'}}        
+        url={url} 
+        title={`${sublet.description}`}>
+        <ShareIcon/>
+      </WhatsappShareButton> 
+   </IconButton>
+
+      ;
+
+    //liking sublets system
+
+  const [facebookUserDetails] = useContext(UserContext)
+
+  let initialBoolean = alLikedSublets.includes(id.id)
+
+  let [likedSublet, SetLikedSublet]=useState(initialBoolean)
+      
+    const toggleLike =()=>{
+
+    SetLikedSublet(state=>!state)
+    if(!likedSublet){
+    alLikedSublets.push(sublet._id)
+    axios.post(`/users/updateUser/${facebookUserDetails.id}`,{alLikedSublets})
+
+    }
+    
+    else{
+        let deletePos = (alLikedSublets
+        .indexOf(sublet._id))  
+
+        alLikedSublets.splice(deletePos,1)
+
+        axios.post(`/users/updateUser/${facebookUserDetails.id}`,{alLikedSublets})
+    }
+  }
 
   return (
     <>
-    <Header/>
-    <Grid container >
-  
-    <Grid >
-    <Card style={{'maxWidth':'90%',marginLeft:'30px', marginBottom:"30px"}}>
-    <Gallery
-          
-          index={index}
-          onRequestChange = {i=>{
-          setIndex(i)
-          }} 
-          >
+    {isTabletOrMobileDevice && <> 
 
-   {images}
+    <Card style={{borderRadius:"30px",'maxWidth':'90%',marginLeft:'30px', marginBottom:"30px",marginTop:'20px'}}>
 
-  </Gallery>
-   </Card>
-   </Grid>
-   <Grid >
-     <Card dir='rtl' style={{marginRight:'20px',marginBottom:'20px'}}>
-       
-      <h1>{sublet.description}</h1>
-      
-      <CardContent>
-        <div>  
+     <Carousel 
+     showThumbs={false}
+     showStatus={false}
+     infiniteLoop={true}
+     >
+       {Object.keys(img).map((key)=>(
+              
+        <img src={img[key]} height='300' width="250"/>
+
+       ))}
+    
+    </Carousel>
+             
+      <CardContent style={{direction:'rtl',fontSize:"17px"}}>
+         <div style={{
+            display:'flex',
+            flex:'1',
+            justifyContent:'space-between'
+          }}>
+        <h1>{sublet.description}</h1>
+          <div>
+          <Avatar aria-label="recipe" className={classes.avatar}
+            src={sublet.profilePicture}
+          />
+          <span style={{fontSize:'13px'}}>{   sublet.userName}</span>
+          </div>
+        </div>
+         
+
+        <h3>  
+        <div>
         {sublet.address}
         </div>
+        <div>
+        {sublet.days} לילות
+        
+        </div>
+        <div>
         תאריכים: <span>{formatDate(sublet.dateOut)} -   {formatDate(sublet.dateIn)}</span>
-   
-        <div> 
-          פירוט: 
+        </div>
+        <div>  
+          מחיר ללילה: {sublet.costPerNight}  ₪
+        </div>
+        <div>  
+          מחיר לתקופה: {sublet.cost}  ₪
+        </div>
+        </h3>
 
-          לפרומי בלוף קינץ תתיח לרעח. לת צשחמי צש בליא, מנסוטו צמלח לביקו ננבי, צמוקו בלוקריה שיצמה ברורק. סחטיר בלובק. תצטנפל בלינדו למרקל אס לכימפו, דול, צוט ומעיוט - לפתיעם ברשג - ולתיעם גדדיש. קוויז דומור ליאמום בלינך רוגצה. לפמעט מוסן מנת. 
+        <br/>
+        <div>
+          <h4>פירוט:</h4>
+
+          {sublet.details}
         </div>
         <Divider/>
         
@@ -86,32 +213,36 @@ export default function SubletPage({match}) {
           
         <h4>קצת פרטים יבשים:</h4>
         <div>
-        מעלית: 
-        {sublet.elevator? <IoMdCheckmarkCircleOutline /> : <IoMdCloseCircleOutline   />}
+        {sublet.parking? yes : no}
+        חנייה
         </div>
         <div>
-        מזגן:
-        {sublet.airCon? <IoMdCheckmarkCircleOutline /> : <IoMdCloseCircleOutline />}
+        {sublet.elevator? yes : no}
+        מעלית
         </div>
         <div>
-        טלוויזיה:
-        {sublet.tv? <IoMdCheckmarkCircleOutline /> : <IoMdCloseCircleOutline />}
+        {sublet.airCon? yes : no}
+        מזגן
         </div>
         <div>
-        מרפסת:
-        {sublet.balcony? <IoMdCheckmarkCircleOutline /> : <IoMdCloseCircleOutline />}
+        {sublet.tv? yes : no}
+        טלוויזיה
         </div>
         <div>
-        מכונת כביסה:
-        {sublet.washMachine? <IoMdCheckmarkCircleOutline/> : <IoMdCloseCircleOutline/>}
+        {sublet.balcony? yes : no}
+        מרפסת
         </div>
         <div>
-        wifi:
-        {sublet.wifi? <IoMdCheckmarkCircleOutline /> : <IoMdCloseCircleOutline/>}
+        {sublet.washMachine? yes : no}
+        מכונת כביסה
         </div>
         <div>
-        נטפליקס:
-        {sublet.streamer? <div> <FaSmileWink/> בדוק שיש </div> : <IoMdCloseCircleOutline/>}
+        {sublet.wifi? yes : no}
+        wifi
+        </div>
+        <div>
+        {sublet.streamer? yes : no}
+        נטפליקס
         </div>
         
         </div>
@@ -119,20 +250,175 @@ export default function SubletPage({match}) {
         <Divider/>
 
         <br/>
+       <div style={{display:'flex',flex:'1',justifyContent:'space-evenly'}}>
+          <div>  <a href={`tel:+972${sublet.phone}`}> 
+        <IconButton>
+           <PhoneIcon/>
+        </IconButton>
+          </a>
+        </div>
 
-        <div>  
-          מחיר לתקופה:
-         {sublet.cost}  ש"ח
+        <div>
+          {(sharingOption)}
         </div>
       
-        <div>  
-        ליצירת קשר:
-        {sublet.phone}
+        <div>
+        <IconButton
+        onClick={toggleLike} 
+        style={{color:likedSublet?"red":"#313131"}}
+        >
+        <FavoriteIcon  />
+        </IconButton>
+        </div>
+
         </div>
       </CardContent>
+     
      </Card>
-    </Grid>
-   </Grid>
+     </>}
+
+    {isDesktopOrLaptop &&  
+
+    <Card style={{borderRadius:"30px",'maxWidth':'90%',marginLeft:'30px', marginBottom:"30px",marginTop:'20px'}}>
+    <Grid container spacing={0}>
+    <Grid item xs={6}>
+    <CardMedia>
+    <Carousel 
+     showThumbs={false}
+     showStatus={false}
+     infiniteLoop={false}   
+      >
+       {Object.keys(img).map((key)=>(
+              
+        <img src={img[key]} height='500' width="1000"/>
+
+       ))}
+    
+    </Carousel>
+             
+  </CardMedia>
+      
+      </Grid>
+    <Grid item xs={6}>
+             
+      <CardContent style={{direction:'rtl', fontSize:"17px"}}>
+          <div style={{
+            display:'flex',
+            flex:'1',
+            justifyContent:'space-between'
+          }}>
+        <h1>{sublet.description}</h1>
+          <div>
+          <Avatar aria-label="recipe" className={classes.avatar}
+            src={sublet.profilePicture}
+          />
+          <span style={{fontSize:'13px'}}>{sublet.userName}</span>
+          </div>
+        </div>
+
+
+        <h3>  
+        <div>
+        {sublet.address}
+        </div>
+        <div>
+        {sublet.days} לילות
+        
+        </div>
+        <div>
+        תאריכים: <span>{formatDate(sublet.dateOut)} -   {formatDate(sublet.dateIn)}</span>
+        </div>
+        <div>  
+          מחיר ללילה: {sublet.costPerNight}  ₪
+        </div>
+        <div>  
+          מחיר לתקופה: {sublet.cost}  ₪
+        </div>
+        </h3>
+
+        <br/>
+        <div> 
+         <h4>פירוט:</h4>
+
+          {sublet.details}
+
+        </div>
+        <Divider/>
+        
+        <br/>
+        
+        <div>
+          
+        <h4>קצת פרטים יבשים:</h4>
+        <div>
+        {sublet.parking? yes : no}
+        חנייה
+        </div>
+        <div>
+        {sublet.elevator? yes : no}
+        מעלית
+        </div>
+        <div>
+        {sublet.airCon? yes : no}
+        מזגן
+        </div>
+        <div>
+        {sublet.tv? yes : no}
+        טלוויזיה
+        </div>
+        <div>
+        {sublet.balcony? yes : no}
+        מרפסת
+        </div>
+        <div>
+        {sublet.washMachine? yes : no}
+        מכונת כביסה
+        </div>
+        <div>
+        {sublet.wifi? yes : no}
+        wifi
+        </div>
+        <div>
+        {sublet.streamer? yes : no}
+        נטפליקס
+        </div>
+        
+        </div>
+
+        <Divider/>
+
+        <br/>
+  <div style={{display:'flex',flex:'1',justifyContent:'space-evenly'}}>
+    <div><a href={`tel:+972${sublet.phone}`}> 
+      <IconButton>
+        <PhoneIcon/>
+      </IconButton>
+         </a>
+    </div>
+
+    <div>
+          {(sharingOption)}
+    </div>
+      
+    <div>
+      <IconButton
+        onClick={toggleLike} 
+        style={{color:likedSublet?"red":"#313131"}}
+        >
+        <FavoriteIcon  />
+      </IconButton>
+    </div>
+
+  </div>
+
+      </CardContent>
+      </Grid>
+      
+    
+      </Grid>
+     </Card>
+
+     }
 
   </>
   )

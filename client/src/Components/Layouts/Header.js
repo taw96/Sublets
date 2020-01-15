@@ -5,7 +5,7 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
+import {List, ListItemIcon} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -13,12 +13,19 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import {Link} from 'react-router-dom';
-import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login'
 import axios from 'axios';
 import {UserContext} from '../../UserContext';
+import MapOutlinedIcon from '@material-ui/icons/MapOutlined';
+import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
+import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined';
+import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
+import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
+import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
-
-const drawerWidth = 240;
+const drawerWidth = 230;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,8 +52,10 @@ const useStyles = makeStyles(theme => ({
     display: 'none',
   },
   drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
   },
   drawerPaper: {
     width: drawerWidth,
@@ -74,38 +83,60 @@ const useStyles = makeStyles(theme => ({
     }),
     marginLeft: 0,
   },
+  facebook:{
+    border: 'none',
+          backgroundColor: 'inherit',
+          color: 'white',
+          padding: '15px',
+          textAlign: 'center',
+          display: 'inline-block',
+          fontSize: '16px'
+  }
 }));
 
-export default function Header() {
+export default function Header(props) {
+  const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
+   const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
   };
 
 
   const [facebookUserDetails,setFacebookUserDetails] = useContext(UserContext)
 
-    async function handleLogout(){
-      setFacebookUserDetails({
+
+    async function handleError(data){
+     
+       setFacebookUserDetails({
         isLoggedIn:false,
         name:"",
         id:"",
         fbProfilePic:"",
         likedSublets:[]
-        
+
+      })
+
+    }
+   
+   
+   function handleLogout() {
+        setFacebookUserDetails({
+        isLoggedIn:false,
+        name:"",
+        id:"",
+        fbProfilePic:"",
+        likedSublets:[]
+
       })
     }
-
     async function handleFacebookResponse(data){
-     
-       setFacebookUserDetails({
+
+      console.log(data)
+
+        setFacebookUserDetails({
         isLoggedIn:true,
         name:data.name,
         id:data.id,
@@ -114,24 +145,27 @@ export default function Header() {
         likedSublets:[]
 
       })
+            // console.log("logging in")
+
+
     }
+    // console.log(facebookUserDetails)
 
     if(facebookUserDetails.name===""){
-      console.log("just a refresh!")
+      // console.log("just a refresh!")
+    
     } else {
 
       axios.post('/users/addUser',{...facebookUserDetails})
     }
     
-
-
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+          [classes.appBarShift]: mobileOpen,
         })}
       >
 
@@ -140,9 +174,9 @@ export default function Header() {
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={handleDrawerToggle}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
+            className={clsx(classes.menuButton, mobileOpen && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
@@ -155,19 +189,23 @@ export default function Header() {
           <div style={{
             display:"flex",
             flex: '1',
-            justifyContent:"flex-end"
+            justifyContent:"flex-end",
+            justify:"space-between"
+
             }}>
             
-          <img src={facebookUserDetails.fbProfilePic}></img>
+          <img style={{borderRadius:'15px'}} src={facebookUserDetails.fbProfilePic} alt=""></img>
           
-          <FacebookLogin 
-          textButton= {facebookUserDetails.isLoggedIn ? "Logout" : "Login"}
-          appId='411589506442437'
-          autoLoad={false}
-          isMobile={false}
-          fields="name,email,picture"
-          callback = {(facebookUserDetails.isLoggedIn) ? handleLogout : handleFacebookResponse}
-          // onFailure = {handleError}
+          <FacebookLogin
+            appId="411589506442437"
+            isMobile={false}
+            redirectUri={"https://sublets12.herokuapp.com"}
+            fields="name,email,picture"
+            scope="user_link"
+            callback = {facebookUserDetails.isLoggedIn? handleLogout : handleFacebookResponse}
+            onFailure={handleError}
+            textButton={facebookUserDetails.isLoggedIn ? "Logout" : "Login"}
+            cssClass={classes.facebook}
           />
 
           </div>
@@ -175,57 +213,70 @@ export default function Header() {
         </Toolbar>
 
       </AppBar>
+    
       <Drawer
+        container={container}
         className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={open}
+        variant="temporery"
+        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
         classes={{
         paper: classes.drawerPaper,
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          <IconButton onClick={handleDrawerToggle}>
+            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
         
         <List>
-            <ListItem >
-            <Link to="/about"><h3>About</h3></Link>
+
+            <ListItem onClick={handleDrawerToggle} >
+            <ListItemIcon><MapOutlinedIcon/></ListItemIcon>
+            <Link to="/"><h3>Map</h3></Link>
             </ListItem>
 
-            <ListItem >
-              <Link to="/"><h3>Home</h3></Link>
+            <ListItem onClick={handleDrawerToggle}>
+            <ListItemIcon><AddBoxOutlinedIcon/></ListItemIcon>
+            <Link to="/addsublet"><h3>Add Sublet</h3></Link>
             </ListItem>
 
-            <ListItem >
-              <Link to="/map"><h3>Map</h3></Link>
-            </ListItem>
-
-            <ListItem>
-              <Link to="/addsublet"><h3>Add Sublet</h3></Link>
-            </ListItem>
-
-            <ListItem>
+            <ListItem onClick={handleDrawerToggle}>
+            <ListItemIcon><HomeWorkOutlinedIcon/></ListItemIcon>
               <Link to="/sublets"><h3>Sublets</h3></Link>
             </ListItem>
 
-            <ListItem>
+            <ListItem onClick={handleDrawerToggle}>
+            <ListItemIcon><FavoriteBorderOutlinedIcon/></ListItemIcon>
               <Link to="/savedSublets"><h3>Saved Sublets</h3></Link>
             </ListItem>
 
+            <ListItem onClick={handleDrawerToggle}>
+            <ListItemIcon><PersonOutlineOutlinedIcon/></ListItemIcon>
+            <Link to="/MySublets"><h3>My Sublets</h3></Link>
+            </ListItem>
+
+            <ListItem onClick={handleDrawerToggle}>
+            <ListItemIcon><CreateOutlinedIcon/></ListItemIcon>
+            <Link to="/about"><h3>About</h3></Link>
+            </ListItem>
+
         </List>
+
+        
       
       </Drawer>
       <main
         className={clsx(classes.content, {
-          [classes.contentShift]: open,
+          [classes.contentShift]: mobileOpen,
         })}
       >
-        <div className={classes.drawerHeader} />
+        {/* <div className={classes.drawerHeader} /> */}
     
       </main>
+
     </div>
   );
 }

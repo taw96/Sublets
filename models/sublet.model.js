@@ -59,6 +59,9 @@ const SubletSchema = new Schema({
 
   phone:{
       type:String},
+
+  parking:{
+    type:Boolean},
   
   elevator: {
     type:Boolean},

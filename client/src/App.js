@@ -6,15 +6,16 @@ import MapPage from './pages/Map';
 import Header from './Components/Layouts/Header'
 import About from '../src/Components/About';
 import axios from 'axios';
-import HomePage from './pages/HomePage';
+import MySublets from './pages/MySublets';
 import SubletsPage from './pages/SubletsPage';
 import SavedSublets from './pages/SavedSublets';
 import {UserContext} from './UserContext'
 
+
 function App(){ 
 
 const [alreadyLikedSublets,SetAlreadyLikedSublets]= useState([])
-const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
+const [facebookUserDetails]=useContext(UserContext)
  
 
     useEffect(()=> {
@@ -29,39 +30,44 @@ const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
       } else{
         SetAlreadyLikedSublets([])
       }
- 
-
     
     },[facebookUserDetails]);  
 
-    console.log(alreadyLikedSublets)
+    // console.log(alreadyLikedSublets)
     
   
   // State of sublets, price, days and dates
   
   const [sublets, setSublets] = useState([]);
 
-
   const [price,setPrice] = useState({min:0, max:1001});
 
-  const [days,setDays] = useState({min:0, max:80});
+  const [days,setDays] = useState({min:0, max:90});
  
   const date = new Date();
 
   const [dates, setDates]= useState(
     {
       min:new Date(),
-      max: date.setMonth(date.getMonth()+1)
+      max: date.setMonth(date.getMonth()+2)
     
     })
 
   
   const handleDates=(dateName,dateValue)=> {  
-    let {min,max} =dates;
-    if(dateName==='startDate'){
-      min=dateValue.toISOString();
-    } else {
-      max =dateValue.toISOString();
+    let {min,max} = dates;
+    if(dateName ==='startDate'){
+      min = dateValue.toISOString();
+      // console.log(min)
+    }
+    else if(dateName ==='endDate'){
+      max = dateValue.toISOString();
+
+            // console.log(max)
+
+    } else{
+      max = max.toISOString();
+      min = min.toISOString()
     }
     setDates({
       min:(min),
@@ -79,36 +85,57 @@ const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
   }
 
 
+    const [floorAsked,setFloorAsked]=useState(100)
+
+    const handleFloorChange = event =>{
+      setFloorAsked(Number(event.target.value));
+    };
+  
+  const [otherParams,setOtherParams] = useState({
+      parking:false,
+      elevator:false,
+      airCon:false,
+      balcony:false,
+      washMachine:false,
+      wifi:false,
+      tv:false,
+      streamer:false
+    })
+
+    const handleOtherParams= name => event =>{
+      setOtherParams({
+        ...otherParams,[name]:(event.target.checked)
+      })
+    }
+
+    // console.log(otherParams)
   
   useEffect(()=> {
    
     const fetchData = async () =>{
-      const result = await axios.get(`/sublets/cost?min=${price.min}&max=${price.max}&daysMin=${days.min}&daysMax=${days.max}&dateMin=${dates.min}&dateMax=${dates.max}`)
+      const result = await axios.get(`/sublets/cost?min=${price.min}&max=${price.max}
+      &daysMin=${days.min}&daysMax=${days.max}&dateMin=${dates.min}&dateMax=${dates.max}&floorParam=${floorAsked}&parking=${otherParams.parking}&elevator=${otherParams.elevator}&airCon=${otherParams.airCon}&balcony=${otherParams.balcony}&washMachine=${otherParams.washMachine}&wifi=${otherParams.wifi}&tv=${otherParams.tv}&streamer=${otherParams.streamer}
+      
+      `)
      setSublets(result.data);
     }
     fetchData();
-    },[days,price,dates]);
+    },[days,price,dates,floorAsked,otherParams]);
 
-     
+
   return (
     <Router>
       <Header/>
-      <div>
-      <Route exact path="/" render={ props =>(
-        <Fragment>
-          
-          <HomePage/>
-        </Fragment>
-        )}/>
+
+      <div style={{paddingTop:'10px'}}>
         <Route exact path="/about" render={ props =>(
-        <Fragment>
+          <React.Fragment>
           
           <About/>
-        </Fragment>
+          </React.Fragment>
         )}/>
-        <Route exact path="/map" render ={props => (
+        <Route exact path="/" render ={props => (
           <React.Fragment>
-            
             <MapPage sublets= {sublets} />
           </React.Fragment>
         )}/>
@@ -119,8 +146,13 @@ const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
           </React.Fragment>
         )}
         />
-
-          <Route exact path= '/sublet/:id' component={SubletPage}
+          <Route exact path= '/sublet/:id' 
+          children={
+          
+          <SubletPage
+          alLikedSublets={alreadyLikedSublets}
+        
+          />}
           />
 
         <Route exact path="/sublets" render={props => (
@@ -135,8 +167,11 @@ const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
         days={days}
         handleDates={handleDates}
         dates={dates}
+        handleFloorChange={handleFloorChange}
+        floorAsked={floorAsked}
         alreadyLikedSublets={alreadyLikedSublets}
-
+        otherParams={otherParams}
+        handleOtherParams={handleOtherParams}
         />
       
           </React.Fragment>
@@ -151,7 +186,16 @@ const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
           </React.Fragment>
         )}
         />
+          <Route exact path="/mySublets" render={props => (
+          <React.Fragment>
+            <MySublets
+            alreadyLikedSublets={alreadyLikedSublets}
+            />
+          </React.Fragment>
+        )}
+        />
         </div>
+
       </Router>
   )
 }

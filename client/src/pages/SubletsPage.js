@@ -1,61 +1,39 @@
-import React,{ useState,useEffect,useContext } from 'react'
+import React from 'react'
 import { Grid, Slider } from '@material-ui/core';
 import SubItem from '../Components/SubItem'
-import { FaShekelSign } from 'react-icons/fa'
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import FiltersPopup from '../Components/FiltersPopup';
-import axios from 'axios';
-import { UserContext } from '../UserContext';
+// import { UserContext } from '../UserContext';
 
 
-export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChange,price,handleDaysChange, days, handleDates,dates}) {
-  const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
-
-
-  const marks = [
-    {
-      value: 0,
-      label: '0',
-    },
-    {
-      value: 100,
-      label: '100',
-    },
-    {
-      value: 200,
-      label: '200',
-    },
-    {
-      value: 300,
-      label: '300',
-    },
-    {
-      value: 400,
-      label: '400',
-    },
-    {
-      value: 500,
-      label:<FaShekelSign><h1>750</h1></FaShekelSign>,
-    }
+export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChange,price,handleDaysChange, days, handleDates,dates,handleFloorChange,floorAsked,handleOtherParams,otherParams}) {
   
-  ];
+  
+  // const [facebookUserDetails,setFacebookUserDetails]=useContext(UserContext)
+
 
   return (
-    <>
-    <div>
+    <div style={{paddingTop:'10px'}}>
     <FiltersPopup
+    price={price}
+    handlePriceChange={handlePriceChange}
     handleDaysChange={handleDaysChange}
     days={days}
+    handleFloorChange={handleFloorChange}
+    floorAsked={floorAsked}
+    handleOtherParams={handleOtherParams}
+    otherParams={otherParams}
+    handleDates={handleDates}
+    dates={dates}
     />
-    </div>
 
   <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid container justify="space-around" style={{direction:"rtl"}}>
-        <KeyboardDatePicker style={{width:"30%"}}
+      <Grid container justify="space-evenly" style={{direction:"rtl"}}>
+        <KeyboardDatePicker style={{width:"35%"}}
           disableToolbar
           name="startDate"
           variant="inline"
@@ -70,7 +48,7 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
           }}
         />
 
-        <KeyboardDatePicker style={{width:"30%"}}
+        <KeyboardDatePicker style={{width:"35%"}}
         
           disableToolbar
           name="endDate"
@@ -88,35 +66,18 @@ export default function SubletsPage({sublets,alreadyLikedSublets,handlePriceChan
       </Grid>
     </MuiPickersUtilsProvider>
 
-    <Grid container>
-
+    <Grid container justify={"space-evenly"}  >
         {sublets.map((sub)=>(
         <SubItem 
         key={sub._id}
         sublet = {sub}
         alLikedSublets={alreadyLikedSublets}
-        
          />
         ))}
+      
 
-       
-        <Grid item >
-        <Slider style={{ 
-        position:"fixed", bottom:0, 
-        right:10, top:120, height:'70vh'}}
-        orientation="vertical"
-        min={0}
-        max={500}
-        defaultValue={[price.min,price.max]}
-        aria-labelledby="vertical-slider"
-        onChangeCommitted={(event,value)=>handlePriceChange(event,value)}
-        marks={marks}
-        valueLabelDisplay="on"
-        track="normal"
-        />
-        </Grid>
         </Grid>
        
-    </>
+    </div>
   )
 }

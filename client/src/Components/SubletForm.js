@@ -1,14 +1,63 @@
 import PlaceAutoComplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import React, { useReducer, useState, useContext } from 'react'
 import 'date-fns';
+import { makeStyles } from '@material-ui/core/styles';
 import DateFnsUtils from '@date-io/date-fns';
 import Grid from '@material-ui/core/Grid';
 import { MuiPickersUtilsProvider,KeyboardDatePicker} from '@material-ui/pickers';
 import axios from 'axios';
 import { Form, Message, Input, TextArea, Image, Header, Icon, Button } from 'semantic-ui-react'
 import {UserContext} from '../UserContext'
+import {useDropzone} from 'react-dropzone'
+import {IconButton, GridList, GridListTile} from '@material-ui/core';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import { useMediaQuery } from 'react-responsive'
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    // overflow: 'hidden',
+    // backgroundColor: theme.palette.background.paper,
+  },
+  gridList: {
+    flexWrap: 'nowrap',
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: 'translateZ(0)',
+  },
+
+}));
 
 export default function SubletForm() {
+
+    const classes = useStyles();
+
+     //decalaring initial state of most of the values
+
+const INITIAL_VALUES = {
+      description:"",
+      floorLevel: "" ,
+      rooms:"",
+      availableBedrooms:"",
+      roomatesLeft:"",
+      cost:"",
+      details:"",
+      phone:"",
+      parking:false,
+      elevator: false ,
+      airCon:false ,
+      balcony:false,
+      washMachine:false,
+      wifi:false,
+      tv:false,
+      streamer:false,
+
+    }
+
+  const [values, setValues] = useReducer((state, newState) => ({...state,...newState}),INITIAL_VALUES
+    );
+
 
   //state declaration of sublet upload and success
 
@@ -23,21 +72,37 @@ export default function SubletForm() {
 
   const [days, setDays] = useState(null)
 
-  const [costPerNight, setCostPerNight]= useState(null)
+  const [cost, setCost] = useState(null)
 
+  const [costPerNight, setCostPerNight]= useState(0)
 
+  const handleCost=(e)=>{
+    setCost(e.target.value)
+  setCostPerNight(Math.ceil(e.target.value/days))
+
+  }
 
   const handleDateChangeIn = selectedDateIn => {
   setSelectedDateIn(selectedDateIn);
+  setDays(Math.ceil((selectedDateOut-selectedDateIn)/86400000))
+  setCostPerNight(Math.ceil(cost/Math.ceil((selectedDateOut-selectedDateIn)/86400000)))
+
   };
 
   const handleDateChangeOut = (selectedDateOut) => {
   setSelectedDateOut(selectedDateOut);
 
   setDays(Math.ceil((selectedDateOut-selectedDateIn)/86400000))
-  
-  setCostPerNight(Math.ceil((values.cost)/( (selectedDateOut-selectedDateIn)/86400000)))
+  setCostPerNight(Math.ceil(cost/Math.ceil((selectedDateOut-selectedDateIn)/86400000)))
+
   };
+
+  // console.log(cost)
+  // console.log(days)
+
+  // console.log(costPerNight)
+
+
 
   //state declaration of address and coordinates
  
@@ -56,29 +121,7 @@ export default function SubletForm() {
       setCoordinate(latlng)
 }
 
-  //decalaring initial state of most of the values
-
-const INITIAL_VALUES = {
-      description:"",
-      floorLevel: "" ,
-      rooms:"",
-      availableBedrooms:"",
-      roomatesLeft:"",
-      cost:0,
-      details: "",
-      phone:"",
-      elevator: false ,
-      airCon:false ,
-      balcony:false,
-      washMachine:false,
-      wifi:false,
-      tv:false,
-      streamer:false,
-
-    }
-
-  const [values, setValues] = useReducer((state, newState) => ({...state,...newState}),INITIAL_VALUES
-    );
+ 
 
     //declare currnet user STATE
 
@@ -89,34 +132,38 @@ const INITIAL_VALUES = {
     const profilePicture = facebookUserDetails.fbProfilePic;
 
 
-    
     //handling most of the inputs 
 
     const handleChange = (e) => {
-
       const target=e.target;      
       const name = target.name;
       const newValue=
       target.type === "checkbox" ? target.checked : target.value;
 
       setValues({[name]:newValue})
-      console.log(values)
+
+      // console.log(values)
     }
  
-
     //submiting the sublet by using the current state values
 
 
     async function handleSubmit(){
     setLoading(true)
     const mediaUrl = await handleImageUpload()
-    const response = await axios.post('/sublets/add',{userName,userID,profilePicture,address: address,...values,selectedDateIn,selectedDateOut,...coordinate,days,costPerNight,mediaUrl})
-    console.log({response})
+    const response = await axios.post('/sublets/add',{userName,userID,profilePicture,address: address,...values,selectedDateIn,selectedDateOut,...coordinate,days,cost,costPerNight,mediaUrl})
+    // console.log({response})
     setLoading(false)
     setValues(INITIAL_VALUES)
     setSuccess(true)
   }
 
+  
+
+  const isDesktopOrLaptop = useMediaQuery({minWidth:1224})
+  
+  const isTabletOrMobileDevice = useMediaQuery({maxWidth:1224})
+  
   const [images, setImages] = useState([null])
 
   const [imagesPreview, setImagesPreview] =useState({media:[null]})
@@ -144,8 +191,7 @@ const INITIAL_VALUES = {
   data.append('file',(images[i]))
   data.append('upload_preset','sublets' )
   data.append('cloud_name','tomeramit')
-  let response = await axios.post('https://api.cloudinary.com/v1_1/tomeramit/image/upload'
-  ,data)
+  let response = await axios.post('https://api.cloudinary.com/v1_1/tomeramit/image/upload',data)
   let mediaUrl = response.data.url
   imageArr.push(mediaUrl)
   }
@@ -155,14 +201,51 @@ const INITIAL_VALUES = {
 
   return (
 
-      
-      <div style={{direction:"rtl"}}>
+      <div style={{paddingTop:'15px',direction:"rtl"}}>
       <Header as="h2" block>
         <Icon name="add" color="orange" />
         צור סאבלט חדש
       </Header>
       
+ <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <Grid container justify="space-around">
+    
+       
+        
+        
+        
+        <KeyboardDatePicker style={{width:'30%',direction:'ltr'}}
+          margin="normal"
+          id="date-picker-dialog"
+          name= "dateIn"
+          label  ="תאריך כניסה" 
+          format="dd/MM/yy"
+          value={selectedDateIn}
+          onChange={handleDateChangeIn}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+      
 
+        <h2>עד-</h2>
+
+        <KeyboardDatePicker style={{width:'30%',direction:"ltr"}}
+          margin="normal"
+          id="date-picker-dialog"
+          name= "dateOut"
+          label="תאריך יציאה"
+          format="dd/MM/yy"
+          value={selectedDateOut}
+          onChange={handleDateChangeOut}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+
+      
+      </Grid>
+    </MuiPickersUtilsProvider>
       <Form loading={loading} success={success} onSubmit={handleSubmit}>
         <Message
         success
@@ -170,26 +253,7 @@ const INITIAL_VALUES = {
         header="יאסו!"
         content="הסאבלט נוסף בהצלחה!!"
         />
-
-    
-
-    <Form.Field 
-      control={Input}
-      icon="image"
-      name="media"
-      type="file"
-      multiple
-      label="תמונות (שיהיו רוחביות בבקשה)"
-      content="תעלו תמונות רוחביות בבקשה"
-      onChange={handleImageChange}
-      />
-
-    <Image.Group size={"small"} >
-    {(imagesPreview.media).map((url)=>(
-    <Image key={`${url}`} src={url} rounded centered/>
-    ))}
-
-    </Image.Group>
+     
 
       <br/>
 
@@ -226,12 +290,13 @@ const INITIAL_VALUES = {
       
       <br/>
       <Form.Group widths ='equal' >
-      <Form.Field
+      <Form.Field required
 
       control ={Input}
       type="text" 
+      maxLength="20"
       name="description"  
-      placeholder="תיאור"  
+      placeholder="כותרת"  
       value={values.description} 
       onChange= {handleChange}
       />
@@ -257,7 +322,7 @@ const INITIAL_VALUES = {
     type="number" 
     className="input" 
     name="rooms" 
-    placeholder="כמה חדרים בדירה?"  
+    placeholder="מספר חדרים "  
     value={values.rooms} 
     onChange= {handleChange}
     />
@@ -265,20 +330,20 @@ const INITIAL_VALUES = {
     
     <br/>
 
-    <Form.Field
+    <Form.Field required
     control ={Input}
     type="number" 
     className="input" 
     name="availableBedrooms" 
     placeholder="כמה חדרי שינה פנויים?" 
-    value={values.availableBedrooms} 
+    value={values.availableBedrooms}
     onChange= {handleChange}
     />
 
 
     <br/>
 
-    <Form.Field
+    <Form.Field 
     icon="users"
     control ={Input}
     type="number" 
@@ -293,23 +358,23 @@ const INITIAL_VALUES = {
 
     <Form.Group widths="equal" >
 
-    <Form.Field
+    <Form.Field 
     control ={Input}
     icon="shekel sign"
     type="number" 
     className="input" 
     name="cost" 
-    placeholder="כמה עולה?"  
-    value={values.cost} 
-    onChange= {handleChange}
+    placeholder="מחיר לתקופה"  
+    value={cost} 
+    onChange= {handleCost}
     />
 
     <br/> 
     
-    <Form.Field
+    <Form.Field required
     control ={Input}
     icon="phone volume"
-    type="text" 
+    type="number" 
     className="input" 
     name="phone" 
     placeholder="טלפון" 
@@ -321,6 +386,18 @@ const INITIAL_VALUES = {
     <br/>
 
   <div>
+  
+    <div>
+    <input
+    type="checkbox"
+    name="parking" 
+    value={values.parking} 
+    onChange={handleChange}
+    />
+    חנייה
+    </div>
+
+    <br/>
 
     <div>
     <input
@@ -329,7 +406,7 @@ const INITIAL_VALUES = {
     value={values.elevator} 
     onChange={handleChange}
     />
-    מעלית?
+    מעלית
     </div>
 
     <br/>
@@ -341,7 +418,7 @@ const INITIAL_VALUES = {
     value={values.airCon} 
     onChange={handleChange}
     />
-    מזגן?
+    מזגן
     </div>
     
 
@@ -354,7 +431,7 @@ const INITIAL_VALUES = {
     value={values.balcony} 
     onChange={handleChange}
     />
-    מרפסת?
+    מרפסת
     </div>
     
     <br/>
@@ -366,7 +443,7 @@ const INITIAL_VALUES = {
     value={values.washMachine} 
     onChange={handleChange}
     />
-    מכונת כביסה?
+    מכונת כביסה
     </div>
     
      <br/>
@@ -378,7 +455,7 @@ const INITIAL_VALUES = {
     value={values.wifi} 
     onChange={handleChange}
     />
-    wifi?
+    wifi
     </div>
 
     <br/>
@@ -390,7 +467,7 @@ const INITIAL_VALUES = {
     value={values.tv} 
     onChange={handleChange}
     />
-    טלווזיה?
+    טלווזיה
     </div>
 
     <br/>
@@ -402,7 +479,7 @@ const INITIAL_VALUES = {
     value={values.streamer} 
     onChange={handleChange}
     />
-    נטפליקס?
+    נטפליקס
     </div>
       
   </div>
@@ -419,47 +496,53 @@ const INITIAL_VALUES = {
     />
 
     <br/>
-
+ 
     </Form>
+  <div>
+ <div style={{display:'flex',flex:'1',justifyContent:'center', position:'relative'}}>
+ <input accept="image/*"
+   style={{display:'none'}} 
+   id="icon-button-file"
+   name="media"
+   type="file" 
+   multiple
+   onChange={handleImageChange}
+   />
+      <label htmlFor="icon-button-file">
+        <IconButton color="primary" component="span">
+          <PhotoCamera />
+        </IconButton>
+      </label>
+    </div>
 
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Grid container justify="space-around">
+    <div 
+    className={classes.root}
+    >
+    {isDesktopOrLaptop &&
+      <GridList 
+      className={classes.gridList} cols={4}
+      > 
+        {(imagesPreview.media).map(url => (
+          // <GridListTile key={url} >
+            <img src={url} alt={url}/>
+          /* </GridListTile> */
+          ))}
+         </GridList>}
+    {isTabletOrMobileDevice && 
+    <GridList 
+      className={classes.gridList} cols={2}
+      > 
+        {(imagesPreview.media).map(url => (
+          // <GridListTile key={url} >
+            <img src={url} alt={url}/>
+          /* </GridListTile> */
+          ))}
+         </GridList>}
     
-       
-        
-        
-
-        <KeyboardDatePicker style={{width:'30%'}}
-          margin="normal"
-          id="date-picker-dialog"
-          name= "dateIn"
-          label  ="תאריך כניסה" 
-          format="dd/MM/yy"
-          value={selectedDateIn}
-          onChange={handleDateChangeIn}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
-
-        <h2>עד-</h2>
-
-        <KeyboardDatePicker style={{width:'30%'}}
-          margin="normal"
-          id="date-picker-dialog"
-          name= "dateOut"
-          label="תאריך יציאה"
-          format="dd/MM/yy"
-          value={selectedDateOut}
-          onChange={handleDateChangeOut}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
-
-      
-      </Grid>
-    </MuiPickersUtilsProvider>
+         </div>
+          
+    </div>
+    
 
     
    <br/>

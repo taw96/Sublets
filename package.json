@@ -13,10 +13,12 @@
   "author": "Tomer Amit",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/lab": "^4.0.0-alpha.37",
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "chalk": "^3.0.0",
+    "cloudinary-react": "^1.2.1",
     "concurrently": "^3.6.0",
     "config": "^3.0.1",
     "cors": "^2.8.5",
@@ -26,13 +28,20 @@
     "fs": "0.0.1-security",
     "gridfs-stream": "^1.1.1",
     "jsonwebtoken": "^8.5.0",
+    "jss-rtl": "^0.3.0",
     "method-override": "^3.0.0",
     "mongoose": "^5.1.6",
     "passport": "^0.4.0",
     "passport-facebook": "^3.0.0",
     "passport-facebook-token": "^3.3.0",
+    "react-dropzone": "^10.2.1",
     "react-facebook": "^8.1.4",
-    "react-flexbox-grid": "^2.1.2"
+    "react-flexbox-grid": "^2.1.2",
+    "react-image-gallery": "^1.0.3",
+    "react-responsive": "^8.0.1",
+    "react-responsive-carousel": "^3.1.51",
+    "react-share": "^3.0.1",
+    "swiper": "^5.2.1"
   },
   "devDependencies": {
     "nodemon": "^1.17.5"
