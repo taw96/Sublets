@@ -8,6 +8,7 @@ import { Gallery, GalleryImage } from 'react-gesture-gallery'
 import { FaShekelSign } from 'react-icons/fa'
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import formatDate from '../utills/formatDate'
 
 
 
@@ -111,7 +112,7 @@ function Map() {
          >
        {(selectedPoint.mediaUrl).map((item)=>(
               
-        <img src={item} height='150' width="300"/>
+        <img src={item} height='150' width="250"/>
 
        ))}
     
@@ -124,6 +125,8 @@ function Map() {
        <div style={{direction:'rtl'}}>
        <Link  to={`/sublet/${selectedPoint._id}`}> 
        {selectedPoint.address}
+       <br/>
+       {`${formatDate(selectedPoint.dateOut)} - ${formatDate(selectedPoint.dateIn)}`}
        <br/>
        </Link>
 

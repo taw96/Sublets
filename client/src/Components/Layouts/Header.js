@@ -134,7 +134,7 @@ export default function Header(props) {
     }
     async function handleFacebookResponse(data){
 
-      // console.log(data)
+      console.log(data)
 
         setFacebookUserDetails({
         isLoggedIn:true,
@@ -201,12 +201,12 @@ export default function Header(props) {
             isMobile={false}
             redirectUri={"https://sublets12.herokuapp.com"}
             fields="name,email,picture"
+            scope="user_link"
             callback = {facebookUserDetails.isLoggedIn? handleLogout : handleFacebookResponse}
             onFailure={handleError}
-
             textButton={facebookUserDetails.isLoggedIn ? "Logout" : "Login"}
             cssClass={classes.facebook}
-            />
+          />
 
           </div>
           

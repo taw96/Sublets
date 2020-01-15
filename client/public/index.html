@@ -63,6 +63,21 @@
     -->
 
 
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('worker.js').then(function(registration) {
+            console.log('Worker registration successful', registration.scope);
+          }, function(err) {
+            console.log('Worker registration failed', err);
+          }).catch(function(err) {
+            console.log(err);
+          });
+        });
+      } else {
+        console.log('Service Worker is not supported by browser.');
+      }
+    </script>
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9kyb_oWZRFpWzs_3ivlhlwicicznMM08&libraries=places"></script>
 
@@ -74,7 +89,8 @@
   <script
   src="https://cdn.rtlcss.com/semantic-ui/2.4.1/semantic.min.js"
   integrity="sha384-6urqf2sgCGDfIXcoxTUOVIoQV+jFr/Zuc4O2wCRS6Rnd8w0OJ17C4Oo3PuXu8ZtF"
-  crossorigin="anonymous"></script>
+  crossorigin="anonymous">
+  </script>
 
   </body>
 </html>

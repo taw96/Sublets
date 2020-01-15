@@ -41,7 +41,7 @@ const INITIAL_VALUES = {
       rooms:"",
       availableBedrooms:"",
       roomatesLeft:"",
-      cost:0,
+      cost:"",
       details:"",
       phone:"",
       parking:false,
@@ -72,7 +72,7 @@ const INITIAL_VALUES = {
 
   const [days, setDays] = useState(null)
 
-  const [cost, setCost] = useState(0)
+  const [cost, setCost] = useState(null)
 
   const [costPerNight, setCostPerNight]= useState(0)
 
